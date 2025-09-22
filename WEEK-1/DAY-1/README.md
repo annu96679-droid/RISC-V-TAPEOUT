@@ -182,6 +182,27 @@ ls
 # Simulation(waveform)
 gtkwave tb_good_mux.vcd
 ```
+**Module and Testbench (good_mux)
+
+```bash
+
+module good_mux (input i0 , input i1 , input sel , output reg y);
+    always @ (*)
+    begin
+        if(sel)
+            y = i1;  // When sel=1, output i1
+        else
+            y = i0;  // When sel=0, output i0
+    end
+endmodule
+
+```
+
+<img width="1184" height="806" alt="Screenshot 2025-09-22 121326" src="https://github.com/user-attachments/assets/36f59b78-0373-429f-b915-e789f1be2c14" />
+
+
+
+
 
 
 
