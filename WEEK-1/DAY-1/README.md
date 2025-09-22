@@ -88,10 +88,43 @@ Whether the circuit behaved as expected at every point in time. It is the primar
 ## LAB USING IVERILOG AND GTKWAVE
 
 **Setting up a directory structure**
-1.System Update & Package Installation :
-**Update package lists**
+
+1.System Update & Package Installation : 
+
 ```bash
+# Update package list
 sudo apt-get update
+
+# Install Git
+sudo apt-get install git -y
+
+# Check current folders in Desktop
+ls
+
+# Move to /home directory
+cd /home
+ls
+
+# Move to your 'vsd' user folder
+cd vsd
+ls
+
+# Create VLSI folder
+mkdir VLSI
+
+# Move into VLSI folder
+cd VLSI
+ls
+
+# Create vsdflow folder
+mkdir vsdflow
+
+# Move into vsdflow folder
+cd vsdflow
+```
+
+
+
 
 
 
