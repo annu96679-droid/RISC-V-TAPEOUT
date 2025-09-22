@@ -4,7 +4,7 @@
 <details>
 	<summary>Day 0 - Getting started with VLSI SOC DESIGN and PLANNING </summary>
 
-# Day 0 - Getting started with VLSI SOC DESIGN and PLANNING
+# Day 1 - Getting started with VLSI SOC DESIGN and PLANNING
 
 An SoC is a single chip that integrates multiple components of a complete electronic system (CPU, memory, I/O, communication blocks, etc.).
 Instead of having separate chips for processor, memory, and peripherals → everything is put on one silicon die.
@@ -107,7 +107,4 @@ O2 == O3: Verified by a process called Formal Equivalence Checking. Tools mathem
 
 O3 == O4: Verified again by Formal Equivalence Checking after place and route. This step is critical because the physical implementation (layout) can introduce issues like clock skew or unexpected electrical effects that could change the logical behavior. This check ensures that the final layout is still logically equivalent to the netlist it was built from.
 
-</details>
 
-<details>
-	<summary>Day 1 - TOOLS INSTALLATION INSTRUCTIONS </summary>
