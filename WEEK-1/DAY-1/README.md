@@ -182,14 +182,14 @@ ls
 # Simulation(waveform)
 gtkwave tb_good_mux.vcd
 ```
-**Module and Testbench (good_mux)
+**Module (good_mux)**
 
 ```bash
 
-module good_mux (input i0 , input i1 , input sel , output reg y);
-    always @ (*)
-    begin
-        if(sel)
+module good_mux (input i0 , input i1 , input sel , output reg y);     //Module Declaration
+    always @ (*)       //Always Block
+    begin               
+        if(sel)        //combinational logic
             y = i1;  // When sel=1, output i1
         else
             y = i0;  // When sel=0, output i0
@@ -199,6 +199,48 @@ endmodule
 ```
 
 <img width="1184" height="806" alt="Screenshot 2025-09-22 121326" src="https://github.com/user-attachments/assets/36f59b78-0373-429f-b915-e789f1be2c14" />
+
+**Testbench (tb_good_mux)
+
+```bash
+module tb_good_mux;
+   reg i0, i1, sel;
+   wire y;
+
+//Port mapping: Connects testbench signals to DUT ports
+   good_mux uut (
+       .sel(sel),
+       .i0(i0),
+       .i1(i1),   // corrected from .i1(i1)
+       .y(y)
+   );
+
+   initial begin
+       $dumpfile("tb_good_mux.vcd");
+       $dumpvars(0, tb_good_mux);
+       // Initialize inputs
+       sel = 0;
+       i0 = 0;
+       i1 = 0;
+       // Add stimuli to change i0 and i1
+       #100;
+       i0 = 1;
+       #100;
+       i1 = 1;
+       #100;
+       i0 = 0;
+       #100;
+       $finish;
+   end
+
+   always #50 sel = ~sel;
+endmodule
+
+```
+
+<img width="994" height="561" alt="Screenshot 2025-09-22 121107" src="https://github.com/user-attachments/assets/7abe1d1c-1a05-4494-84ca-10a3566ea315" />
+
+
 
 
 
