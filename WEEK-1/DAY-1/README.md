@@ -150,6 +150,20 @@ ls
 
 ```
 
+some images of package installation:
+
+<img width="1149" height="815" alt="Screenshot 2025-09-22 113007" src="https://github.com/user-attachments/assets/e0fd2ed8-4113-452f-bc51-8280839f580e" />
+
+<img width="1144" height="820" alt="Screenshot 2025-09-22 115035" src="https://github.com/user-attachments/assets/29058aef-5f26-40af-adc5-cae3ae521750" />
+
+
+<img width="1145" height="806" alt="Screenshot 2025-09-22 115044" src="https://github.com/user-attachments/assets/c51245e3-bdc9-43d2-844a-f9b178fb3586" />
+
+
+
+
+
+
 
 
 
