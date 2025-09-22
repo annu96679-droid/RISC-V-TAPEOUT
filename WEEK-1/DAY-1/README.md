@@ -85,4 +85,15 @@ Propagation delays (if modeled).
 
 Whether the circuit behaved as expected at every point in time. It is the primary tool for debugging
 
+## LAB USING IVERILOG AND GTKWAVE
+
+**Setting up a directory structure**
+1.System Update & Package Installation :
+**Update package lists**
+```bash
+sudo apt-get update
+
+
+
+
 
