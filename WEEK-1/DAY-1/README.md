@@ -87,7 +87,7 @@ Whether the circuit behaved as expected at every point in time. It is the primar
 
 ## LAB USING IVERILOG AND GTKWAVE
 
-**Setting up a directory structure**
+
 
 1.System Update & Package Installation : 
 
@@ -147,18 +147,6 @@ cd ..
 # Move to vsdflow folder
 cd vedflow/
 ls
-
-
-
-
-
-
-
-
-
-
-
-
 
 ```
 
