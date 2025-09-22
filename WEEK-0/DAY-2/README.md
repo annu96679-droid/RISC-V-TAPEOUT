@@ -1,7 +1,7 @@
 # Week 0 - Day 2
 
 
-# Day 1 - TOOLS INSTALLATION
+# Day 2 - TOOLS INSTALLATION
 
 
 **UBUNTU**
