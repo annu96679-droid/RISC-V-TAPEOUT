@@ -121,6 +121,45 @@ mkdir vsdflow
 
 # Move into vsdflow folder
 cd vsdflow
+
+# cloning the git
+git clone https://github.com/kunalg123/sky130RTLDesignAndSynthesisWorkshop.git
+
+# Move into git clone folder
+cd sky130RTLDesignAndSynthesisWorkshop
+ls
+
+# Move into my_lib folder
+cd my_lib
+ls
+
+# Returning to sky130RTLDesignAndSynthesisWorkshop folder
+cd ..
+
+# Move into verilog_files folder
+cd verilog_files/
+ls
+
+# Return to VLSI folder
+cd ..
+cd ..
+
+# Move to vsdflow folder
+cd vedflow/
+ls
+
+
+
+
+
+
+
+
+
+
+
+
+
 ```
 
 
