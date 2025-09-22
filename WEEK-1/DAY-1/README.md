@@ -240,6 +240,30 @@ endmodule
 
 <img width="994" height="561" alt="Screenshot 2025-09-22 121107" src="https://github.com/user-attachments/assets/7abe1d1c-1a05-4494-84ca-10a3566ea315" />
 
+**Simluation (Waveform)**
+
+Simulation is the process of testing your Verilog code before putting it on hardware (like FPGA).
+
+A waveform is the graphical view of signals during simulation.
+
+
+<img width="1152" height="809" alt="Screenshot 2025-09-22 120017" src="https://github.com/user-attachments/assets/085ce407-9567-419b-8681-68c00fbdf83c" />
+
+**Multiplexer Operation Verification:**
+When sel = 0:
+
+Output y should equal i0
+
+The waveform shows y matches i0 during these periods
+
+When sel = 1:
+
+Output y should equal i1
+
+The waveform shows y matches i1 during these periods
+
+
+
 
 
 
