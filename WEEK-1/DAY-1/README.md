@@ -49,3 +49,5 @@ Primary Inputs to Design: These are the wires connecting the Stimulus Generator 
 
 Primary Outputs from Design: These are the wires connecting the DUT's outputs to the Stimulus Observer. They carry the results (data_out, ready).
 
+#### iverilog based simulation flow
+
