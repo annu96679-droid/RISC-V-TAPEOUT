@@ -51,3 +51,38 @@ Primary Outputs from Design: These are the wires connecting the DUT's outputs to
 
 ## iverilog based simulation flow
 
+<img width="1822" height="832" alt="Screenshot 2025-09-21 221500" src="https://github.com/user-attachments/assets/372e2923-bd0b-499e-bc17-1945488ca4ba" />
+
+This image describes a specific toolchain and workflow used for simulating and verifying digital circuits.
+
+***1. DESIGN & TEST BENCH***
+This is the starting point. You create two separate files.
+
+Design (The Circuit): A hardware description language (Verilog/VHDL) file that describes the digital circuit you want to test. This is the "Device Under Test" (DUT).
+
+Test Bench (The Tester): Another HDL file that acts as the harness for your design. It instantiates the DUT, applies input stimuli (test vectors), and monitors its outputs. It also contains the commands to dump the signal changes to a .vcd file.
+
+***2. IVERILOG (The Compiler & Simulator)***
+Icarus Verilog is an open-source Verilog simulation and synthesis tool. It plays two key roles:
+
+Compiler: It reads your Design and Test Bench code, checks them for syntax errors, and translates them into an intermediate format.
+
+Simulator: It then executes this intermediate format. As it runs, it simulates the passage of time and models how the signals in your design change based on the stimuli from the test bench.
+
+***3. VALUE CHANGE DUMP (.vcd file) (The Result Log)***
+The VCD file is a standardized ASCII text format. During the simulation, the test bench instructs the simulator to record every change (a "value change") of the specified signals (e.g., clk, reset, a, b, y) along with the simulation time when the change occurred.
+
+It's essentially a detailed log file of everything that happened during the test.
+
+It is not human-readable in a practical sense, which is why we need the next tool.
+
+***4. GTKWAVE (The Waveform Viewer)***
+GTKWave is an open-source waveform viewer. It takes the .vcd file and displays its contents as a professional-looking timing diagram (waveform). This visual representation allows you to easily see:
+
+The relationship between your input stimuli and output responses.
+
+Propagation delays (if modeled).
+
+Whether the circuit behaved as expected at every point in time. It is the primary tool for debugging
+
+
