@@ -159,7 +159,34 @@ some images of package installation:
 
 <img width="1145" height="806" alt="Screenshot 2025-09-22 115044" src="https://github.com/user-attachments/assets/c51245e3-bdc9-43d2-844a-f9b178fb3586" />
 
-## Module, Testbench and Simulatio using IVERILOG and GTKWAVE
+## Module, Testbench and Simulation using IVERILOG and GTKWAVE
+
+**from verilog_files/**
+
+```bash
+# Move into the verilog_files folder
+cd verilog_files/
+
+# download gvim tool to have the modules and testbench
+sudo apt-get install vim-gtk3
+
+# Give command to edit [ex - good_mux]
+gvim tb_good_mux.v good_mux.v
+
+# check current folder in destop
+ls
+
+# Command to generate dumpfile
+./a.out
+
+# Simulation(waveform)
+gtkwave tb_good_mux.vcd
+```
+
+
+
+
+
 
 
 
