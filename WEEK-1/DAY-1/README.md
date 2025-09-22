@@ -145,7 +145,7 @@ cd ..
 cd ..
 
 # Move to vsdflow folder
-cd vedflow/
+cd vsdflow/
 ls
 
 ```
@@ -158,6 +158,8 @@ some images of package installation:
 
 
 <img width="1145" height="806" alt="Screenshot 2025-09-22 115044" src="https://github.com/user-attachments/assets/c51245e3-bdc9-43d2-844a-f9b178fb3586" />
+
+## Module, Testbench and Simulatio using IVERILOG and GTKWAVE
 
 
 
