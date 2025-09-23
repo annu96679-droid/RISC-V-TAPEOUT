@@ -443,6 +443,12 @@ Output stage: 1 buffer for driving capability
 Module name: good_mux (indicating successful optimization)
 
 
+| Step | Tool | Key Metrics | Implementation Details | Status / Module Name |
+|------|------|-------------|------------------------|---------------------|
+| **1. Logic Synthesis** | ABC logic synthesis tool | • 3 input signals<br>• 1 output signal<br>• 0 internal signals<br>• 1 MUX cell | Optimized circuit to single 2-to-1 multiplexer | Successfully re-integrated into design database |
+| **2. Technology Mapping** | Yosys synthesis with SkyWater 130nm PDK | • Input stage: 3 buffer cells<br>• Core logic: `sky130_fd_sc_hd_mux2_1` standard cell<br>• Output stage: 1 buffer cell | Shows actual gate-level structure using pre-optimized multiplexer | Module: `good_mux` |
+
+
 
 
 
