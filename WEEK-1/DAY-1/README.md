@@ -410,37 +410,6 @@ What it means: The temporary files and folders created specifically for the ABC 
 <img width="1260" height="809" alt="Screenshot 2025-09-23 121725" src="https://github.com/user-attachments/assets/6cd38f1c-96ba-4ef5-97bb-88404ff8978a" />
 
 ***From Logic Synthesis to Gate-Level Implementation***
-This two-step process shows the complete transformation of a digital circuit from a high-level description to a physical implementation:
-
-Step 1: Logic Synthesis (ABC Results)
-Tool: ABC logic synthesis tool
-
-Result: Optimized the circuit to a single 2-to-1 multiplexer
-
-Key Metrics:
-
-3 input signals
-
-1 output signal
-
-0 internal signals (highly optimized)
-
-1 MUX cell
-
-Status: Successfully re-integrated into design database
-
-Step 2: Technology Mapping (Yosys Netlist)
-Tool: Yosys synthesis with SkyWater 130nm PDK
-
-Implementation: Shows the actual gate-level structure:
-
-Input stage: 3 buffer cells for signal conditioning
-
-Core logic: sky130_fd_sc_hd_mux2_1 standard cell (pre-optimized multiplexer)
-
-Output stage: 1 buffer for driving capability
-
-Module name: good_mux (indicating successful optimization)
 
 
 | Step | Tool | Key Metrics | Implementation Details | Status / Module Name |
