@@ -319,6 +319,57 @@ It uses two AND gates, one OR gate, and one NOT (inverter) gate.
 ***The Flip-Flop (FF):*** The always block has been mapped to a standard cell called a D-Type Flip-Flop (DFF) with asynchronous reset.
 
 
+## Generating netlist and synthesis using YOSYS and Sky130 PDKs
+
+**following commands are:**
+
+```bash
+
+yosys -p "
+
+**Load the standard cell library**
+
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+**Read the verilog RTL files**
+
+read_verilog good_mux.v
+
+**Synthesis with good_mux as top module**
+
+synth -top good_mux
+
+**Show the synthesized circuit graph**
+
+show
+
+**Write the full netlist with attributes**
+
+ write_verilog good_mux_netlist.v
+
+**Write netlist without extra attributes
+
+write_verilog -noattr good_mux.v
+
+"
+
+**Open the synthesized netlis in gvim**
+
+gvim good_mux_netlist.v
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
