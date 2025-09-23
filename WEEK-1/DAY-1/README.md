@@ -1,4 +1,4 @@
-# Week 1 - Day 1 : Introduction to Verilog RTL Design and Synthesis
+<img width="523" height="152" alt="Screenshot 2025-09-23 120251" src="https://github.com/user-attachments/assets/9f3b81a0-aa35-4a3d-a113-b335555ef825" /># Week 1 - Day 1 : Introduction to Verilog RTL Design and Synthesis
 
 ## Introduction to open source simulator iverilog
 ### 2-SKY130RTL D1SK1 L1 Introduction to iverilog design test bench
@@ -353,11 +353,103 @@ write_verilog -noattr good_mux.v
 
 "
 
-**Open the synthesized netlis in gvim**
+**Open the synthesized netlist in gvim**
 
 gvim good_mux_netlist.v
 
 ```
+
+**Enter into the YOSYS**
+
+<img width="1146" height="803" alt="Screenshot 2025-09-23 120228" src="https://github.com/user-attachments/assets/dd5f9164-de90-48a5-94db-5be1415af516" />
+
+**Synthesis part**
+
+
+<img width="523" height="152" alt="Screenshot 2025-09-23 120251" src="https://github.com/user-attachments/assets/530b5549-8813-45f8-928d-71e492a7d2a3" />
+
+
+***3.22.1.2. Re-integrating ABC results.***
+
+What it is: This is a status message from the main Electronic Design Automation (EDA) tool you are using (like Cadence Innovus, Synopsys DC, or an open-source tool like Yosys+Odin).
+
+What it means: The tool has called the ABC program to perform a specific task (e.g., optimize a piece of logic). ABC has finished its work and generated a result. Now, the main tool is taking that result and merging it back into the overall design database. This is a critical step in the automated design process.
+
+***2. ABC RESULTS: MUX cells: 1***
+
+What it is: This is a report from ABC showing what basic logic cells (components) it used to build the circuit.
+
+What it means: ABC determined that the entire function it was asked to implement can be perfectly built using just one Multiplexer (MUX) cell. A multiplexer is a fundamental component that selects one of several input signals and forwards it to a single output line. This is a sign of significant optimization, as more complex logic can often be reduced to a MUX.
+
+***3. ABC RESULTS: internal signals: 0***
+
+What it is: A count of the internal wiring needed to connect the cells ABC used.
+
+What it means: Since there is only one cell (the MUX), there are no internal signals needed to connect multiple cells together. All connections are directly to the inputs and output.
+
+***4. ABC RESULTS: input signals: 3***
+
+What it is: The number of input ports to the circuit block that ABC synthesized.
+
+What it means: This multiplexer requires 3 input signals. A typical 2-to-1 MUX has 3 inputs: two data lines (let's call them A and B) and one select line (S) to choose between them.
+
+***5. ABC RESULTS: output signals: 1***
+
+What it is: The number of output ports from the circuit block.
+
+What it means: There is 1 output signal. This is the standard for a multiplexer; it outputs the selected data value (either A or B).
+
+***6. Removing temp directory.***
+
+What it is: A housekeeping message from the main tool.
+
+What it means: The temporary files and folders created specifically for the ABC run are being deleted to clean up the workspace, as they are no longer needed now that the results have been re-integrated.
+
+**Generative Netlist**
+
+<img width="1260" height="809" alt="Screenshot 2025-09-23 121725" src="https://github.com/user-attachments/assets/6cd38f1c-96ba-4ef5-97bb-88404ff8978a" />
+
+***From Logic Synthesis to Gate-Level Implementation***
+This two-step process shows the complete transformation of a digital circuit from a high-level description to a physical implementation:
+
+Step 1: Logic Synthesis (ABC Results)
+Tool: ABC logic synthesis tool
+
+Result: Optimized the circuit to a single 2-to-1 multiplexer
+
+Key Metrics:
+
+3 input signals
+
+1 output signal
+
+0 internal signals (highly optimized)
+
+1 MUX cell
+
+Status: Successfully re-integrated into design database
+
+Step 2: Technology Mapping (Yosys Netlist)
+Tool: Yosys synthesis with SkyWater 130nm PDK
+
+Implementation: Shows the actual gate-level structure:
+
+Input stage: 3 buffer cells for signal conditioning
+
+Core logic: sky130_fd_sc_hd_mux2_1 standard cell (pre-optimized multiplexer)
+
+Output stage: 1 buffer for driving capability
+
+Module name: good_mux (indicating successful optimization)
+
+
+
+
+
+
+  
+
+
 
 
 
