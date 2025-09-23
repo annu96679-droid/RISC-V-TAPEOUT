@@ -1,4 +1,4 @@
-<img width="523" height="152" alt="Screenshot 2025-09-23 120251" src="https://github.com/user-attachments/assets/9f3b81a0-aa35-4a3d-a113-b335555ef825" /># Week 1 - Day 1 : Introduction to Verilog RTL Design and Synthesis
+# Week 1 - Day 1 : Introduction to Verilog RTL Design and Synthesis
 
 ## Introduction to open source simulator iverilog
 ### 2-SKY130RTL D1SK1 L1 Introduction to iverilog design test bench
