@@ -26,3 +26,8 @@ tt → Typical-Typical process corner. This is a characterization condition wher
 
 .lib → The file extension. This is a Synopsys Liberty format file, which contains timing, power, and functional data for all cells in the library.
 
+<img width="1257" height="495" alt="Screenshot 2025-09-24 161440" src="https://github.com/user-attachments/assets/568d3183-8b41-4fb9-a8a3-c9628f89d3c7" />
+
+
+
+
