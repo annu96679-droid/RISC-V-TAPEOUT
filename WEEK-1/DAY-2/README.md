@@ -120,6 +120,27 @@ No preservation of original module structure.
 
 
 
+**Example - multiple_module**
+
+```bash
+
+#To open the multiple_modules
+gvim multiple_modules.v
+```
+<img width="1284" height="808" alt="Screenshot 2025-09-24 095935" src="https://github.com/user-attachments/assets/110c3d81-a8d3-4750-8f97-b637bfc9460e" />
+
+**For hier synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib
+
+
+
 
 
 
