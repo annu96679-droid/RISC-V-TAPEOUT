@@ -137,7 +137,39 @@ gvim multiple_modules.v
 yosys
 
 #Read the liberty file
-read_liberty -lib
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog multiple_modules.v
+
+#for synthesis
+synth -top multiple-modules
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show multiple_modules
+```
+
+<img width="1283" height="805" alt="Screenshot 2025-09-24 100645" src="https://github.com/user-attachments/assets/4613d933-e428-4a7a-afc5-faa387617c56" />
+
+```bash
+#Export the design with all modules and hierarchy intact
+write_verilog -noattr multiple_modules_hier.v
+
+#show the netlist
+!gvim multiple_modules_hier.v
+```
+<img width="1282" height="800" alt="Screenshot 2025-09-24 101118" src="https://github.com/user-attachments/assets/0b22ee30-9e76-46ee-8fc2-3b31c6693dd9" />
+<img width="1287" height="809" alt="Screenshot 2025-09-24 101132" src="https://github.com/user-attachments/assets/968b28f2-966e-400b-8604-7d0e7996214e" />
+
+
+
+
+
+
+
 
 
 
