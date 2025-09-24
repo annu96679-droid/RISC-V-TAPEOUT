@@ -164,6 +164,46 @@ write_verilog -noattr multiple_modules_hier.v
 <img width="1282" height="800" alt="Screenshot 2025-09-24 101118" src="https://github.com/user-attachments/assets/0b22ee30-9e76-46ee-8fc2-3b31c6693dd9" />
 <img width="1287" height="809" alt="Screenshot 2025-09-24 101132" src="https://github.com/user-attachments/assets/968b28f2-966e-400b-8604-7d0e7996214e" />
 
+**For flat synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog multiple_modules.v
+
+#for synthesis
+synth -top multiple-modules
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#For flat
+flattened
+
+#see the hierarchy
+show multiple_modules
+```
+
+<img width="1280" height="800" alt="Screenshot 2025-09-24 102234" src="https://github.com/user-attachments/assets/72aa1ce7-d38c-4493-8ff6-5ac445820529" />
+
+```bash
+#Export the design with all modules and flattend intact
+write_verilog -noattr multiple_modules_hier.v
+
+#show the netlist
+!gvim multiple_modules_hier.v
+```
+<img width="1284" height="805" alt="Screenshot 2025-09-24 101356" src="https://github.com/user-attachments/assets/679e44e4-c3af-4476-bee3-75950b51cc55" />
+<img width="1289" height="795" alt="Screenshot 2025-09-24 101410" src="https://github.com/user-attachments/assets/f7016a54-baa7-4144-86e3-51818cbfa128" />
+
+
+
 
 
 
