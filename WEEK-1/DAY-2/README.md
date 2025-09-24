@@ -1,6 +1,6 @@
 # Week 1 - Day 2
 
-## SKY130.lib
+## SKY130RTL D2SK1 L1 Introduction to .Lib 
 
 **open the library**
 
@@ -61,6 +61,67 @@ leakage_power () {
 | 0.0013030 | `IA1S1A2&8I&1C1&D1` | Same condition, different path |
 | 0.0008951 | `IA1S1A2&8I&C1&D1` | C=LOW variant |
 | 0.0009198 | `IA1S1A2&8I&C1&D1` | Same condition, different path |
+
+
+## SKY130RTL D2SK2 L1 Hier synthesis flat synthesis 
+
+Hierarchical Synthesis and Flat Synthesis are two different approaches to digital circuit synthesis in VLSI design. They differ in how they handle the hierarchy and structure of the design during the optimization process.
+
+**Hierarchical Synthesis**
+
+***Definition***
+
+Hierarchical synthesis preserves the modular structure of the design. It synthesizes each submodule independently and then integrates them at the top level.
+
+***How it Works***
+Each module is synthesized separately
+
+Submodules are treated as black boxes with defined interfaces
+
+Hierarchy boundaries are maintained throughout the synthesis process
+
+Top-level module connects the synthesized submodules.
+
+```bash
+
+heirarchical approach
+
+module multiplier_4bit(input [3:0] a, b, output [7:0] product);
+    // 4-bit multiplier implementation
+endmodule
+
+module adder_8bit(input [7:0] a, b, output [7:0] sum);
+    // 8-bit adder implementation
+endmodule
+
+module multiplier_8bit(input [7:0] a, b, output [15:0] result);
+    wire [7:0] prod_high, prod_low;
+    wire [7:0] sum_intermediate;
+    
+    multiplier_4bit mult_low(.a(a[3:0]), .b(b[3:0]), .product(prod_low));
+    multiplier_4bit mult_high(.a(a[7:4]), .b(b[7:4]), .product(prod_high));
+    adder_8bit adder(.a(prod_high), .b(prod_low), .sum(sum_intermediate));
+    // Additional logic...
+endmodule
+```
+
+**Flat Synthesis**
+***Definition***
+Flat synthesis flattens the entire design hierarchy into one large module and optimizes it as a single entity.
+
+***How it Works***
+All hierarchy boundaries are removed
+
+The entire design is treated as one massive combinational/sequential circuit
+
+Global optimization across module boundaries
+
+No preservation of original module structure.
+
+
+
+
+
 
 
 
