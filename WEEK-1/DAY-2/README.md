@@ -430,6 +430,98 @@ show
 
 <img width="1284" height="808" alt="Screenshot 2025-09-24 152928" src="https://github.com/user-attachments/assets/242746f2-5be3-4f4e-b908-5783a48ae438" />
 
+# SKY130RTL D2SK3 L5 Interesting optimisations
+
+**1. mult_2, mult_8**
+```bash
+#Open the module
+gvim mult_2.v
+gvim mult_8.v
+```
+<img width="1284" height="810" alt="Screenshot 2025-09-24 153618" src="https://github.com/user-attachments/assets/9db762d7-ac08-4677-9d75-d7edf8854540" />
+
+**For synthesis of mult_2**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog mult_2.v
+
+#for synthesis
+synth -top  mult2
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+```
+
+
+<img width="1285" height="802" alt="Screenshot 2025-09-24 160517" src="https://github.com/user-attachments/assets/484b34fd-8aee-40a2-aef0-115823a0d37a" />
+
+
+Don't call ABC as there is nothing to map: If the compiler sees assign y = a * b; and no gate-level expansion has been done yet, ABC cannot map it to a library because it’s still a high-level expression, not a gate-level netlist.
+
+```bash
+
+#show the heiracrhcy
+show
+```
+<img width="1289" height="802" alt="Screenshot 2025-09-24 160536" src="https://github.com/user-attachments/assets/dc0bdf9c-2bf0-40a4-959a-7ae7db00325b" />
+
+**For synthesis of mult_8**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog mult_8.v
+
+#for synthesis
+synth -top  mult8
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+```
+
+
+<img width="1283" height="807" alt="Screenshot 2025-09-24 160724" src="https://github.com/user-attachments/assets/fba3b795-b3ba-4e97-af8e-e199edd03e90" />
+
+
+
+Don't call ABC as there is nothing to map: If the compiler sees assign y = a * b; and no gate-level expansion has been done yet, ABC cannot map it to a library because it’s still a high-level expression, not a gate-level netlist.
+
+```bash
+
+#show the heiracrhcy
+show
+```
+<img width="1284" height="803" alt="Screenshot 2025-09-24 160750" src="https://github.com/user-attachments/assets/1d975d4e-fc31-41f0-a947-570896e9efbc" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
