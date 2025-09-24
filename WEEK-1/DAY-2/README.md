@@ -202,6 +202,37 @@ write_verilog -noattr multiple_modules_hier.v
 <img width="1284" height="805" alt="Screenshot 2025-09-24 101356" src="https://github.com/user-attachments/assets/679e44e4-c3af-4476-bee3-75950b51cc55" />
 <img width="1289" height="795" alt="Screenshot 2025-09-24 101410" src="https://github.com/user-attachments/assets/f7016a54-baa7-4144-86e3-51818cbfa128" />
 
+## SKY130RTL D2SK3 L1 Why Flops and Flop coding styles
+
+**Introduction to Flip-Flops (Flops)**
+Flip-flops are fundamental building blocks of digital circuits that store state information. They are essential for:
+
+Sequential logic (vs combinational logic), State retention across clock cycles, Synchronization in digital systems, Timing control in pipelined design.
+
+**Why We Need Flip-Flops**
+
+***State Storage and Memory***
+
+```bash
+verilog
+// Without flip-flop - purely combinational (no memory)
+assign output = input_a & input_b;
+
+// With flip-flop - stores state
+always @(posedge clk) begin
+    stored_value <= input_a & input_b;
+end
+```
+
+***Synchronization***
+Clock domain synchronization, Metastability prevention, Reliable data transfer.
+
+# **Different coding styles**
+
+1.
+
+
+
 
 
 
