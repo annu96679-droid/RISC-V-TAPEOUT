@@ -163,6 +163,26 @@ synth -top opt_check
 ```
 <img width="1201" height="305" alt="Screenshot 2025-09-25 124846" src="https://github.com/user-attachments/assets/1ece6bf3-760b-417b-8d18-2c5370882ba1" />
 
+## 🔎 Yosys `opt_check` Statistics
+
+| Parameter                  | Value | Explanation                                                                 |
+|-----------------------------|-------|-----------------------------------------------------------------------------|
+| **Number of wires**        | 3     | Total signal connections in the design (inputs, outputs, internal nets).    |
+| **Number of wire bits**    | 3     | Total width of all wires (e.g., 3 single-bit wires, or 1×3 bus).            |
+| **Number of public wires** | 3     | Public = visible wires (top-level ports or preserved after optimization).   |
+| **Number of public wire bits** | 3 | Total bit-width of public wires = 3 bits.                                   |
+| **Number of memories**     | 0     | No memory arrays (RAM/ROM) in the design.                                   |
+| **Number of memory bits**  | 0     | Since no memories, there are no memory bits.                                |
+| **Number of processes**    | 0     | No behavioral blocks (`always` with if/else or case); flattened to gates.   |
+| **Number of cells**        | 1     | Only one logic cell (gate) remains after optimization.                      |
+| **$_AND_**                 | 1     | The remaining cell is a 1-bit AND gate (`$_AND_` is Yosys’s primitive).     |
+
+✅ Final simplified logic:  
+\[
+Y = A \ \& \ B
+\]
+
+
 
 ```bash
 
