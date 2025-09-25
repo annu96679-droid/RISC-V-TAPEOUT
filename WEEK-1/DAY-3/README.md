@@ -466,8 +466,120 @@ show
 
 <img width="1270" height="809" alt="Screenshot 2025-09-25 131037" src="https://github.com/user-attachments/assets/8ebb3310-94ed-4fdd-9d34-fd0635be43dd" />
 
+## LAB: Sequential logic optimization
+
+**1. dff_const1.v**
+
+```bash
+#Open the code
+gvim dff_const1.v
+```
+
+<img width="1277" height="803" alt="Screenshot 2025-09-25 131721" src="https://github.com/user-attachments/assets/3443be00-36ba-494f-bc70-a378d75e4695" />
 
 
+```bash
+#Compile Verilog files using Icarus Verilog
+iverilog dff_const1.v tb_dff_const1.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
+
+<img width="1285" height="802" alt="Screenshot 2025-09-25 131819" src="https://github.com/user-attachments/assets/ab51a52b-c9a1-4170-b051-dd3c2ef80d29" />
+
+**For synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog  dff_const1.v
+
+#for synthesis
+synth -top  dff_const1
+```
+<img width="1221" height="259" alt="Screenshot 2025-09-25 143237" src="https://github.com/user-attachments/assets/bdcfc546-1221-4151-886e-d08aaa75df77" />
+
+
+```bash
+
+dfflibmap -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+
+<img width="1283" height="807" alt="Screenshot 2025-09-25 143540" src="https://github.com/user-attachments/assets/50aeabf5-7f82-4c55-ac8d-9db8262e129b" />
+
+
+**1. dff_const2.v**
+
+```bash
+#Open the code
+gvim dff_const2.v
+```
+<img width="1285" height="804" alt="Screenshot 2025-09-25 144017" src="https://github.com/user-attachments/assets/21d49510-e7e1-4c67-99e8-1a82e1d6675f" />
+
+
+
+```bash
+#Compile Verilog files using Icarus Verilog
+iverilog dff_const2.v tb_dff_const1.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
+
+<img width="1286" height="804" alt="Screenshot 2025-09-25 143936" src="https://github.com/user-attachments/assets/4ed7e6c4-c88b-42e4-955a-14282551b71b" />
+
+
+**For synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog  dff_const2.v
+
+#for synthesis
+synth -top  dff_const2
+```
+<img width="785" height="253" alt="Screenshot 2025-09-25 165819" src="https://github.com/user-attachments/assets/2c7d4d94-16f6-4d18-8a18-411b078c5074" />
+
+
+```bash
+
+dfflibmap -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+<img width="1155" height="788" alt="Screenshot 2025-09-25 165915" src="https://github.com/user-attachments/assets/d43898de-3808-4e5f-884d-83fdf1e4b22d" />
 
 
 
