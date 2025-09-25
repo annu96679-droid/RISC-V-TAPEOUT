@@ -263,9 +263,6 @@ show
 ```
 <img width="1285" height="803" alt="Screenshot 2025-09-25 125304" src="https://github.com/user-attachments/assets/954e86ff-469e-4911-95ef-74833243df45" />
 
-# Circuit Diagram Analysis
-
-## Component Breakdown
 
 | Component | Type | Description | Inputs | Output | Function |
 |-----------|------|-------------|--------|---------|----------|
@@ -281,7 +278,198 @@ show
 | `BUF` (third) | Buffer | Output buffer | `X` | `opt_check2` | Drives final output |
 | `opt_check2` | Output Signal | Final output | `X` (via BUF) | - | Buffered OR operation result |
 
-## Signal Flow
+
+**3. opt_check3.v**
+```bash
+#Open the code
+gvim opt_check3.v
+```
+<img width="1278" height="807" alt="Screenshot 2025-09-25 125340" src="https://github.com/user-attachments/assets/b198a6f5-2c54-4d97-ae04-932cfb2ff54a" />
+
+**Synthesis & optimization**
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog opt_check3.v
+
+#for synthesis
+synth -top opt_check3
+```
+<img width="1222" height="293" alt="Screenshot 2025-09-25 125424" src="https://github.com/user-attachments/assets/1fe57380-877e-4676-9468-b9705f912092" />
+
+
+| Metric | Value | Explanation |
+|--------|-------|-------------|
+| **Number of wires** | 5 | Total distinct electrical nets/nodes |
+| **Number of wire bits** | 5 | Total signal connections (no buses) |
+| **Number of public wires** | 4 | I/O accessible wires at module boundaries |
+| **Number of public wire bits** | 4 | Individual I/O signals (all single-bit) |
+| **Number of memories** | 0 | No RAM/ROM memory blocks |
+| **Number of memory bits** | 0 | Zero memory storage elements |
+| **Number of processes** | 0 | No sequential/clocked elements |
+| **Number of cells** | 2 | Total logic gates in design |
+| **`$_ANDNOT_`** | 1 | AND-NOT gate (A AND NOT B) |
+| **`$_NAND_`** | 1 | NAND gate (NOT AND) |
+
+
+
+```bash
+
+#for optimization
+opt_clean -purge
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+<img width="1287" height="801" alt="Screenshot 2025-09-25 125508" src="https://github.com/user-attachments/assets/ba61388b-a70d-427f-8c66-5d5c94cf8db2" />
+
+**4.opt_check4.v**
+
+```bash
+#Open the code
+gvim opt_check4.v
+```
+<img width="1275" height="802" alt="Screenshot 2025-09-25 125557" src="https://github.com/user-attachments/assets/92aac4c3-6d8a-44a3-a1db-fdb5163171b5" />
+
+
+**Synthesis & optimization**
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog opt_check4.v
+
+#for synthesis
+synth -top opt_check4
+```
+<img width="1206" height="312" alt="Screenshot 2025-09-25 125650" src="https://github.com/user-attachments/assets/96f1d6c3-ada3-431e-866f-d9645710f003" />
+
+
+```bash
+
+#for optimization
+opt_clean -purge
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+<img width="1288" height="798" alt="Screenshot 2025-09-25 125742" src="https://github.com/user-attachments/assets/c4991a95-1565-4ac6-8124-9f8744ca7138" />
+
+
+**5. multiple_module_opt.v**
+
+```bash
+#Open the code
+gvim multiple_module_opt.v
+```
+
+<img width="1284" height="807" alt="Screenshot 2025-09-25 125910" src="https://github.com/user-attachments/assets/344085f6-04f1-4a70-a4bd-04540be5f60c" />
+
+
+**Synthesis & optimization**
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog multiple_module_opt.v
+
+#for synthesis
+synth -top multiple_mopdule_opt
+```
+
+<img width="1218" height="610" alt="Screenshot 2025-09-25 130021" src="https://github.com/user-attachments/assets/1f80aee0-80a4-4435-8b5a-30392ca1e3ef" />
+
+<img width="1217" height="359" alt="Screenshot 2025-09-25 130029" src="https://github.com/user-attachments/assets/195cd56d-e6ec-49b2-b7a0-31cf78a5e9ef" />
+
+
+```bash
+#for flatten
+flatten
+
+#for optimization
+opt_clean -purge
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+
+<img width="1285" height="806" alt="Screenshot 2025-09-25 131234" src="https://github.com/user-attachments/assets/f9db36d5-80c8-428a-96c8-28c55ecf678d" />
+
+**5. multiple_module_opt2.v**
+
+```bash
+#Open the code
+gvim multiple_module_opt2.v
+```
+
+<img width="1283" height="803" alt="Screenshot 2025-09-25 130308" src="https://github.com/user-attachments/assets/ef546297-09db-46a9-87fa-bc395b689161" />
+
+
+**Synthesis & optimization**
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog multiple_module_opt2.v
+
+#for synthesis
+synth -top multiple_module_opt2
+```
+
+<img width="1286" height="669" alt="Screenshot 2025-09-25 130459" src="https://github.com/user-attachments/assets/a2c5a107-1eee-4020-88d6-fb2501d4f7e6" />
+<img width="1273" height="352" alt="Screenshot 2025-09-25 130507" src="https://github.com/user-attachments/assets/9d318143-9259-43ff-ac2e-ef4e479e1ee0" />
+
+
+```bash
+#for flatten
+flatten
+
+#for optimization
+opt_clean -purge
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+
+<img width="1270" height="809" alt="Screenshot 2025-09-25 131037" src="https://github.com/user-attachments/assets/8ebb3310-94ed-4fdd-9d34-fd0635be43dd" />
+
+
+
+
+
 
 
 
