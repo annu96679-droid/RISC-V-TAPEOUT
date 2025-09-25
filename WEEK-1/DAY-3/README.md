@@ -59,7 +59,7 @@ The Problem: Your optimized function might be F = (A AND B) OR C. However, your 
 
 The Solution: Technology mapping transforms the generic, optimized logic into a netlist (a list of connections) using only the gates available in the library. This involves representing the logic using a universal gate (like a NAND) and then "covering" this representation with the available library cells, often using graph-based algorithms.
 
-## Combinational Loigc optimization 
+## Combinational Logic optimization 
 
 Combinational Logic Optimization is the process of transforming a combinational logic circuit into an equivalent circuit that minimizes one or more design metrics while preserving the exact input-output behavior.
 
@@ -81,6 +81,9 @@ Group adjacent 1s in largest possible powers of two (1, 2, 4, 8...)
 Each group corresponds to a simplified product term.
 
 ***B. Boolean logic optimization***
+
+<img width="2385" height="1215" alt="boolean_optimization" src="https://github.com/user-attachments/assets/ef0ecfb2-4041-4aff-9980-bdd940ac782b" />
+
 
 Boolean logic optimization transforms a Boolean expression into an equivalent form that:
 
@@ -116,6 +119,9 @@ State optimization in sequential circuits means simplifying the finite state mac
 **3. Retiming**
 
 ***Retiming Formulation***
+
+<img width="2385" height="1215" alt="retiming_diagram" src="https://github.com/user-attachments/assets/a9a793de-2231-4676-9145-8815c0b1d5ab" />
+
 A circuit is represented as a directed graph G(V, E) where:
 
 Vertices (V): Combinational logic blocks with delay d(v)
@@ -130,6 +136,48 @@ Constraints:
 Non-negativity: wᵣ(e) ≥ 0 for all edges
 
 Clock period: For all paths u→v with delay D, wᵣ(path) ≥ 1 if D > T (target clock period).
+
+
+## LAB: COMBINATIONAL LOGIC OPTIMIZATION
+
+```bash
+#Open the code
+gvim opt_check.v
+```
+<img width="1261" height="811" alt="Screenshot 2025-09-25 123908" src="https://github.com/user-attachments/assets/18159fa2-b189-4095-a0c6-eee56bfd5b42" />
+
+**Synthesis & optimization**
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog opt_check.v
+
+#for synthesis
+synth -top opt_check
+```
+<img width="1201" height="305" alt="Screenshot 2025-09-25 124846" src="https://github.com/user-attachments/assets/1ece6bf3-760b-417b-8d18-2c5370882ba1" />
+
+
+```bash
+
+#for optimization
+opt_clean -purge
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#see the hierarchy
+show 
+```
+<img width="1282" height="806" alt="Screenshot 2025-09-25 124818" src="https://github.com/user-attachments/assets/d8759919-95ab-46ff-b516-beb6d6b0ece3" />
+
+
 
 
 
