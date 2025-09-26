@@ -142,6 +142,289 @@ At the end of the clock cycle, both updates happen.
 
 So after one clock edge: a gets the new value of b, c gets the previous value of a.
 
+**Caveats with blocking statements:**
+
+***1. Incorrect Modeling of combinational Logic***
+
+```bash
+always @(*)
+begin
+    y = q0 & c;
+    q0 = a | c;
+end
+```
+
+***Sequential Execution of Blocking Assignments***
+
+In blocking assignments, statements execute one after another in order:
+
+First, y = q0 & c; is executed. At this moment, q0 still has its old value from the previous evaluation.
+
+Next, q0 = a | c; executes, updating q0 to the new value a | c.
+
+***Effect on Simulation***
+
+Because of the sequential nature of blocking assignments:
+
+y does not see the new value of q0 in the same evaluation cycle.
+
+It always computes y using the previous value of q0.
+
+So the simulation result for y can lag behind what might be expected if someone thought q0 updates first.
+
+```bash
+
+# This is correct code
+always @(*)
+begin
+    q0 = a | c;
+    y = q0 & c;
+end
+```
+In this code, blocking assignments do not introduce a mismatch because q0 is updated before it is used in y. Simulation and synthesis will behave the same. The key takeaway is that statement order in blocking assignments matters, and incorrect ordering can cause mismatches, especially in combinational blocks with multiple interdependent signals.
+
+***Sequential Execution of Blocking Assignments***
+
+The first line executes: q0 = a | c;.
+At this point, q0 is updated immediately to the value of a | c.
+
+The second line executes: y = q0 & c;.
+Now, y uses the new value of q0, which was just updated in the previous line.
+
+***Simulation Behavior***
+
+In simulation, y is computed using the updated q0, so it effectively behaves like:
+
+y=(a∣c)&c
+
+This is a correct combinational expression, and the sequential execution of blocking assignments here does not cause mismatch because q0 is intended as a combinational signal updated within the same always block.
+
+## SKY130RTL D4SK2 L1 Lab GLS Synth Sim Mismatch:
+
+**1. ternary_operator_mux.v**
+
+```bash
+#Open the code
+gvim ternary_operator_mux.v
+```
+<img width="1285" height="804" alt="Screenshot 2025-09-26 113907" src="https://github.com/user-attachments/assets/ce0166d2-5d51-4574-8b4f-8cf15c4d5652" />
+
+
+```bash
+#Compile Verilog files using Icarus Verilog
+iverilog ternary_operator_mux.v tb_ternary_operator_mux.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
+<img width="1288" height="805" alt="Screenshot 2025-09-26 114043" src="https://github.com/user-attachments/assets/0d8056ff-718a-4a15-9901-3858c581774a" />
+
+
+**For synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog  ternary_operator_mux.v
+
+#for synthesis
+synth -top  ternary_operator_mux
+```
+<img width="1122" height="315" alt="Screenshot 2025-09-26 114144" src="https://github.com/user-attachments/assets/c5749c17-e747-4dbd-81ab-c02bcf35aea1" />
+
+
+```bash
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#export a clean gate-level Verilog netlist
+write_verilog -noattr ternary_operator_mux_net.v
+
+#see the hierarchy
+show 
+```
+<img width="1257" height="810" alt="Screenshot 2025-09-26 120045" src="https://github.com/user-attachments/assets/6f68c12e-ed32-4b9f-905c-f14ce4ae1ff8" />
+
+
+**simulation after Gate Level Synthesis**
+```bash
+
+#compiles the standard-cell library, gate-level netlist, and testbench into a simulation executable
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130-fd-sc-hd.v ternary_operator_mux_net.v tb_ternary_operator_mux_net.v
+
+#Run the compile simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+```
+
+<img width="1268" height="808" alt="Screenshot 2025-09-26 120343" src="https://github.com/user-attachments/assets/b69e94e3-6d8f-4dcc-9b1b-2e21850d30f1" />
+
+**1. bad_mux.v**
+
+```bash
+#Open the code
+gvim bad_mux.v
+```
+<img width="1280" height="809" alt="Screenshot 2025-09-26 121015" src="https://github.com/user-attachments/assets/75c17dd0-17c7-4d70-a783-2ba1d41f5344" />
+
+
+```bash
+#Compile Verilog files using Icarus Verilog
+iverilog bad_mux.v tb_bad_mux.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
+<img width="1288" height="807" alt="Screenshot 2025-09-26 121130" src="https://github.com/user-attachments/assets/123bdaa3-1d45-4397-8e57-5901461fe190" />
+
+
+**For synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog  bad_mux.v
+
+#for synthesis
+synth -top  bad_mux
+```
+<img width="1129" height="267" alt="Screenshot 2025-09-26 121318" src="https://github.com/user-attachments/assets/cc90497b-25e0-446c-94cd-39a32109e94d" />
+
+
+```bash
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#export a clean gate-level Verilog netlist
+write_verilog -noattr bad_mux_net.v
+
+#see the hierarchy
+show 
+```
+<img width="1287" height="807" alt="Screenshot 2025-09-26 121513" src="https://github.com/user-attachments/assets/f42d6599-0caa-4335-bb0d-ad679c818e9a" />
+
+
+**simulation after Gate Level Synthesis**
+```bash
+
+#compiles the standard-cell library, gate-level netlist, and testbench into a simulation executable
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130-fd-sc-hd.v bad_mux_net.v tb_bad_mux_net.v
+
+#Run the compile simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+```
+
+<img width="1289" height="811" alt="Screenshot 2025-09-26 121714" src="https://github.com/user-attachments/assets/80f854d4-907b-48c3-a8d5-f27601f44812" />
+
+## SKY130RTL D4SK3 L1 Lab Synth sim mismatch blocking statement 
+**blocking_caveat**
+
+```bash
+#Open the code
+gvim blocking_caveat.v
+```
+<img width="1284" height="808" alt="Screenshot 2025-09-26 122212" src="https://github.com/user-attachments/assets/83dd6515-bff6-42fe-9f2a-41a06a977896" />
+
+
+```bash
+#Compile Verilog files using Icarus Verilog
+iverilog blocking_caveat.v tb_blocking_caveat.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
+<img width="1297" height="809" alt="Screenshot 2025-09-26 122418" src="https://github.com/user-attachments/assets/62ebe5cf-8175-48e0-8468-addab6eb5533" />
+
+
+**For synthesis**
+
+```bash
+
+#open the yosys
+yosys
+
+#Read the liberty file
+read_liberty -lib ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#Read the verilog file
+read_verilog blocking_caveat.v
+
+#for synthesis
+synth -top  blocking_caveat
+```
+<img width="1140" height="321" alt="Screenshot 2025-09-26 122602" src="https://github.com/user-attachments/assets/9c387d4c-0f98-46d1-bc19-1ffdf8f32b10" />
+
+
+```bash
+
+#run the ABC tool
+abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
+
+#export a clean gate-level Verilog netlist
+write_verilog -noattr blocking_caveat_net.v
+
+#see the hierarchy
+show 
+```
+<img width="1286" height="809" alt="Screenshot 2025-09-26 123130" src="https://github.com/user-attachments/assets/996e7330-ffff-4990-b4dd-a1c9e7de5cb7" />
+
+
+**simulation after Gate Level Synthesis**
+```bash
+
+#compiles the standard-cell library, gate-level netlist, and testbench into a simulation executable
+iverilog ../my_lib/verilog_model/primitives.v ../my_lib/verilog_model/sky130-fd-sc-hd.v blocking_caveat_net.v tb_blocking_caveat_net.v
+
+#Run the compile simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+```
+
+<img width="1292" height="809" alt="Screenshot 2025-09-26 123331" src="https://github.com/user-attachments/assets/054514f8-7bf0-439c-9cf7-084a21a1da06" />
+
+
+
+
+
+
+
+
+
+
+
 
 
 
