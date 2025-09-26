@@ -69,7 +69,18 @@ In Verilog, when we describe combinational logic using always blocks, the sensit
 
 This happens because simulation relies directly on the sensitivity list, whereas synthesis tools ignore it for combinational logic and instead analyze the logic equations to generate hardware.
 
-<img width="867" height="1009" alt="Screenshot 2025-09-26 143726" src="https://github.com/user-attachments/assets/a788cd8f-535b-4944-91e6-9f53142e6bda" />
+**Example:**
+
+```bash
+
+always @(sel)
+begin 
+   if (sel)
+      y = i1;
+   else
+      y = i0;
+end
+```
 
 This code contains **always @(sel)** : This means the simulator will only re-execute the always block when sel changes.
 
@@ -91,7 +102,45 @@ begin
       y = i0;
 end
 ```
-Here, @(*) automatically includes all signals used inside the block. This ensures the simulator and the synthesizer behave consistentlly.
+Here,**@(*)** automatically includes all signals used inside the block. This ensures the simulator and the synthesizer behave consistently.
+
+**2. Blocking and non-blocking assignments**
+
+***Blocking Assignments (=)***
+
+Blocking assignments execute immediately in the given order, like statements in a software program. When the simulator encounters a blocking assignment, it updates the value of the variable instantly before moving to the next statement.
+
+```bash
+always @(posedge clk) begin
+   a = b;
+   c = a;
+end
+```
+On a rising clock edge, the first line executes: a is assigned the current value of b.
+
+Then the second line executes: c is assigned the updated value of a (which just became b).
+
+So, after one clock edge, c will equal b.
+
+In effect, both a and c take the value of b at the same clock cycle.
+
+***Non-blocking Assignments (<=)***
+
+Non-blocking assignments do not update immediately. Instead, the right-hand side (RHS) is evaluated at the triggering event, and the update to the left-hand side (LHS) happens at the end of the simulation time step (delta cycle). This allows all non-blocking assignments in a block to happen “in parallel.”
+
+```bash
+always @(posedge clk) begin
+   a <= b;
+   c <= a;
+end
+```
+On a rising clock edge, a <= b; schedules a to be updated with b later.
+
+At the same time, c <= a; schedules c to be updated with the old value of a (before the clock).
+
+At the end of the clock cycle, both updates happen.
+
+So after one clock edge: a gets the new value of b, c gets the previous value of a.
 
 
 
