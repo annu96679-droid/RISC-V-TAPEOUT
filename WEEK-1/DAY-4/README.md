@@ -57,3 +57,48 @@ Using iverilog, the gate-level design is exercised in the same environment as th
 
 When we design digital circuits in hardware description languages like Verilog or VHDL, the first step is to describe the behavior of the system at the register transfer level (RTL). This RTL code is then functionally simulated to check if the design behaves as expected. Once the design is verified at this level, it is passed to a synthesis tool, which translates the high-level RTL code into a gate-level netlist made up of logic cells and flip-flops from a standard library. Ideally, the synthesized netlist should be functionally equivalent to the RTL, so that whatever was tested during simulation is exactly what will be implemented in hardware. However, in practice, there are cases where the behavior seen in simulation does not match what synthesis produces. This discrepancy is known as a simulation–synthesis mismatch.
 
+**Some cources of mismatch are :**
+
+***1. Missing sensitivity list**
+***2. Blocking and non-blocking assignments***
+***3. Non-standard verilog coding***
+
+**1. Missing sensitivity list**
+
+In Verilog, when we describe combinational logic using always blocks, the sensitivity list defines the set of signals whose changes should trigger the block to re-execute. If this sensitivity list is incomplete or missing signals, then the simulation and the actual synthesized hardware can behave differently. 
+
+This happens because simulation relies directly on the sensitivity list, whereas synthesis tools ignore it for combinational logic and instead analyze the logic equations to generate hardware.
+
+<img width="867" height="1009" alt="Screenshot 2025-09-26 143726" src="https://github.com/user-attachments/assets/a788cd8f-535b-4944-91e6-9f53142e6bda" />
+
+This code contains **always @(sel)** : This means the simulator will only re-execute the always block when sel changes.
+
+Suppose sel = 1. Then y takes the value of i1.
+
+Now if i1 changes while sel stays at 1, the block will not re-trigger, because the sensitivity list does not include i1. As a result, y will remain stuck at the old value, even though logically it should follow i1.
+
+Similarly, if sel = 0 and i0 changes, the simulator will not update y either.
+
+```bash
+
+This will be the correct code
+
+always @(*)
+begin 
+   if (sel)
+      y = i1;
+   else
+      y = i0;
+end
+```
+Here, @(*) automatically includes all signals used inside the block. This ensures the simulator and the synthesizer behave consistentlly.
+
+
+
+
+
+
+
+
+
+
