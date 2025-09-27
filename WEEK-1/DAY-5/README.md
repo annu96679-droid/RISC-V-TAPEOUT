@@ -363,7 +363,9 @@ abc -liberty ../my_lib/lib/sky130_fd_sc_hd_tt_025C_1v80.lib
 #see the hierarchy
 show 
 ```
-<img width="1092" height="309" alt="Screenshot 2025-09-27 143319" src="https://github.com/user-attachments/assets/c802fc5c-67b3-42a5-b0db-8c35a7be6b0a" />
+
+
+![Uploading Screenshot 2025-09-27 144125.png…]()
 
 # 2. incomp_if2
 
