@@ -86,8 +86,36 @@ ROTation. These latter two can function in a single cycle or on multiple cycles 
 
 <img width="719" height="862" alt="Screenshot 2025-09-28 113302" src="https://github.com/user-attachments/assets/9e606d4e-097a-41c1-b97a-f55e2971fb8f" />
 
+# Memory
+
+A processor needs to have memories for both the code and 
+the data. A further specific area is used for a stack, a special form of data memory into which the 
+processor can PUSH data to store it and POP data to recover it. We will consider this in more detail 
+in due course, but we first need to have a model of memory, starting with a high-level model before 
+moving to the level of the transistor.
+
+ A memory can be viewed as a large number of separate drawers, each with its own identification 
+number, starting from 0 and increasing thereafter. Thus, a position in memory can be seen as a specific 
+drawer and inside this a set of boxes represent the bits of information, an empty box representing a 
+binary 0, and a full box a binary 1. If all of the drawers are housed in a single cabinet, this represents 
+the memory chip. It is selected by a signal, the chip select (CS), which can be seen as the key to locking 
+or unlocking the door of the cabinet.
+
+<img width="1072" height="436" alt="image" src="https://github.com/user-attachments/assets/a1894003-9068-4fbf-9057-3b122d86f96e" />
+
+# Interconnect
+
+interconnects are fundamental to the flexibility, 
+manageability, and performance of a system
+
+<img width="1072" height="441" alt="image" src="https://github.com/user-attachments/assets/9a706852-7e10-4bc2-a924-51e8d35a9eac" />
+
+
+
+
 
  
+
 
 
 
