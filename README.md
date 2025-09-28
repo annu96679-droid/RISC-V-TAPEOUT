@@ -1,2 +1,5 @@
-# RISC-V-TAPEOUT
-My RISC-V Tapeout journey with weekly and daily progress
+# 🌟 RISC-V TAPEOUT 🌟
+
+🛠️ Tracking My Journey, Week by Week & Day by Day 📊💡
+📈 From Code to Silicon – Every Step Counts! ⚡🔧
+
