@@ -75,6 +75,19 @@ Examples:
 
 * These improve performance without overloading the CPU.
 
+# Central Processing Unit ( RISC-V, ARM )
+
+The job of a processor is to manipulate data. To do this, it executes a program, which is simply a list 
+of basic instructions. Many such instructions are available on all processors, in the form of simple 
+arithmetic and logical operations. The unit that executes these is the arithmetic and logical unit (ALU) 
+and the operations are the classical ADDition, SUBtraction, sometimes MULtiplication and DIVision, 
+logical AND, OR, EOR (exclusive OR, sometimes named XOR), and NOT, together with SHIFTing and 
+ROTation. These latter two can function in a single cycle or on multiple cycles via a barrel shifter.
+
+<img width="719" height="862" alt="Screenshot 2025-09-28 113302" src="https://github.com/user-attachments/assets/9e606d4e-097a-41c1-b97a-f55e2971fb8f" />
+
+
  
+
 
 
