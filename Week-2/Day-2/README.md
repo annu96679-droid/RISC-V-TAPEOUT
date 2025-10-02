@@ -46,21 +46,20 @@ $ pip3 install pyyaml click sandpiper-saas
 ```
 
 * Clone this repository in an arbitrary directory (we'll choose home directory here):
-
 ```bash
 $ cd ~
 $ git clone https://github.com/manili/VSDBabySoC.git
 ```
 
 * Make the pre_synth_sim.vcd:
-
-  ```bash
+```bash
 $ cd VSDBabySoC
 $ make pre_synth_sim
-  ```
+```
 
 * Waveforms
 ```bash
 $ gtkwave output/pre_synth_sim/pre_synth_sim.vcd
 ```
+
 
