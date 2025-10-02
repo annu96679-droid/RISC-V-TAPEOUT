@@ -148,7 +148,101 @@ gtkwave dumpfile.vcd
    * out[9] toggles slowest.
 
    * Together they form a binary up-counter pattern
+ 
+## avsddac.v
 
+The dac module converts the 10-bit digital signal from the rvmyth core to an analog output.
 
+## 1. Simulate rvmyth
 
+```bash
+#Clone this repository in an arbitrary directory (we'll choose home directory here)
+$ cd ~
+$ git clone https://github.com/kunalg123/rvmyth.git
 
+#open the git
+cd rvmyth
+
+#Open the code
+gvim mythcore_test.v
+
+#Compile Verilog files using Icarus Verilog
+iverilog mythcore_test.v tb_mythcore_test.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
+
+<img width="1283" height="825" alt="Screenshot 2025-09-29 125109" src="https://github.com/user-attachments/assets/0fd307de-ae0c-45d5-a2f8-eb126ba92914" />
+
+**1. Signals in View**
+
+* clk = 1 → the clock is running normally (square wave at the top).
+
+* reset = 0 → reset is inactive, so the design is operational.
+
+* out[9:0] = 2BF (hex) → at this instant, the 10-bit bus is showing a hexadecimal value.
+
+**2. What the Output Shows**
+
+* out[9:0] is a 10-bit output bus.
+
+* In binary, 2BFh = 1010 1111 1 (10 bits).
+
+* This value is part of a sequentially increasing pattern — because in your previous waveform we saw this was an up-counter.
+
+## 2. Simulate DAC
+
+```bash
+#Clone this repository in an arbitrary directory (we'll choose home directory here)
+$ cd ~
+$ git clone https://github.com/vsdip/rvmyth_avsddac_interface.git
+
+#open the git
+cd rvmyth_avsddac_interface
+cd iverilog
+cd post synthesis
+
+#Open the code
+gvim avsddac.v 
+
+#Compile Verilog files using Icarus Verilog
+iverilog avsddac.v avsddac_tb_test.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+```
+
+<img width="1261" height="824" alt="Screenshot 2025-09-29 130652" src="https://github.com/user-attachments/assets/9c9a3042-b3ed-4da4-9c1d-5dbfa7d808ca" />
+
+## 3.Integrate both rvymth and DAC using a Top level module
+
+#open the git
+cd rvmyth_avsddac_interface
+
+#Open the code
+gvim rvmyth_avsddac.v
+
+#Compile Verilog files using Icarus Verilog
+iverilog rvmyth_avsddac.v rvmyth_avsddac_TB.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+```
+<img width="1262" height="825" alt="Screenshot 2025-09-29 131248" src="https://github.com/user-attachments/assets/728ae811-0c52-45a5-8794-836077a1058c" />
+
+* out [9:0] --> rvymth 10-bit digital output
+
+* D [9:0] --> DAC 10-bit digital input
+
+* Out --> DAC analog output
