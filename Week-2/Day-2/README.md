@@ -223,7 +223,7 @@ gtkwave dumpfile.vcd
 <img width="1261" height="824" alt="Screenshot 2025-09-29 130652" src="https://github.com/user-attachments/assets/9c9a3042-b3ed-4da4-9c1d-5dbfa7d808ca" />
 
 ## c.Integrate both rvymth and DAC using a Top level module
-
+```bash
 #open the git
 cd rvmyth_avsddac_interface
 
@@ -246,4 +246,5 @@ gtkwave dumpfile.vcd
 * D [9:0] --> DAC 10-bit digital input
 
 * Out --> DAC analog output
+
 
