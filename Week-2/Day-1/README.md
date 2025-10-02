@@ -1,4 +1,4 @@
-# BabySoC Fundamentals & Functional Modelling 
+# BabySoC Fundamentals
 
 # What is System On Chip (SOC)?
 
@@ -115,6 +115,7 @@ manageability, and performance of a system
 
 
  
+
 
 
 
