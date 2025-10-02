@@ -149,11 +149,11 @@ gtkwave dumpfile.vcd
 
    * Together they form a binary up-counter pattern
  
-## avsddac.v
+## 3. avsddac.v
 
 The dac module converts the 10-bit digital signal from the rvmyth core to an analog output.
 
-## 1. Simulate rvmyth
+## a. Simulate rvmyth
 
 ```bash
 #Clone this repository in an arbitrary directory (we'll choose home directory here)
@@ -195,7 +195,7 @@ gtkwave dumpfile.vcd
 
 * This value is part of a sequentially increasing pattern — because in your previous waveform we saw this was an up-counter.
 
-## 2. Simulate DAC
+## b. Simulate DAC
 
 ```bash
 #Clone this repository in an arbitrary directory (we'll choose home directory here)
@@ -222,7 +222,7 @@ gtkwave dumpfile.vcd
 
 <img width="1261" height="824" alt="Screenshot 2025-09-29 130652" src="https://github.com/user-attachments/assets/9c9a3042-b3ed-4da4-9c1d-5dbfa7d808ca" />
 
-## 3.Integrate both rvymth and DAC using a Top level module
+## c.Integrate both rvymth and DAC using a Top level module
 
 #open the git
 cd rvmyth_avsddac_interface
@@ -246,3 +246,4 @@ gtkwave dumpfile.vcd
 * D [9:0] --> DAC 10-bit digital input
 
 * Out --> DAC analog output
+
