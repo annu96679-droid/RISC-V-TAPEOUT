@@ -61,5 +61,27 @@ $ make pre_synth_sim
 ```bash
 $ gtkwave output/pre_synth_sim/pre_synth_sim.vcd
 ```
+<img width="1285" height="804" alt="Screenshot 2025-09-29 120940" src="https://github.com/user-attachments/assets/0242121e-0ab9-49d7-aacf-d35dfd38c719" />
+
+Here the waveform representing:
+
+* CLK: digital clock, toggling cleanly.
+
+* reset: low (0) after some time.
+
+* OUT (digital): shown as a green square waveform, takes discrete values (0/1).
+
+* RV_TO_DAC[9:0]: looks like a dense green signal — lots of toggles, because DAC input data is changing rapidly.
+
+* OUT (real): shown in red sinusoidal-like curve — this is because the DAC module is producing an analog-equivalent output voltage by converting digital input into a waveform (continuous).
+
+* Why do we have a real OUT? (significance)
+
+The real type is crucial when you’re mixing digital + analog behavior in SystemVerilog/Verilog testbenches.
+
+In pure digital RTL, everything is 0/1/x/z.
+
+But when modeling things like DACs, PLLs, ADCs, analog reference voltages, you often need real numbers (voltages, frequencies, amplitudes).
+
 
 
