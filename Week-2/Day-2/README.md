@@ -107,6 +107,48 @@ iverilog mythcore_test.v tb_mythcore_test.v
 gtkwave dumpfile.vcd
 
 ```
+<img width="1261" height="801" alt="Screenshot 2025-09-29 122128" src="https://github.com/user-attachments/assets/0657a70b-d1d8-4b6d-addb-1b82d3bc1e3c" />
+
+**1. Modules & Signals in View**
+
+* Inputs:
+
+   * clk (reg) → clock input.
+
+   * reset (reg) → reset signal.
+
+* Outputs:
+
+   * out[9:0] (wire) → a 10-bit wide output bus.
+
+   * GTKWave expands this into out[0] … out[9] so you can see each bit separately.
+
+**2. Waveform Explanation**
+
+* Clock (clk):
+
+   * A clean square wave toggling, providing synchronization for the design.
+
+* Reset (reset):
+
+   * Initially active (high) for a short time, then goes low (0).
+
+   * When reset is high, outputs are held at 0. Once reset deasserts, logic begins functioning.
+
+* out[9:0] (10-bit bus):
+
+   * At the bus level (out[9:0] row), you see dense activity (green waveform with many transitions). This is the binary bus value in compact view.
+
+   * At bit-level expansion (out[9], out[8], …, out[0]):
+
+   * Each bit toggles with a different frequency.
+
+   * out[0] toggles fastest.
+
+   * out[9] toggles slowest.
+
+   * Together they form a binary up-counter pattern
+
 
 
 
