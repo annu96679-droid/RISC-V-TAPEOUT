@@ -75,13 +75,38 @@ Here the waveform representing:
 
 * OUT (real): shown in red sinusoidal-like curve — this is because the DAC module is producing an analog-equivalent output voltage by converting digital input into a waveform (continuous).
 
-* Why do we have a real OUT? (significance)
+Why do we have a real OUT? (significance)
 
-The real type is crucial when you’re mixing digital + analog behavior in SystemVerilog/Verilog testbenches.
+* The real type is crucial when you’re mixing digital + analog behavior in SystemVerilog/Verilog testbenches.
 
-In pure digital RTL, everything is 0/1/x/z.
+* In pure digital RTL, everything is 0/1/x/z.
 
-But when modeling things like DACs, PLLs, ADCs, analog reference voltages, you often need real numbers (voltages, frequencies, amplitudes).
+* But when modeling things like DACs, PLLs, ADCs, analog reference voltages, you often need real numbers (voltages, frequencies, amplitudes).
+
+## 2. rvmyth.v (RISC-V core)
+
+
+```bash
+#Clone this repository in an arbitrary directory (we'll choose home directory here)
+$ cd ~
+$ git clone https://github.com/kunalg123/rvmyth.git
+
+#open the git
+cd rvmyth
+
+#Open the code
+gvim mythcore_test.v
+
+#Compile Verilog files using Icarus Verilog
+iverilog mythcore_test.v tb_mythcore_test.v
+
+#Run the compiled simulation
+./a.out
+
+#View waveform results in GTKWave
+gtkwave dumpfile.vcd
+
+```
 
 
 
