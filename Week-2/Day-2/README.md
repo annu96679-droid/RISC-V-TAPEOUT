@@ -1,12 +1,12 @@
 # VSDBabySoC functional modelling
 
-# VSDBabySoC:
+## VSDBabySoC:
 
 The VSDBabySoC is a simple SoC (System-on-Chip) design incorporating a RISC-V processor (rvmyth), a PLL (Phase-Locked Loop) module (pll), and a DAC (Digital-to-Analog Converter) module (dac). This project demonstrates integration of these IP cores and aims to simulate and verify the design behavior using pre-synthesis and post-synthesis simulations.
 
 <img width="2048" height="1136" alt="image" src="https://github.com/user-attachments/assets/1055f6b1-d166-4f7e-a776-e746ea926155" />
 
-* The image is a mixed-signal BabySoC die/package diagram showing:
+The image is a mixed-signal BabySoC die/package diagram showing:
 
 * a central digital core block labeled rvmyth (the CPU/SoC digital subsystem),
 
@@ -25,3 +25,11 @@ The VSDBabySoC is a simple SoC (System-on-Chip) design incorporating a RISC-V pr
 * control / bias pins into the PLL (labels such as B_CP, B_VCO, EN_VCO, EN_CP, B[3:0], REF, VCO_IN) and a CLK output from the PLL to the core,
 
 * the digital data bus to the DAC is D[9:0] and an EN line for the DAC.
+
+## Functional modelling:
+
+A functional model (aka behavioral or golden model) is a high-level, executable description of the system’s intended behavior and algorithms — written before you commit to cycle-accurate RTL and physical implementation. It focuses on functional correctness and architecture tradeoffs (what the system does), not on gate-level timing or placement (how it’s laid out).
+
+## Labs (Hands-on Functional Modelling) 
+
+
