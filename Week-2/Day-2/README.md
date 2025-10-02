@@ -32,4 +32,35 @@ A functional model (aka behavioral or golden model) is a high-level, executable 
 
 ## Labs (Hands-on Functional Modelling) 
 
+## 1. VSDBabySoC.v (Top level SoC module)
+
+Here we are going to model and simulate the VSDBabySoC using iverilog, then we will show the results using gtkwave tool. Some initial input signals will be fed into vsdbabysoc module that make the pll start generating the proper CLK for the circuit. The clock signal will make the rvmyth to execute instructions in its imem. As a result the register r17 will be filled with some values cycle by cycle. These values are used by dac core to provide the final output signal named OUT. So we have 3 main elements (IP cores) and a wrapper as an SoC and of-course there would be also a testbench module out there.
+
+* First we need to install some packages:
+
+```bash
+$ sudo apt install make python python3 python3-pip git iverilog gtkwave docker.io
+$ sudo chmod 666 /var/run/docker.sock
+$ cd ~
+$ pip3 install pyyaml click sandpiper-saas
+```
+
+* Clone this repository in an arbitrary directory (we'll choose home directory here):
+
+```bash
+$ cd ~
+$ git clone https://github.com/manili/VSDBabySoC.git
+```
+
+* Make the pre_synth_sim.vcd:
+
+  ```bash
+$ cd VSDBabySoC
+$ make pre_synth_sim
+  ```
+
+* Waveforms
+```bash
+$ gtkwave output/pre_synth_sim/pre_synth_sim.vcd
+```
 
