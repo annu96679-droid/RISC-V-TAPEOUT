@@ -60,11 +60,11 @@ Slack represents the difference between the required time and the actual arrival
 
 In STA, the critical path is the one with least slack (most negative) — it determines the maximum clock frequency at which the circuit can safely operate.
 
-## Types of setup/hold analysis
+## 1.Types of setup/hold analysis
 
 <img width="1871" height="985" alt="Screenshot 2025-10-07 105816" src="https://github.com/user-attachments/assets/b5a48ebe-0ba3-4d86-8ecc-fc03606780b6" />
 
-## 1. reg2reg (Register-to-Register)
+## 1.1. reg2reg (Register-to-Register)
 Definition: Analysis between two sequential elements (flip-flops) connected through combinational logic.
 
 ```bash
@@ -74,7 +74,7 @@ Definition: Analysis between two sequential elements (flip-flops) connected thro
 
 Purpose: Ensures data from launching flip-flop reaches capture flip-flop within one clock cycle while meeting setup/hold times.
 
-## 2. in2reg (Input-to-Register)
+## 1.2. in2reg (Input-to-Register)
 Definition: Analysis from primary input port to a register.
 
 ```bash
@@ -84,59 +84,160 @@ Definition: Analysis from primary input port to a register.
 
 Purpose: Ensures external input signals meet timing requirements of internal registers.
 
-## 3 reg2out (Register-to-Output)
+## 1.3 reg2out (Register-to-Output)
 Definition: Analysis from a register to primary output port.
 
-text
+```bash
 [Launch Flop] --> [Combinational Logic] --> [Output Port]
      CLK        └─── Data Path ───┘
+```
+
 Purpose: Ensures data from internal registers reaches output ports within required time.
 
-## 4 in2out (Input-to-Output)
+## 1.4 in2out (Input-to-Output)
 Definition: Analysis through purely combinational paths.
 
-text
+```bash
 [Input Port] --> [Combinational Logic] --> [Output Port]
                     └─── Data Path ───┘
+```
+
 Purpose: Ensures combinational paths don't have excessive delay.
 
-## Clock Gating
+## 1.5 Clock Gating
 Definition: Analysis of clock gating elements to prevent glitches.
 
-text
+```bash
      CLK ───┐
             │
 Gating Sig ─┼──► [AND Gate] ───► Gated_CLK ───► [Flop]
             │
      EN ────┘
+```
+
 Purpose: Ensures enable signal is stable around clock edges to avoid clock glitches.
 
-## 6 Recovery/Removal
+## 1.6 Recovery/Removal
 Definition: Asynchronous reset/preset timing checks.
 
 Recovery: Like setup time for async reset deactivation
 
 Removal: Like hold time for async reset deactivation
 
-text
+```bash
      RST ───────────────────► [Flop]
      CLK ───────────────────► [Flop]
+```
+
 Purpose: Ensures proper reset release timing.
 
-## 7 Data-to-Data
+## 1.7 Data-to-Data
 Definition: Constraint between two data signals (neither is clock).
 
-text
+```bash
 Signal_A ───┐
             │──► [Logic] ───► Output
 Signal_B ───┘
+
+```
+
 Purpose: Ensures specific timing relationships between data signals.
 
-## 8 Latch (Time Borrowing)
+## 1.8 Latch (Time Borrowing)
 Definition: Level-sensitive latch timing where data can "borrow" time from next phase.
 
-text
+```bash
      CLK ───┐
             │──► [Latch] ───► 
      D ─────┘      (transparent when CLK=1)
+```
+
 Time Borrowing: Data can arrive late but must stabilize before latch closes.
+
+## 2. Slew/Transition Analysis
+
+## 2.1 Data (max/min)
+Definition: Measures signal transition time (rise/fall) on data paths.
+
+```bash
+      ┌───┐
+      │   │
+0 ────┘   └───
+    ↑     ↑
+  20%    80%  → Slew = Time between 20%-80% points
+```
+Purpose:
+
+* Max Slew: Prevents slow transitions causing timing issues
+
+* Min Slew: Prevents fast transitions causing signal integrity issues.
+
+## 2.2 Clock (max/min)
+Definition: Transition time analysis specifically for clock trees.
+
+```bash
+Clock Tree: CLK ───► [Buf] ───► [Buf] ───► Flop_CLK
+                         ↑           ↑
+                    Slew checked at each stage
+```
+
+Purpose: Ensures clock signals have clean, predictable edge.
+
+## 3. Load Analysis
+
+## 3.1 Fanout (max/min)
+Definition: Number of inputs driven by an output.
+
+```bash
+     ┌───► [Gate₁]
+[Driver] ────► [Gate₂]  → Fanout = 3
+     └───► [Gate₃]
+```
+
+Purpose:
+
+* Max Fanout: Prevents excessive loading slowing down signals
+
+* Min Fanout: Ensures proper drive strength utilization
+
+## 3.2 Capacitance (max/min)
+Definition: Total capacitive load on a net.
+
+```bash
+     ┌───► C₁
+[Driver] ────► C₂  → Total C = C_wire + C₁ + C₂ + C₃
+     └───► C₃
+```
+
+Purpose: Controls RC delays and power consumption.
+
+## 4. Clock Analysis
+
+## 4.1 Skew
+Definition: Difference in clock arrival times at different flip-flops.
+
+```bash
+     CLK ───┬───► [Flop_A] (arrives at t=0)
+            │
+            └───► [Flop_B] (arrives at t=0.2)
+                            ↑ Clock Skew = 0.2
+```
+
+Impact: Reduces available time for data propagation.
+
+## 4.2 Pulse Width
+Definition: Minimum high/low time of clock signals.
+
+```bash
+      ┌──────┐      ┌──────┐
+      │      │      │      │
+──────┘      └──────┘      └────
+      ↑      ↑
+     Rise   Fall
+     Edge   Edge
+```
+     
+* Pulse Width = Minimum time clock must remain high/low
+  
+* Purpose: Ensures reliable clocking of sequential elements.
+
