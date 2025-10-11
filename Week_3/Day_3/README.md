@@ -63,7 +63,7 @@ You can use the "configure --prefix" option and "make install" to install CUDD i
 <img width="1255" height="795" alt="Screenshot 2025-10-09 125632" src="https://github.com/user-attachments/assets/080d2a98-34bf-42c9-88d3-0579a2ae329a" />
 <img width="1258" height="801" alt="Screenshot 2025-10-09 125715" src="https://github.com/user-attachments/assets/8cb20209-f21f-4027-b609-1bca11e90b48" />
 
-# Building with CMake
+## Building with CMake
 Use the following commands to checkout the git repository and build the OpenSTA library and excutable.
 
 ```bash
@@ -75,7 +75,7 @@ cmake -DCUDD_DIR=<CUDD_INSTALL_DIR> ..
 make
 ```
 
-# Build with Docker
+## Build with Docker
 An alternative way to build and run OpenSTA is with Docker. After installing Docker, the following command builds a Docker image.
 
 ```bash
@@ -91,6 +91,13 @@ docker run -i -v $HOME:/data opensta
 ```
 <img width="973" height="434" alt="Screenshot 2025-10-09 175904" src="https://github.com/user-attachments/assets/1d8907e5-0a3b-47c2-b068-bb7e1c1c0ac3" />
 
+## Install using a package manager
+Guix
 
+OpenSTA is available in the https://hpc.guix.info/package/opensta
+
+```bash
+  guix install opensta
+```
 
 
