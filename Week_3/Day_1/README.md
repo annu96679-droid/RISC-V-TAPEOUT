@@ -87,3 +87,10 @@ stat
 write_verilog -noattr /home/anuj/VSDBabySoC/output/post_synth_sim/vsdbabysoc.synth.v
 ```
 
+```bash
+#POST_SYNTHESIS SIMULATION AND WAVEFORMS
+
+#Compile the Testbench
+iverilog -o /home/anuj/VSDBabySoC/output/post_synth_sim/post_synth_sim.out -DPOST_SYNTH_SIM -DFUNCTIONAL -DUNIT_DELAY=#1 -I /home/anuj/VSDBabySoC/src/include -I /home/anuj/VSDBabySoC/src/module /home/anuj//VSDBabySoC/src/module/testbench.v
+
+
