@@ -60,3 +60,83 @@ Slack represents the difference between the required time and the actual arrival
 
 In STA, the critical path is the one with least slack (most negative) — it determines the maximum clock frequency at which the circuit can safely operate.
 
+## Types of setup/hold analysis
+
+<img width="1871" height="985" alt="Screenshot 2025-10-07 105816" src="https://github.com/user-attachments/assets/b5a48ebe-0ba3-4d86-8ecc-fc03606780b6" />
+
+## 1. reg2reg (Register-to-Register)
+Definition: Analysis between two sequential elements (flip-flops) connected through combinational logic.
+
+```bash
+[Launch Flop] --> [Combinational Logic] --> [Capture Flop]
+     CLK₁        └─── Data Path ───┘          CLK₂
+```
+
+Purpose: Ensures data from launching flip-flop reaches capture flip-flop within one clock cycle while meeting setup/hold times.
+
+## 2. in2reg (Input-to-Register)
+Definition: Analysis from primary input port to a register.
+
+```bash
+[Input Port] --> [Combinational Logic] --> [Capture Flop]
+                    └─── Data Path ───┘        CLK
+```
+
+Purpose: Ensures external input signals meet timing requirements of internal registers.
+
+## 3 reg2out (Register-to-Output)
+Definition: Analysis from a register to primary output port.
+
+text
+[Launch Flop] --> [Combinational Logic] --> [Output Port]
+     CLK        └─── Data Path ───┘
+Purpose: Ensures data from internal registers reaches output ports within required time.
+
+## 4 in2out (Input-to-Output)
+Definition: Analysis through purely combinational paths.
+
+text
+[Input Port] --> [Combinational Logic] --> [Output Port]
+                    └─── Data Path ───┘
+Purpose: Ensures combinational paths don't have excessive delay.
+
+## Clock Gating
+Definition: Analysis of clock gating elements to prevent glitches.
+
+text
+     CLK ───┐
+            │
+Gating Sig ─┼──► [AND Gate] ───► Gated_CLK ───► [Flop]
+            │
+     EN ────┘
+Purpose: Ensures enable signal is stable around clock edges to avoid clock glitches.
+
+## 6 Recovery/Removal
+Definition: Asynchronous reset/preset timing checks.
+
+Recovery: Like setup time for async reset deactivation
+
+Removal: Like hold time for async reset deactivation
+
+text
+     RST ───────────────────► [Flop]
+     CLK ───────────────────► [Flop]
+Purpose: Ensures proper reset release timing.
+
+## 7 Data-to-Data
+Definition: Constraint between two data signals (neither is clock).
+
+text
+Signal_A ───┐
+            │──► [Logic] ───► Output
+Signal_B ───┘
+Purpose: Ensures specific timing relationships between data signals.
+
+## 8 Latch (Time Borrowing)
+Definition: Level-sensitive latch timing where data can "borrow" time from next phase.
+
+text
+     CLK ───┐
+            │──► [Latch] ───► 
+     D ─────┘      (transparent when CLK=1)
+Time Borrowing: Data can arrive late but must stabilize before latch closes.
