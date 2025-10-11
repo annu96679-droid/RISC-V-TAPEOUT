@@ -25,3 +25,50 @@ In this image, there are four possible timing paths (shown as dashed yellow line
 * Path 4: From the input port (IN) directly to the output port (OUT) (represents an I/O timing check).
 
 Every timing path starts from a start point (like an input port or clock pin of a launching flip-flop) and ends at an end point (like an output port or D-pin of a capturing flip-flop).
+
+## 2. Arrival Time (AT)
+
+Arrival Time is the actual time when a signal reaches a particular point (for example, the D-input of the capture flip-flop).
+
+In this diagram, the arrival time of data at the D pin of the Capture Flop depends on:
+
+* The clock-to-Q delay of the Launch Flop.
+
+* The propagation delay through the combinational logic (the cloud).
+
+* The interconnect delays (inverters/buffers numbered 2–3).
+
+So, mathematically:
+
+Arrival Time
+=
+𝑡
+𝐶
+𝑄
++
+𝑡
+𝑐
+𝑜
+𝑚
+𝑏
++
+𝑡
+𝑟
+𝑜
+𝑢
+𝑡
+𝑒
+Arrival Time=t
+CQ
+	​
+
++t
+comb
+	​
+
++t
+route
+	​
+
+
+It tells us when the data actually becomes valid at the destination (capture flop input).
