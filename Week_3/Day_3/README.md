@@ -129,5 +129,51 @@ set_input_delay -clock clk 0 {in1 in2}
 #report timing check results
 report_checks
 ```
+<img width="1260" height="808" alt="Screenshot 2025-10-10 094213" src="https://github.com/user-attachments/assets/116f5dc6-8db0-4f8e-bcc0-4c95d7f86bfd" />
+<img width="1262" height="809" alt="Screenshot 2025-10-10 094226" src="https://github.com/user-attachments/assets/b65b39e7-7de4-4699-ac89-d8e61af232f9" />
+<img width="1255" height="807" alt="Screenshot 2025-10-10 094233" src="https://github.com/user-attachments/assets/d86230a7-5911-4703-a499-7ba4739f23e5" />
+
+<img width="666" height="678" alt="Screenshot 2025-10-10 095523" src="https://github.com/user-attachments/assets/2c969c51-f4a8-4e98-9b84-329a591e343e" />
+
+## Timing Analysis with Multiple Process Corners
+
+An example command script using three process corners and +/-10% min/max derating:
+
+```bash
+#Defines multiple analysis corners
+define_corners wc typ bc
+
+#Reads the timing library file (.lib)
+read_liberty -corner typ /data/OpenSTA/examples/nangate45-typ.lib.gz
+read_liberty -corner wc /data/OpenSTA/examples/nangate45-slow.lib.gz
+read_liberty -corner bc /data/OpenSTA/examples/nangate45-fast.lib.gz
+
+#read the gate-level Verilog netlist
+read_verilog /data/OpenSTA/examples/example1.v
+
+#Links the design hierarchy using the libraries just read
+link_design top
+
+#Apply timing derates to model On-Chip Variation (OCV)
+set_timing_derate -early 0.9
+set_timing_derate -late 1.1
+
+#Creates a clock definition for timing analysis
+create_clock -name clk -period 10 {clk1 clk2 clk3}
+
+#Specifies the input delay of external signals
+set_input_delay -clock clk 0 {in1 in2}
+```
+<img width="1116" height="806" alt="Screenshot 2025-10-10 104630" src="https://github.com/user-attachments/assets/980d2393-c218-43b3-85ee-7afee23f1cdc" />
+
+```bash
+#Generates a combined timing report for both setup (max delay) and hold (min delay) checks
+report_checks -path_delay min_max
+```
+
+<img width="1118" height="807" alt="Screenshot 2025-10-10 104642" src="https://github.com/user-attachments/assets/af3419a4-b22a-4e11-bcc4-dc2f87cc9457" />
+<img width="1117" height="803" alt="Screenshot 2025-10-10 104652" src="https://github.com/user-attachments/assets/6668cca3-faba-44a5-922a-e64467a4eb14" />
 
 
+#Reports timing analysis specifically for the typical corner
+report_checks
