@@ -16,3 +16,17 @@ GLS verifies the logical correctness, timing constraints, and reset behavior of 
 * Clock domain or timing violations that could lead to setup/hold time failures.
 
 * Differences between pre-synthesis and post-synthesis behavior, ensuring that synthesis did not change the intended logic.
+
+## Here is the step-by-step execution plan for running the commands manually:
+
+```bash
+#Open the yosys
+yosys
+
+#Load the Top-Level Design and Supporting Modules
+read_liberty -lib /home/anuj/VSDBabySoC/src/lib/avsdpll.lib
+read_liberty -lib /home/anuj/VSDBabySoC/src/lib/avsddac.lib
+read_liberty -lib /home/anuj/VSDBabySoC/src/lib/sky130_fd_sc_hd_tt+025C_1v80.lib
+
+```
+
