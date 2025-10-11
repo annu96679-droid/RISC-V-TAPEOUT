@@ -1,4 +1,4 @@
-# Generate Timing Graphs with OpenSTA 
+<img width="1148" height="808" alt="Screenshot 2025-10-10 113424" src="https://github.com/user-attachments/assets/e15c1f9b-d0d6-4717-80df-0c4236546518" /># Generate Timing Graphs with OpenSTA 
 
 ## Parallax Static Timing Analyzer
 
@@ -177,3 +177,41 @@ report_checks -path_delay min_max
 
 #Reports timing analysis specifically for the typical corner
 report_checks
+
+# Power Analysis
+
+OpenSTA also supports static power analysis with the report_power command. Probabalistic switching 
+activities are propagated from the input ports to determine switching activities for internal pins.
+
+```bash
+#Read the liberty file [ for timing info]
+read_liberty /data/OpenSTA/examples/sky130hd_tt.lib
+
+#Read the verilog file
+read_verilog /data/OpenSTA/examples/gcd_sky130hd.v
+
+#Link the top module
+Format :link_design <module name>   [module name is top]
+link_design GCD
+
+#Reads the Synopsys Design Constraints (SDC) file
+read_sdc /data/OpenSTA/examples/gcd_sky130hd.sdc
+
+#Reads the Standard Parasitic Exchange Format (SPEF) file that contains the RC parasitic extraction data for the design
+read_spef /data/OpenSTA/examples/gcd_sky130hd.spef
+
+#Defines switching activity (α) for all input ports in the design
+set_power_activity -input -activity 0.1
+
+#Overrides the switching activity specifically for the reset input port, setting it to zero
+set_power_activity -input_port reset -activity 0
+```
+
+<img width="1148" height="808" alt="Screenshot 2025-10-10 113424" src="https://github.com/user-attachments/assets/752da1d6-5573-462b-8f3a-d380450589bf" />
+
+```bash
+#Generates a power report for the design
+report_power
+```
+
+<img width="1147" height="804" alt="Screenshot 2025-10-10 113742" src="https://github.com/user-attachments/assets/2fa96d37-08d7-43a4-b685-a4c2453e94b6" />
