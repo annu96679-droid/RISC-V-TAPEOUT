@@ -99,5 +99,35 @@ OpenSTA is available in the https://hpc.guix.info/package/opensta
 ```bash
   guix install opensta
 ```
+# Timing Analysis using SDF
+
+ A sample command file that reads a library and a Verilog netlist and reports timing checks:
+ 
+```bash
+#To open the STA
+docker run -i -v $HOME:/data opensta
+
+#Read the liberty file [ for timing info]
+read_liberty /data/OpenSTA/examples/nangate45_typ.lib.gz
+
+#Read the verilog file
+read_verilog /data/OpenSTA/examples/example1.v
+
+#Link the top module
+Format :link_design <module name>   [module name is top]
+link_design top
+
+#Standard delay format to describe the timing delays
+read_sdf /data/OpenSTA/example/example1.v
+
+#Creates a clock definition for timing analysis
+create_clock -name clk -period 10 {clk1 clk2 clk3}
+
+#Specifies the input delay of external signals
+set_input_delay -clock clk 0 {in1 in2}
+
+#report timing check results
+report_checks
+```
 
 
