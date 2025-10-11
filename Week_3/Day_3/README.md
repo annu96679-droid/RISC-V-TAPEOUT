@@ -32,3 +32,13 @@ zLib        1.2.5   1.2.8   zlib  optional
 ```
 
 <img width="958" height="806" alt="Screenshot 2025-10-09 124931" src="https://github.com/user-attachments/assets/c9ec862e-9d7f-4a0c-a409-a3d06485c7e6" />
+
+The TCL readline library links the GNU readline library to the TCL interpreter for command line editing To enable TCL readline support use the following Cmake option: See (https://tclreadline.sourceforge.net/) for TCL readline documentation. To change the overly verbose default prompt, add something this to your ~/.sta init file:
+
+```bash
+if { ![catch {package require tclreadline}] } {
+  proc tclreadline::prompt1 {} {
+    return "> "
+  }
+}
+```
