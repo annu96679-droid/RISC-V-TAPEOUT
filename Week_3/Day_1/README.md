@@ -93,4 +93,18 @@ write_verilog -noattr /home/anuj/VSDBabySoC/output/post_synth_sim/vsdbabysoc.syn
 #Compile the Testbench
 iverilog -o /home/anuj/VSDBabySoC/output/post_synth_sim/post_synth_sim.out -DPOST_SYNTH_SIM -DFUNCTIONAL -DUNIT_DELAY=#1 -I /home/anuj/VSDBabySoC/src/include -I /home/anuj/VSDBabySoC/src/module /home/anuj//VSDBabySoC/src/module/testbench.v
 
+# Navigate to the Post-Synthesis Simulation Output Directory
+cd output/post_synth_sim/
+
+#Run the Simulation
+./post_synth_sim.out
+
+#View the Waveforms in GTKWave
+gtkwave post_synth_sim.vcd
+```
+<img width="1103" height="804" alt="Screenshot 2025-10-06 193755" src="https://github.com/user-attachments/assets/0055727b-be21-4f40-b33d-02a86ea48bec" />
+
+
+
+
 
