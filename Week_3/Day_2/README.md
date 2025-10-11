@@ -241,3 +241,23 @@ Definition: Minimum high/low time of clock signals.
   
 * Purpose: Ensures reliable clocking of sequential elements.
 
+## Timing Analysis
+
+* The following combinational block:
+
+<img width="1352" height="953" alt="Screenshot 2025-10-07 114334" src="https://github.com/user-attachments/assets/f3fa9227-4969-4554-9a4a-19f4c46fb721" />
+
+* Now timing graph
+
+<img width="1681" height="920" alt="Screenshot 2025-10-07 115936" src="https://github.com/user-attachments/assets/e5438041-43e8-4c8e-b979-f7de4bb1bdd7" />
+
+* calculation of RAT AAT and Slack
+
+
+<img width="1467" height="802" alt="Screenshot 2025-10-07 164305" src="https://github.com/user-attachments/assets/397308ea-2eed-46c5-bb60-3e1637588fe5" />
+
+* For accurate and detailed timing analysis , use pin node conventions
+
+
+  <img width="1728" height="847" alt="Screenshot 2025-10-07 172146" src="https://github.com/user-attachments/assets/93dc3893-eb2e-46d5-9087-2336c5632317" />
+
