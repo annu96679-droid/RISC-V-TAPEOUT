@@ -102,7 +102,13 @@ cd output/post_synth_sim/
 #View the Waveforms in GTKWave
 gtkwave post_synth_sim.vcd
 ```
+* post_synth_simulation
 <img width="1103" height="804" alt="Screenshot 2025-10-06 193755" src="https://github.com/user-attachments/assets/0055727b-be21-4f40-b33d-02a86ea48bec" />
+
+* pr_synth_simulation
+  <img width="1285" height="804" alt="Screenshot 2025-09-29 120940" src="https://github.com/user-attachments/assets/f6082b6d-1226-4f34-baaa-d6adc0dbdc09" />
+
+
 
 
 
