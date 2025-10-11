@@ -1,4 +1,4 @@
-<img width="1148" height="808" alt="Screenshot 2025-10-10 113424" src="https://github.com/user-attachments/assets/e15c1f9b-d0d6-4717-80df-0c4236546518" /># Generate Timing Graphs with OpenSTA 
+# Generate Timing Graphs with OpenSTA 
 
 ## Parallax Static Timing Analyzer
 
