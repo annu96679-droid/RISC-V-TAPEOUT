@@ -6,3 +6,22 @@ During STA, the design’s netlist, timing constraints, and cell library informa
 
 **STA consists of checks, constraints, library**
 
+## Timing path, Arrival Time, Required time, Slack
+
+<img width="1843" height="973" alt="Screenshot 2025-10-07 092705" src="https://github.com/user-attachments/assets/dfe0a412-75b6-4ea8-b42d-41a13ab2641c" />
+
+## 1. Timing Path
+
+A timing path is the route that a signal travels between a start point and an end point within a digital circuit.
+
+In this image, there are four possible timing paths (shown as dashed yellow lines):
+
+* Path 1: From the input port (IN) to the D-input of the Launch Flip-Flop.
+
+* Path 2: From the Q-output of the Capture Flip-Flop to the output port (OUT).
+
+* Path 3: From the Q-output of the Launch Flip-Flop through the combinational logic cloud to the D-input of the Capture Flip-Flop — this is the main data path checked for setup and hold timing.
+
+* Path 4: From the input port (IN) directly to the output port (OUT) (represents an I/O timing check).
+
+Every timing path starts from a start point (like an input port or clock pin of a launching flip-flop) and ends at an end point (like an output port or D-pin of a capturing flip-flop).
