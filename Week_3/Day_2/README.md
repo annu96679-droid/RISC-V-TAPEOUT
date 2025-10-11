@@ -38,37 +38,25 @@ In this diagram, the arrival time of data at the D pin of the Capture Flop depen
 
 * The interconnect delays (inverters/buffers numbered 2–3).
 
-So, mathematically:
-
-Arrival Time
-=
-𝑡
-𝐶
-𝑄
-+
-𝑡
-𝑐
-𝑜
-𝑚
-𝑏
-+
-𝑡
-𝑟
-𝑜
-𝑢
-𝑡
-𝑒
-Arrival Time=t
-CQ
-	​
-
-+t
-comb
-	​
-
-+t
-route
-	​
-
-
 It tells us when the data actually becomes valid at the destination (capture flop input).
+
+## 3. Required Time (RT)
+
+Required Time is the latest time by which the signal must arrive at the endpoint (e.g., capture flop D-input) so that it can be correctly latched on the next active clock edge.
+
+If data arrives later than this required time, it will violate setup timing, meaning the capture flop may latch incorrect data.
+
+## 4. Slack
+
+Slack represents the difference between the required time and the actual arrival time. It shows whether timing is met or violated.
+
+**Slack = Required time - Arrival time**
+
+* If Slack > 0 → The signal arrives earlier than needed (timing met ✅).
+
+* If Slack = 0 → The signal arrives exactly at the limit (critical path ⚠️).
+
+* If Slack < 0 → The signal is late (timing violation ❌).
+
+In STA, the critical path is the one with least slack (most negative) — it determines the maximum clock frequency at which the circuit can safely operate.
+
