@@ -51,4 +51,39 @@ synth -top vsdbabysoc
 <img width="1283" height="389" alt="Screenshot 2025-10-06 175053" src="https://github.com/user-attachments/assets/869234c5-01d5-421f-85ed-b782601bb507" />
 <img width="1280" height="805" alt="Screenshot 2025-10-06 175104" src="https://github.com/user-attachments/assets/ffe79da8-37c2-4e1e-9ae3-dcfc4aa0ee70" />
 
+```bash
+#Map D Flip-Flops to Standard Cells
+dfflibmap -liberty /home/anuj/VSDBabySoC/src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+```
+<img width="1253" height="805" alt="Screenshot 2025-10-06 175900" src="https://github.com/user-attachments/assets/76cadf46-3b46-4ae6-b126-7163114c4c9c" />
+
+```bash
+#Perform Optimization and Technology Mapping
+opt
+abc -liberty /home/anuj/VSDBabySoC/src/lib/sky130_fd_sc_hd__tt_025C_1v80.lib -script +strash;scorr;ifraig;retime;{D};strash;dch,-f;map,-M,1,{D}
+
+```
+<img width="941" height="799" alt="Screenshot 2025-10-06 180009" src="https://github.com/user-attachments/assets/9879b85f-64d1-4a59-9514-a94c86d16706" />
+<img width="1145" height="811" alt="Screenshot 2025-10-06 183742" src="https://github.com/user-attachments/assets/00539dd6-125a-4fc9-b5a7-f1612a1711f9" />
+<img width="934" height="97" alt="Screenshot 2025-10-06 183758" src="https://github.com/user-attachments/assets/31cf3022-167a-4401-97cb-7f7fbb83d6b2" />
+
+```bash
+#Perform Final Clean-Up and Renaming
+flatten
+setundef -zero
+clean -purge
+rename -enumerate
+```
+<img width="1063" height="382" alt="Screenshot 2025-10-06 184044" src="https://github.com/user-attachments/assets/62549682-d436-4ff3-9068-ec68589842a5" />
+
+```bash
+#Check Statistics
+stat
+```
+<img width="1146" height="794" alt="Screenshot 2025-10-06 184135" src="https://github.com/user-attachments/assets/ef0c03e0-381b-4a54-aff7-387253596482" />
+
+```bash
+#Write the Synthesized Netlist
+write_verilog -noattr /home/anuj/VSDBabySoC/output/post_synth_sim/vsdbabysoc.synth.v
+```
 
