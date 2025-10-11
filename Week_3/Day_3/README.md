@@ -215,3 +215,7 @@ report_power
 ```
 
 <img width="1147" height="804" alt="Screenshot 2025-10-10 113742" src="https://github.com/user-attachments/assets/2fa96d37-08d7-43a4-b685-a4c2453e94b6" />
+
+<img width="1186" height="796" alt="Screenshot 2025-10-10 160939" src="https://github.com/user-attachments/assets/84c8deab-f486-4479-a96e-43f3e02c93cc" />
+
+
