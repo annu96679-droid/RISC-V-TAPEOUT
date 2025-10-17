@@ -39,7 +39,6 @@ plot -vdd#branch
 |  # | Tangent point used (x₀, y₀) | Tangent slope (dy/dx) (A/V) | Extrapolated intercept (V) → Estimated V<sub>th</sub> | Comment                                               |
 | -: | --------------------------- | --------------------------: | ----------------------------------------------------: | ----------------------------------------------------- |
 |  1 | (1.40000 V, 1.1871e-04 A)   |                 1.98879e-04 |                                         **0.80310 V** | Tangent taken around 1.2–1.4 V region                 |
-|  2 | (0.99813 V, 3.96774e-05 A)  |                 3.45161e-04 |                                         **0.88318 V** | Tangent near 1.0 V (smaller slope → larger intercept) |
-|  3 | (1.20374 V, 7.96774e-05 A)  |                 1.92793e-04 |                                         **0.79046 V** | Tangent spanning ~1.20 → 0.99 region                  |
-|  4 | (1.60374 V, 1.58065e-04 A)  |                 1.94952e-04 |                                         **0.79295 V** | Tangent from higher-V region                          |
+|  2 | (1.20374 V, 7.96774e-05 A)  |                 1.92793e-04 |                                         **0.79046 V** | Tangent spanning ~1.20 → 0.99 region                  |
+|  3 | (1.60374 V, 1.58065e-04 A)  |                 1.94952e-04 |                                         **0.79295 V** | Tangent from higher-V region                          |
 
