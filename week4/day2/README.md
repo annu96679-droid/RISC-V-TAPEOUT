@@ -1,6 +1,9 @@
 # DAY2
 
 ## LAB1
+** THRESHOLD VOLATAGE**
+
+
 
 ```bash
 #open the file
@@ -42,3 +45,7 @@ plot -vdd#branch
 |  2 | (1.20374 V, 7.96774e-05 A)  |                 1.92793e-04 |                                         **0.79046 V** | Tangent spanning ~1.20 → 0.99 region                  |
 |  3 | (1.60374 V, 1.58065e-04 A)  |                 1.94952e-04 |                                         **0.79295 V** | Tangent from higher-V region                          |
 
+Now take the mean of all these tangents and the value will be Threshold volatge.
+Mean = (0.80310 + 0.79046 + 0.79295) / 3 = 0.81
+
+hence, the approx threshold volatge is 0.81
