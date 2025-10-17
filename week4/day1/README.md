@@ -1,4 +1,4 @@
-# LAB1 
+:d# LAB1 
 ## BASIC SPICE STEUP:
 
 ```bash
@@ -49,5 +49,57 @@ less sky130.lib.spice
 
 <img width="1015" height="797" alt="image" src="https://github.com/user-attachments/assets/a0499450-cb7b-4a3b-be2a-6f93e25c3516" />
 
+```bash
+#open the file
+less spice
+```
+<img width="1007" height="800" alt="image" src="https://github.com/user-attachments/assets/61403439-3f03-492b-821b-885efaa4add4" />
 
+```bash
+#open the file in the current directory
+vim day1_nfet_idvds_L2_W5.spice
+
+```
+<img width="998" height="800" alt="image" src="https://github.com/user-attachments/assets/c364251e-505f-4b04-beac-1ec51799e7d9" />
+
+```bash
+#Plot the Ids vs Vds
+ngspice day1_nfet_idvds_L2_W5.spice
+```
+
+<img width="1010" height="802" alt="image" src="https://github.com/user-attachments/assets/848b0947-3cfe-43e6-b4fd-cec741b14a64" />
+
+```bash
+plot -vdd#branch
+```
+<img width="1259" height="798" alt="Screenshot 2025-10-17 224700" src="https://github.com/user-attachments/assets/d513d477-6d00-4662-8466-c8bea6e7a682" />
+
+* About the Graph 
+
+This is a set of I–V characteristics (current–voltage curves) of an NMOS transistor.
+It plots the drain current (I<sub>D</sub>) versus drain-to-source voltage (V<sub>DS</sub>), for multiple values of gate-to-source voltage (V<sub>GS</sub>).
+
+Shape of the curves (region explanation)
+
+Each curve has two main regions — let’s look at what happens as you move left → right:
+
+(a) Linear / Triode Region
+
+Found at low V<sub>DS</sub> (0 – ~0.3 V).
+
+The transistor behaves like a resistor — I<sub>D</sub> increases linearly with V<sub>DS</sub>.
+
+(b) Saturation Region
+
+As V<sub>DS</sub> increases further, the curve flattens out (becomes nearly horizontal).
+
+The transistor enters saturation — current becomes almost constant (controlled by V<sub>GS</sub> only).
+
+| **Parameter**                        | **Meaning**                                                                            |
+| ------------------------------------ | -------------------------------------------------------------------------------------- |
+| **V<sub>GS</sub> (sweep parameter)** | Controls how strongly the NMOS conducts. Higher V<sub>GS</sub> → higher I<sub>D</sub>. |
+| **V<sub>DS</sub> (x-axis)**          | Voltage applied across drain and source — determines the operating region.             |
+| **I<sub>D</sub> (y-axis)**           | Drain current — output of the transistor model.                                        |
+| **Flattening of curves**             | Shows transistor entering the **saturation region**.                                   |
+| **Steeper slope at start**           | Indicates **stronger conduction** due to larger V<sub>GS</sub>.                        |
 
