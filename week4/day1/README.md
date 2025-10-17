@@ -78,7 +78,7 @@ plot -vdd#branch
 * About the Graph 
 
 This is a set of I–V characteristics (current–voltage curves) of an NMOS transistor.
-It plots the drain current (I<sub>D</sub>) versus drain-to-source voltage (V<sub>DS</sub>), for multiple values of gate-to-source voltage (V<sub>GS</sub>).
+It plots the drain current versus drain-to-source voltage, for multiple values of gate-to-source voltage.
 
 Shape of the curves (region explanation)
 
@@ -86,19 +86,32 @@ Each curve has two main regions — let’s look at what happens as you move lef
 
 (a) Linear / Triode Region
 
-Found at low V<sub>DS</sub> (0 – ~0.3 V).
+Found at low Vds (0 – ~0.3 V).
 
-The transistor behaves like a resistor — I<sub>D</sub> increases linearly with V<sub>DS</sub>.
+The transistor behaves like a resistor — Id increases linearly with Vds.
 
 (b) Saturation Region
 
-As V<sub>DS</sub> increases further, the curve flattens out (becomes nearly horizontal).
+As Vds increases further, the curve flattens out (becomes nearly horizontal).
 
-The transistor enters saturation — current becomes almost constant (controlled by V<sub>GS</sub> only).
+The transistor enters saturation — current becomes almost constant (controlled by Vgs only).
+
+**Purpose:**
+To understand how the drain current varies with drain-to-source voltage  for different gate voltages.
+
+Why we do it:
+
+To identify three regions of operation: cutoff, triode (linear), and saturation.
+
+To extract output characteristics of the NMOS.
+
+To determine saturation voltage (Vds, sat) and observe channel length modulation.
+
+Essential for analog design (e.g., knowing when a MOSFET acts like a current source).
 
 | **Parameter**                        | **Meaning**                                                                            |
 | ------------------------------------ | -------------------------------------------------------------------------------------- |
-| **V<sub>GS</sub> (sweep parameter)** | Controls how strongly the NMOS conducts. Higher V<sub>GS</sub> → higher I<sub>D</sub>. |
+| **Vgs (sweep parameter)** | Controls how strongly the NMOS conducts. Higher V<sub>GS</sub> → higher I<sub>D</sub>. |
 | **V<sub>DS</sub> (x-axis)**          | Voltage applied across drain and source — determines the operating region.             |
 | **I<sub>D</sub> (y-axis)**           | Drain current — output of the transistor model.                                        |
 | **Flattening of curves**             | Shows transistor entering the **saturation region**.                                   |
