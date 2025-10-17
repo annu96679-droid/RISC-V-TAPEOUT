@@ -13,3 +13,18 @@ In simpler terms, it's the point on the voltage transfer characteristic (VTC) cu
 * Switching Speed: It influences the propagation delay of the gate.
 
 * Robustness: A V<sub>M</sub> that is not centered can make the circuit more susceptible to noise on one logic level than the other.
+
+**Detailed Explanation: The Physics of V<sub>M</sub>**
+A CMOS inverter consists of an NMOS and a PMOS transistor.
+
+When V<sub>in</sub> is low (0 V), the NMOS is off, the PMOS is on, and V<sub>out</sub> is high (V<sub>DD</sub>).
+
+When V<<sub>in</sub> is high (V<sub>DD</sub>), the PMOS is off, the NMOS is on, and V<sub>out</sub> is low (0 V).
+
+The transition between these two states is not instantaneous. The Switching Threshold (V<sub>M</sub>) is the precise input voltage in the middle of this rapid transition where the inverter is, for a brief moment, in an analog amplifier mode. At this point:
+
+Both transistors are conducting significant current.
+
+Both transistors are typically in the saturation region (for a symmetric inverter).
+
+The circuit draws a peak current from the power supply, known as the short-circuit current.
