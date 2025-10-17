@@ -27,9 +27,16 @@ ls
 ```bash
 #open the file
 less sky130_fd_pr__nfet_01v8_tt.pm3.spice
-
-<img width="1273" height="803" alt="image" src="https://github.com/user-attachments/assets/a45de70b-4e4f-402e-951f-eeab2dde9908" />
 ```
+<img width="1274" height="804" alt="Screenshot 2025-10-17 222652" src="https://github.com/user-attachments/assets/088c63c8-cf83-41e8-9896-b569ca934a57" />
+
+```bash
+#open the file
+less sky130_fd_pr__nfet_01v8_tt.corner.spice
+```
+<img width="1287" height="802" alt="image" src="https://github.com/user-attachments/assets/c61883d5-d946-4125-a1f3-fc9b67406682" />
+
+
 
 
 
