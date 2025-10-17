@@ -1,13 +1,13 @@
 # DAY2
 
-## LAB1
+## What is Threshold Voltage (V<sub>th</sub>)?
 
-**What is Threshold Voltage (V<sub>th</sub>)?**
 The threshold voltage (V<sub>th</sub>) is the minimum gate-to-source voltage (V<sub>GS</sub>) required to create a conducting path between the source and drain terminals of a MOSFET, effectively "turning it on."
 
 Think of it as the "activation voltage." Below V<sub>th</sub>, the transistor is in the OFF state (cut-off region), and very little current flows. At and above V<sub>th</sub>, the transistor enters the ON state, and a significant current (the drain current, I<sub>D</sub>) can flow.
 
 **Physical Significance**
+
 Applying V<sub>GS</sub> creates an electric field that attracts charges to the silicon-silicon dioxide interface beneath the gate. V<sub>th</sub> is precisely the voltage needed to form a "channel" of minority carriers (an "inversion layer") that connects the source and drain.
 
 **Detailed Explanation: The Physics Behind V<sub>th</sub>**
@@ -23,6 +23,8 @@ To understand V<sub>th</sub>, we need to see what happens step-by-step in an n-c
 * Above Threshold (V<sub>GS</sub> > V<sub>th</sub>): Any additional positive gate voltage no longer widens the depletion region significantly but instead adds more electrons to the inversion layer, strengthening the channel and increasing its conductivity.
 
 The voltage V<sub>th</sub> is the sum of all the voltage contributions needed to achieve this state of strong inversion
+
+## LAB1
 
 ```bash
 #open the file
