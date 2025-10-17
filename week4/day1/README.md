@@ -1,4 +1,4 @@
-:d# LAB1 
+# LAB1 
 ## BASIC SPICE STEUP:
 
 ```bash
