@@ -15,6 +15,7 @@ In simpler terms, it's the point on the voltage transfer characteristic (VTC) cu
 * Robustness: A V<sub>M</sub> that is not centered can make the circuit more susceptible to noise on one logic level than the other.
 
 **Detailed Explanation: The Physics of V<sub>M</sub>**
+
 A CMOS inverter consists of an NMOS and a PMOS transistor.
 
 When V<sub>in</sub> is low (0 V), the NMOS is off, the PMOS is on, and V<sub>out</sub> is high (V<sub>DD</sub>).
@@ -28,3 +29,23 @@ Both transistors are conducting significant current.
 Both transistors are typically in the saturation region (for a symmetric inverter).
 
 The circuit draws a peak current from the power supply, known as the short-circuit current.
+
+## Labs Sky130 SPICE simulation for CMOS
+
+```bash
+#open the file
+vim day3_inv_vtc_Wp084_Wn036.spice
+```
+<img width="1046" height="805" alt="image" src="https://github.com/user-attachments/assets/b6f78036-3db3-4b06-b56a-76741f6b49e5" />
+
+```bash
+#plot the characteristics
+ngspice day3_inv_vtc_Wp084_Wn036.spice
+
+plot -vdd#branch
+```
+
+<img width="1252" height="805" alt="image" src="https://github.com/user-attachments/assets/57159edf-ad8e-4963-99e7-d298e6f9e5ff" />
+<img width="1315" height="813" alt="image" src="https://github.com/user-attachments/assets/67c6f90c-cf75-4a61-9cbf-42820a21b969" />
+
+Hence the switching threshold : 8.77mv [Vin = Vout]
