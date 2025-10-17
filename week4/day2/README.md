@@ -24,7 +24,7 @@ To understand V<sub>th</sub>, we need to see what happens step-by-step in an n-c
 
 The voltage V<sub>th</sub> is the sum of all the voltage contributions needed to achieve this state of strong inversion
 
-## LAB1
+## LAB
 
 ```bash
 #open the file
