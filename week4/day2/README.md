@@ -1,9 +1,28 @@
 # DAY2
 
 ## LAB1
-** THRESHOLD VOLATAGE**
 
+**What is Threshold Voltage (V<sub>th</sub>)?**
+The threshold voltage (V<sub>th</sub>) is the minimum gate-to-source voltage (V<sub>GS</sub>) required to create a conducting path between the source and drain terminals of a MOSFET, effectively "turning it on."
 
+Think of it as the "activation voltage." Below V<sub>th</sub>, the transistor is in the OFF state (cut-off region), and very little current flows. At and above V<sub>th</sub>, the transistor enters the ON state, and a significant current (the drain current, I<sub>D</sub>) can flow.
+
+**Physical Significance**
+Applying V<sub>GS</sub> creates an electric field that attracts charges to the silicon-silicon dioxide interface beneath the gate. V<sub>th</sub> is precisely the voltage needed to form a "channel" of minority carriers (an "inversion layer") that connects the source and drain.
+
+**Detailed Explanation: The Physics Behind V<sub>th</sub>**
+
+To understand V<sub>th</sub>, we need to see what happens step-by-step in an n-channel MOSFET (NMOS):
+
+* Zero Gate Voltage (V<sub>GS</sub> = 0): The p-type substrate has holes as majority carriers. Two n+ regions (source and drain) form p-n junctions with the substrate. No continuous path exists between source and drain.
+
+* Small Positive V<sub>GS</sub>: The positive gate voltage repels holes away from the silicon-oxide interface. This creates a depletion region filled with negatively charged acceptor ions.
+
+* Reaching Threshold (V<sub>GS</sub> = V<sub>th</sub>): As V<sub>GS</sub> increases further, the surface potential (the voltage at the silicon surface) becomes sufficiently positive to attract electrons (minority carriers) from the source. The concentration of electrons at the surface becomes equal to the concentration of holes in the bulk substrate. This point is called strong inversion. The thin layer of electrons is the conducting channel.
+
+* Above Threshold (V<sub>GS</sub> > V<sub>th</sub>): Any additional positive gate voltage no longer widens the depletion region significantly but instead adds more electrons to the inversion layer, strengthening the channel and increasing its conductivity.
+
+The voltage V<sub>th</sub> is the sum of all the voltage contributions needed to achieve this state of strong inversion
 
 ```bash
 #open the file
