@@ -99,7 +99,7 @@ The transistor enters saturation — current becomes almost constant (controlled
 **Purpose:**
 To understand how the drain current varies with drain-to-source voltage  for different gate voltages.
 
-Why we do it:
+**Why we do it:**
 
 To identify three regions of operation: cutoff, triode (linear), and saturation.
 
