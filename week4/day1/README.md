@@ -55,6 +55,7 @@ less spice
 ```
 <img width="1007" height="800" alt="image" src="https://github.com/user-attachments/assets/61403439-3f03-492b-821b-885efaa4add4" />
 
+## DAY1 : LAB SESSION
 ```bash
 #open the file in the current directory
 vim day1_nfet_idvds_L2_W5.spice
@@ -102,4 +103,5 @@ The transistor enters saturation — current becomes almost constant (controlled
 | **I<sub>D</sub> (y-axis)**           | Drain current — output of the transistor model.                                        |
 | **Flattening of curves**             | Shows transistor entering the **saturation region**.                                   |
 | **Steeper slope at start**           | Indicates **stronger conduction** due to larger V<sub>GS</sub>.                        |
+
 
