@@ -97,7 +97,7 @@ vim day3_inv_trans_Wp084_Wn036.spice
 ```
 <img width="1146" height="801" alt="image" src="https://github.com/user-attachments/assets/c1774116-1d53-490c-88c7-72e5b30c38c6" />
 
-** Explanation of Pulse**
+**Explanation of Pulse**
 
 PULSE (0V 1.8V 0 0.1ns 0.1ns 2ns 4ns)
 
