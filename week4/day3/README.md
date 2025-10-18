@@ -89,9 +89,9 @@ The fundamental reason why signals don't transition instantaneously is the paras
 
 * The time it takes to discharge from 90% to 10% of V<sub>DD</sub> is the fall time.
 
-  ## Labs Sky130 SPICE simulation for CMOS (transient analysis)
+## Labs Sky130 SPICE simulation for CMOS (transient analysis)
 
-  ```bash
+```bash
 #open the file
 vim day3_inv_trans_Wp084_Wn036.spice
 ```
@@ -118,17 +118,18 @@ plot out vs in
 <img width="1150" height="795" alt="image" src="https://github.com/user-attachments/assets/18251e1d-4568-45c7-b5ea-9497a202ebfb" />
 <img width="1155" height="796" alt="image" src="https://github.com/user-attachments/assets/af5bdc30-dd91-4995-b297-2ee83348451b" />
 
-**Rise delay
+**Rise delay**
 
 <img width="1152" height="805" alt="image" src="https://github.com/user-attachments/assets/3d1ad83f-435e-4ec0-b66e-95d0cddbfebc" />
 
-on the x axes, the values are : 2.144 and 2.519
-then the rise delay will be = 2.519 - 2.144 = 0.375
+* on the x axes, the values are : 2.144 and 2.519
 
-**Fall delay
+* then the rise delay will be = 2.519 - 2.144 = 0.375
+
+**Fall delay**
 
 <img width="965" height="117" alt="image" src="https://github.com/user-attachments/assets/76720243-c0e1-467b-8eb9-4dd59ef4404f" />
 <img width="976" height="806" alt="image" src="https://github.com/user-attachments/assets/7a11ba2b-9937-4c90-bb33-4510765bbbad" />
 
-on the x axis , the values are : 8.055 and 8.304
-the the fall delay will be = 8.304 and 8.055 = 0.249
+* on the x axis , the values are : 8.055 and 8.304
+* the the fall delay will be = 8.304 and 8.055 = 0.249
