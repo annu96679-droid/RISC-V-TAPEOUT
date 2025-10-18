@@ -49,3 +49,42 @@ plot -vdd#branch
 <img width="1315" height="813" alt="image" src="https://github.com/user-attachments/assets/67c6f90c-cf75-4a61-9cbf-42820a21b969" />
 
 Hence the switching threshold : 8.77mv [Vin = Vout]
+
+## Rise delay and Fall delay
+
+**What are Rise Time and Fall Time?**
+
+* Rise Time (t<sub>r</sub>) is the time it takes for a signal to transition from a low logic level to a high logic level. Specifically, it's measured from 10% to 90% of the full voltage swing (from V<sub>DD</sub>).
+
+* Fall Time (t<sub>f</sub>) is the time it takes for a signal to transition from a high logic level to a low logic level. Specifically, it's measured from 90% to 10% of the full voltage swing.
+
+These parameters describe how "steep" or "slow" the edges of your digital signals are. Fast rise/fall times are crucial for high-speed digital circuits.
+
+**Detailed Explanation:**
+
+The Physics Behind t<sub>r</sub> and t<sub>f</sub>
+The fundamental reason why signals don't transition instantaneously is the parasitic capacitance at the output node of a gate. This capacitance (C<sub>L</sub>) must be charged or discharged through the transistors.
+
+**For Rise Time (t<sub>r</sub>):**
+
+* When the input to a CMOS inverter goes LOW, the PMOS transistor turns ON.
+
+* The PMOS acts like a variable resistor, creating a current path from V<sub>DD</sub> to the output node.
+
+* This current charges the load capacitor C<sub>L</sub>.
+
+* The voltage across a capacitor cannot change instantaneously - it follows an exponential (or RC) charging curve.
+
+* The time it takes to charge from 10% to 90% of V<sub>DD</sub> is the rise time.
+
+**For Fall Time (t<sub>f</sub>):**
+
+* When the input goes HIGH, the NMOS transistor turns ON.
+
+* The NMOS acts like a variable resistor, creating a current path from the output node to GND.
+
+* This current discharges the load capacitor C<sub>L</sub>.
+
+* The voltage discharges following an exponential (or RC) curve.
+
+* The time it takes to discharge from 90% to 10% of V<sub>DD</sub> is the fall time.
