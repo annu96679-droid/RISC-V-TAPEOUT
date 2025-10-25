@@ -33,3 +33,47 @@ sudo ./setup.sh
 ```
 
 <img width="1274" height="809" alt="Screenshot 2025-10-21 211327" src="https://github.com/user-attachments/assets/4833e7de-c58d-4448-b9d3-c2c401dd08a3" />
+<img width="1262" height="803" alt="Screenshot 2025-10-22 165740" src="https://github.com/user-attachments/assets/60961298-fc59-448e-adb6-f0bddae80564" />
+
+```bash
+#Verify Installation
+
+source ./env.sh
+yosys -help  
+openroad -help
+
+```
+
+<img width="1285" height="803" alt="Screenshot 2025-10-22 165849" src="https://github.com/user-attachments/assets/be92affc-37ed-415f-b6fd-57534c4bcc9f" />
+<img width="1282" height="804" alt="Screenshot 2025-10-22 165900" src="https://github.com/user-attachments/assets/d0a2fec0-6fe1-4752-9670-ad442585c0c8" />
+
+```bash
+
+#Run the OpenROAD Flow
+
+cd flow
+make
+
+```
+<img width="1284" height="805" alt="Screenshot 2025-10-22 170046" src="https://github.com/user-attachments/assets/5894bfb4-a040-4428-9067-9a9805f3be21" />
+
+```bash
+#Launch the graphical user interface (GUI) to visualize the final layout
+ make gui_final
+
+```
+<img width="1285" height="802" alt="Screenshot 2025-10-25 111047" src="https://github.com/user-attachments/assets/15d92cfc-1566-46bf-87e8-f3133d120338" />
+<img width="1285" height="806" alt="Screenshot 2025-10-22 170245" src="https://github.com/user-attachments/assets/93055875-3a94-40b5-bc34-3f0290bd71a8" />
+
+**The Central Canvas: The Chip Layout**
+This is the visual core of the image. It shows the physical implementation of the "gcd" circuit.
+
+* The Grid of White Rectangles: These are the standard cell rows. The automated tool places the individual logic gates (from the nangates45 library) in these rows.
+
+* The Small Colored Rectangles inside the Rows: These are the standard cells themselves (the individual logic gates like NAND, NOR, etc.). Different colors often represent different types of cells or different layers of the transistor.
+
+* The Thin Colored Lines: This is the interconnect or routing. These are the metal wires that connect the standard cells together according to the circuit's netlist.
+
+* Different colors represent different metal layers in the chip. A modern chip can have 10+ layers of metal wiring stacked on top of each other. The tool uses these layers to efficiently connect everything without wires shorting.
+
+* In simple terms: The white rows are the "land" where the logic gates (colored blocks) are placed. The colored lines are the "roads" (wires) that connect the gates together.
