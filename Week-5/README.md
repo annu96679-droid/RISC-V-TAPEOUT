@@ -57,6 +57,7 @@ make
 ```
 <img width="1284" height="805" alt="Screenshot 2025-10-22 170046" src="https://github.com/user-attachments/assets/5894bfb4-a040-4428-9067-9a9805f3be21" />
 
+## Execute Floorplan and Placement
 ```bash
 #Launch the graphical user interface (GUI) to visualize the final layout
  make gui_final
@@ -77,3 +78,46 @@ This is the visual core of the image. It shows the physical implementation of th
 * Different colors represent different metal layers in the chip. A modern chip can have 10+ layers of metal wiring stacked on top of each other. The tool uses these layers to efficiently connect everything without wires shorting.
 
 * In simple terms: The white rows are the "land" where the logic gates (colored blocks) are placed. The colored lines are the "roads" (wires) that connect the gates together.
+
+## Short summary
+
+## Steps followed:
+
+```bash
+git clone --recursive https://github.com/The-OpenROAD-Project/OpenROAD-flow-scripts
+cd OpenROAD-flow-scripts
+sudo ./setup.sh
+./build_openroad.sh --local
+source ./env.sh
+yosys -help  
+openroad -help
+cd flow
+make
+make gui_final
+
+```
+## Challenges faced 
+
+**Getting stuck on the 3rd step**
+<img width="1156" height="801" alt="Screenshot 2025-10-21 235649" src="https://github.com/user-attachments/assets/14b41d93-dd4a-4514-a77f-8e3d2e39f172" />
+
+**Steps to fix it**
+
+```bash
+#Enable swap (RAM is low)
+
+sudo fallocate -l 4G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+sudo swapon /swapfile
+
+#Follow these commands
+
+cd ~/Openroad-flow-scripts/tools/Openroad
+rm -rf build
+mkdir build
+cd build
+cmake .. -DEOPENROAD_BUILD_TESTS=OFF
+gmake -j$(nproc)
+
+```
