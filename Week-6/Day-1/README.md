@@ -26,7 +26,7 @@ ls -lrt
 
 #change the directory
 cd pdks
-```bash
+```
 
 <img width="1290" height="912" alt="Screenshot 2025-10-27 120742" src="https://github.com/user-attachments/assets/f8a8a29d-a2bd-40e4-966c-9413245c513a" />
 
