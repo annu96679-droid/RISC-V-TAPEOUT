@@ -1,4 +1,4 @@
-# DAY-1
+<img width="1293" height="913" alt="Screenshot 2025-10-27 141912" src="https://github.com/user-attachments/assets/7018c248-4977-46a4-9ad7-a94b4db8a676" /># DAY-1
 
 # Inception of Open source EDA , OpenLANE and SKY130 PDK
 
@@ -243,7 +243,107 @@ docker
 #activates OpenLane’s Tcl package (version 0.9)
 package require openlane 0.9 (in the OpenLANE environment)
 
+#initial setup stage of the OpenLane physical design flow
+prep -design picorv32a
 
 ```
 <img width="795" height="907" alt="Screenshot 2025-10-27 140538" src="https://github.com/user-attachments/assets/bcf02d92-1d36-42cc-ab48-d62b10e84dbb" />
+<img width="784" height="912" alt="Screenshot 2025-10-27 140552" src="https://github.com/user-attachments/assets/8f48d30d-4108-4dd1-a817-4b974f6b4aa8" />
 
+**prep -design picorv32a** command created a fresh run directory 
+<img width="1295" height="872" alt="image" src="https://github.com/user-attachments/assets/b8e6ef7e-1422-4508-9c4c-e02ae2cdfbda" />
+
+## Before Synthesis
+
+```bash
+#change the directory
+cd runs/27-10_08-30/
+
+#change the directory to the tmp and then read the merged lef file
+cd tmp
+less merged.lef
+```
+
+<img width="830" height="908" alt="Screenshot 2025-10-27 141516" src="https://github.com/user-attachments/assets/3cb9cd00-6bdb-4e9e-a837-52cd0aa20fab" />
+<img width="828" height="904" alt="Screenshot 2025-10-27 141619" src="https://github.com/user-attachments/assets/b33d51a1-892e-4833-b122-58c0bae23b69" />
+
+| Type                                      | Purpose                                                                                      | Example                          |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------- |
+| **Technology LEF (tech.lef)**             | Describes metal layers, via rules, spacing, and design constraints of the PDK (like Sky130). | `sky130_fd_sc_hd.tlef`           |
+| **Cell or Macro LEF (standard cell LEF)** | Describes geometry and pins of each cell (NAND2, DFF, etc.).                                 | `sky130_fd_sc_hd.lef`            |
+| **Merged LEF**                            | A combined file that includes **both** tech and cell LEFs (for convenience during layout).   | `merged.lef` or `merged.nom.lef` |
+
+**Before the synthesis , all the reports, result will be empty. It will not show anything**
+
+
+<img width="1293" height="913" alt="Screenshot 2025-10-27 141912" src="https://github.com/user-attachments/assets/4091c1db-165a-40e1-a77a-dc30c938bd50" />
+
+## Running synthesis in OpenLANE
+
+```bash
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+
+```
+<img width="924" height="912" alt="Screenshot 2025-10-27 144919" src="https://github.com/user-attachments/assets/bce1c487-29c0-45eb-a93b-522ccf669orvc2a" />
+<img width="928" height="914" alt="Screenshot 2025-10-27 144949" src="https://github.com/user-attachments/assets/b820158c-d227-454c-9ec6-2dfea9188a09" />
+<img width="928" height="912" alt="image" src="https://github.com/user-attachments/assets/6c7d1798-4bbf-4266-8bd5-f3e5f48fcee3" />
+<img width="922" height="907" alt="Screenshot 2025-10-27 145018" src="https://github.com/user-attachments/assets/d4a9a0ad-a37f-4f8e-a027-81360658fc4c" />
+
+```bash
+#change the directory
+cd ~designs/picorv32a/runs/27-10_08-30/results/synthesis/
+
+#open the synthesis file
+ls -lrt
+```
+
+now inside the synthesis file open the **picorv32a.synthesis.v**
+
+<img width="1125" height="912" alt="Screenshot 2025-10-27 145926" src="https://github.com/user-attachments/assets/7deef884-e5cb-4dd7-9d44-15271df0c3d3" />
+
+**Go into the synthesis**
+<img width="1033" height="213" alt="image" src="https://github.com/user-attachments/assets/1664e68f-657d-4bba-8515-3726a3716053" />
+
+```bash
+#open the module file
+less 1-yosys_4.stat.rpt
+
+#open the timing analysis file
+less 2-open-opensta.rpt
+```
+<img width="1119" height="910" alt="Screenshot 2025-10-27 150831" src="https://github.com/user-attachments/assets/57b8b0c8-2d79-481e-8b08-d48bd745b7e6" />
+
+**Explanation of Timing Analysis**
+
+```bash
+Startpoint: _27862_ (rising edge-triggered flip-flop clocked by clk)
+Endpoint:  _27762_ (rising edge-triggered flip-flop clocked by clk)
+Path Group: clk
+Path Type: max
+```
+* Startpoint: The source flip-flop of the timing path — data launches from this flip-flop at a clock edge (rising here).
+
+* Endpoint: The destination flip-flop — data is captured here at the next active clock edge.
+
+* Path Group: clk → This path belongs to the clock domain named clk.
+
+* Path Type: max → This analysis is for the maximum delay path (setup check).
+
+| Slew (ns) | Delay (ns) | Time (ns) | Meaning                           |
+| --------- | ---------- | --------- | --------------------------------- |
+| 0.18      | 0.71       | 0.71      | Time taken by first cell          |
+| 0.21      | 1.53       | 2.96      | Now total time = 2.96 ns          |
+| 0.17      | 0.97       | 4.47      | Path delay accumulates            |
+| ...       | ...        | ...       | ...                               |
+| 0.14      | 0.71       | 8.71      | Final cumulative time at endpoint |
+
+This report’s purpose is to analyze the timing behavior of your synthesized **RISC-V core (picorv32a)**.
+
+It helps verify whether:
+
+* Logic paths between flip-flops meet setup constraints,
+
+* There are excessive delays or large fanouts,
+
+* You need further optimization (e.g., buffering, logic restructuring).
