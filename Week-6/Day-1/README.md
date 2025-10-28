@@ -2,8 +2,6 @@
 
 # Inception of Open source EDA , OpenLANE and SKY130 PDK
 
-## How to talk to computers
-
 ## 1.Introduction to QFN-48 Package, chip, pads, core, die and IPs
 
 * The QFN-48 (Quad Flat No-leads) package is a modern, surface-mount technology (SMT) housing for integrated circuits (ICs). The "48" denotes the number of electrical connections, or I/O pads, the package provides. Its key physical characteristic is the absence of protruding leads, unlike its predecessor, the QFP (Quad Flat Package). Instead, it features flat, copper-exposed pads on the bottom periphery of the package, which are soldered directly onto matching pads on the printed circuit board (PCB).
@@ -109,7 +107,7 @@ So, in this step:
 
 ➡️ Purpose: To illustrate how a high-level software instruction is mapped to RISC-V assembly — the bridge between software and hardware.
 
-**2.Implementation — Verilog RTL (picorv32 CPU core)
+**2.Implementation — Verilog RTL (picorv32 CPU core)**
 
 This portion shows the hardware description (Verilog code) of a RISC-V compatible CPU core — specifically the PicoRV32, which is an open-source, lightweight 32-bit RISC-V processor core.
 
@@ -168,6 +166,7 @@ This layout is the final physical representation of the RISC-V processor core �
 | **Architecture**   | Defines instruction set and execution behavior | RISC-V ISA, GCC toolchain               | Software + ISA       |
 | **Implementation** | Implements ISA in hardware                     | Verilog HDL                             | RTL Design           |
 | **Layout**         | Converts RTL to chip layout                    | Qflow (Yosys, GrayWolf, QRouter, Magic) | VLSI Physical Design |
+
 
 
 ## OpenLANE Directory structure
