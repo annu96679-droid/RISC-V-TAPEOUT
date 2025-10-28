@@ -285,10 +285,18 @@ less merged.lef
 run_synthesis
 
 ```
-<img width="924" height="912" alt="Screenshot 2025-10-27 144919" src="https://github.com/user-attachments/assets/bce1c487-29c0-45eb-a93b-522ccf669orvc2a" />
+<img width="924" height="912" alt="Screenshot 2025-10-27 144919" src="https://github.com/user-attachments/assets/b71978fb-1914-4ae1-bd1e-2dd0645dd937" />
 <img width="928" height="914" alt="Screenshot 2025-10-27 144949" src="https://github.com/user-attachments/assets/b820158c-d227-454c-9ec6-2dfea9188a09" />
 <img width="928" height="912" alt="image" src="https://github.com/user-attachments/assets/6c7d1798-4bbf-4266-8bd5-f3e5f48fcee3" />
 <img width="922" height="907" alt="Screenshot 2025-10-27 145018" src="https://github.com/user-attachments/assets/d4a9a0ad-a37f-4f8e-a027-81360658fc4c" />
+
+```bash
+Calculate flip-flops ratio: (Total number of flop-flop)/(total number of cells) *100
+
+since , total number of cells = 14876
+        total number of dfxtp_2 = 1613
+hence, the flop ratio : 1613/14876 = 0.108429685 * 100 = 10.8429%
+
 
 ```bash
 #change the directory
