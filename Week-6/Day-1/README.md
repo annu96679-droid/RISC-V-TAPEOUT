@@ -4,7 +4,15 @@
 
 ## How to talk to computers
 
-##  Introduction to QFN-48 Package, chip, pads, core, die and IPs
+## 1.Introduction to QFN-48 Package, chip, pads, core, die and IPs
+
+* The QFN-48 (Quad Flat No-leads) package is a modern, surface-mount technology (SMT) housing for integrated circuits (ICs). The "48" denotes the number of electrical connections, or I/O pads, the package provides. Its key physical characteristic is the absence of protruding leads, unlike its predecessor, the QFP (Quad Flat Package). Instead, it features flat, copper-exposed pads on the bottom periphery of the package, which are soldered directly onto matching pads on the printed circuit board (PCB).
+  
+* This design offers significant advantages: a much smaller footprint, lower height, and superior thermal and electrical performance. The central, exposed pad on the bottom is a critical feature, designed to be soldered to a large copper pour on the PCB, acting as an efficient heat sink to draw thermal energy away from the silicon chip inside. This makes the QFN package exceptionally popular in space-constrained and thermally sensitive applications like smartphones, tablets, and wearable devices.
+
+<img width="916" height="881" alt="Screenshot 2025-10-26 143804" src="https://github.com/user-attachments/assets/3b4fb943-0121-436f-beb8-dfef24a4a2e1" />
+
+
 
 
 ## OpenLANE Directory structure
