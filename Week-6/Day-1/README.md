@@ -199,12 +199,14 @@ cd pdks
 ```
 
 <img width="1290" height="912" alt="Screenshot 2025-10-27 120742" src="https://github.com/user-attachments/assets/f8a8a29d-a2bd-40e4-966c-9413245c513a" />
+<img width="1284" height="559" alt="Screenshot 2025-10-27 120813" src="https://github.com/user-attachments/assets/e395a4b7-a238-4b9e-aa5a-c826937ad91b" />
 
 In this terminal :
 
 **~/Desktop/work/tools/openLane_working_dir/pdks/sky130A/**
 
 * libs.tech/ - Technology libraries - tool-specific configuration files
+
       * DRC Rules: Design Rule Checking specifications
 
       * LVS Rules: Layout vs Schematic comparison rules
@@ -225,4 +227,23 @@ In this terminal :
 
 * source - Metadata file describing the PDK source and version
 
+**Commands to invoke the OpenLANE flow and perform synthesis**
+
+```bash
+#Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+#alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+#Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+
+## Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+#activates OpenLane’s Tcl package (version 0.9)
+package require openlane 0.9 (in the OpenLANE environment)
+
+
+```
+<img width="795" height="907" alt="Screenshot 2025-10-27 140538" src="https://github.com/user-attachments/assets/bcf02d92-1d36-42cc-ab48-d62b10e84dbb" />
 
