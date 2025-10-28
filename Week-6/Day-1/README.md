@@ -200,6 +200,29 @@ cd pdks
 
 <img width="1290" height="912" alt="Screenshot 2025-10-27 120742" src="https://github.com/user-attachments/assets/f8a8a29d-a2bd-40e4-966c-9413245c513a" />
 
+In this terminal :
 
+**~/Desktop/work/tools/openLane_working_dir/pdks/sky130A/**
+
+* libs.tech/ - Technology libraries - tool-specific configuration files
+      * DRC Rules: Design Rule Checking specifications
+
+      * LVS Rules: Layout vs Schematic comparison rules
+
+      * Display Resources: Color schemes, layer definitions
+
+      * Technology Files: Tool-specific setup files
+
+* libs.ref/ - Reference libraries - standard cell libraries, IO cells, etc.
+
+     * Standard Cell Library: Digital logic cells with multiple views (layout, timing, functional)
+
+     * I/O Library: Input/Output pad cells for chip interfaces
+
+     * Primitive Devices: Basic transistors, resistors, capacitors
+
+     * Memory Compilers: For generating RAM/ROM blocks
+
+* source - Metadata file describing the PDK source and version
 
 
