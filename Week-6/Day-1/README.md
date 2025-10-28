@@ -30,7 +30,8 @@ This section describes pins dedicated to high-speed communication, likely locate
 
 <img width="1543" height="863" alt="Screenshot 2025-10-26 144147" src="https://github.com/user-attachments/assets/12182504-57ae-401f-9602-12a4e4f7898c" />
 
-**2. Second Set of Flexible Pins***
+**2. Second Set of Flexible Pins**
+
 This appears to be another bank of pins, perhaps on the opposite side of the chip.
 
 "Direct I2C, direct QSPI, GPIO0-7, PWM0-3"
@@ -47,6 +48,34 @@ This is the core of the chip's pin flexibility. It shows a pool of peripherals t
 * The range "GPIO0-14" represents the physical pins that can be programmed to act as any of these peripherals.
 
 * Implication: You can decide, for example, that you want GPIO5 to be a UART transmit pin and GPIO6 to be a UART receive pin. Alternatively, you could configure GPIO5 as a PWM output instead. This gives tremendous design flexibility but requires careful planning to avoid conflicts.
+
+**4. External Memory and Storage Interfaces**
+
+These blocks are dedicated to connecting critical external components.
+
+* "SDRAM" & "SDRAM chip": This indicates a dedicated memory bus (with data lines, address lines, and control signals) to connect an external Synchronous Dynamic RAM chip. This is used to expand the system's working memory (RAM), which is essential for running complex applications or graphics displays.
+
+* "GSPI1-Flash": Likely stands for a dedicated General SPI or GP-SPI bus connected to the primary external Flash memory chip. This is where the main program code is stored.
+
+**5. Debug, Analog, and Additional Interfaces**
+
+These are specialized interfaces for development, analog signals, and more.
+
+* "JTAG-UART FIDI": This is a debug and programming interface.
+
+* JTAG is used for in-circuit debugging (stepping through code, inspecting registers).
+
+* The "FIDI" part likely refers to FTDI, a company that makes a common USB-to-serial/JTAG bridge chip. This indicates the chip supports programming and serial communication over a USB connection, which is very common on development boards.
+
+* "QSPI3, GPIO14-19" & "ADC (QSPI3), muxed with GPIOs":
+
+* This shows a third QSPI interface (QSPI3) that can be used for another peripheral.
+
+* Crucially, some of these pins are shared with the Analog-to-Digital Converter (ADC). An ADC reads analog voltages (e.g., from a sensor) and converts them to digital numbers. The note "muxed with GPIOs" means you must choose whether a specific pin in this range is used as a digital GPIO or as an analog input.
+
+**6. Power**
+
+* "VCC/GND": These are the pins for supplying power (VCC) and ground (GND) to the chip. A complex chip will have multiple VCC and GND pins to ensure stable, clean power delivery to different internal sections (e.g., digital core, analog circuits, I/O buffers).
 
 ## OpenLANE Directory structure
 
