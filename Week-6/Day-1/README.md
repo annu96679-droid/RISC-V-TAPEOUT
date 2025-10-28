@@ -1,4 +1,4 @@
-<img width="1293" height="913" alt="Screenshot 2025-10-27 141912" src="https://github.com/user-attachments/assets/7018c248-4977-46a4-9ad7-a94b4db8a676" /># DAY-1
+# DAY-1
 
 # Inception of Open source EDA , OpenLANE and SKY130 PDK
 
