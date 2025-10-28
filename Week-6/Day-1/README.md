@@ -1,4 +1,12 @@
-# DAY-1 
+# DAY-1
+
+# Inception of Open source EDA , OpenLANE and SKY130 PDK
+
+## How to talk to computers
+
+##  Introduction to QFN-48 Package, chip, pads, core, die and IPs
+
+
 ## OpenLANE Directory structure
 
 ```bash
