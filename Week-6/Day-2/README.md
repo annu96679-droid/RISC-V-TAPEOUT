@@ -57,18 +57,79 @@ less README.md (this file contains the variables in the synthesis, like maxfanou
 ```bash
 #open the file
 less floorplan.tcl (containing the default parameter for the floorplan stage
-```bash
+```
 
 <img width="1292" height="909" alt="Screenshot 2025-10-28 205628" src="https://github.com/user-attachments/assets/ab56a751-a8be-45f4-9650-31e7db755ad7" />
 
+**Run 'picorv32a' design floorplan using OpenLANE flow and generate necessary outputs**
 
+```bash
+# Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
 
+# alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+# Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
 
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
 
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
 
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
 
+# Now we can run floorplan
+run_floorplan
 
+```
+<img width="1292" height="909" alt="Screenshot 2025-10-28 210310" src="https://github.com/user-attachments/assets/4d87281e-3a5a-45e5-bf8f-883445f04ce2" />
+<img width="1296" height="859" alt="Screenshot 2025-10-28 210341" src="https://github.com/user-attachments/assets/a996b573-fc8c-47bc-9d6d-ddbff6a120ab" />
 
+**Review floorplan files and steps to view floorplan**
+
+```bash
+#change the directory
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/27-10_08-30/
+
+#open the file
+less config.tcl
+
+```
+<img width="1293" height="914" alt="Screenshot 2025-10-28 211515" src="https://github.com/user-attachments/assets/b767e734-ed93-4416-bd84-5fc58c7938db" />
+
+<img width="1295" height="943" alt="Screenshot 2025-10-28 210914" src="https://github.com/user-attachments/assets/a51ff92a-2fb5-4314-b847-225b43afbca9" />
+
+```bash
+#change the directory
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/27-10_08-30/results/floorplan
+
+#open the file
+less picorv32a.floorplan.def
+```
+<img width="1289" height="437" alt="Screenshot 2025-10-28 211704" src="https://github.com/user-attachments/assets/041ba9d9-7c61-4f9f-b938-cd6a74aca02b" />
+<img width="1287" height="911" alt="Screenshot 2025-10-28 211626" src="https://github.com/user-attachments/assets/cbfc9221-31f6-4a81-aadf-9aaebe1d06fa" />
+
+```bash
+**In this image :
+
+                      Die Area : (0  0)(660685  671405)
+
+Here, (0  0) : denotes the lower left x value and lower left y value
+      (660685  671405) : denotes upper right x - value and upper right y - value
+
+Units Distance micron 1000 : means 1 micron = 1000 database units
+
+so , To find the dimension of the die : divide the upper right and upper left values by 1000
+
+Now,         Area of die in microns = Die width in microns * Die hieght in microns
+
+                                   = (660685/1000) * (671405/1000)
+                                   = 443587.212425 square microns
+```
 
 
 
