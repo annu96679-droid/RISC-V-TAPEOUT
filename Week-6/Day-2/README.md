@@ -225,7 +225,7 @@ Standard cells are always placed in the placement not in the floorplan but they 
 <img width="1151" height="915" alt="Screenshot 2025-10-29 144509" src="https://github.com/user-attachments/assets/fa293307-9b34-479b-8969-14d7c972bc6e" />
 <img width="1151" height="915" alt="Screenshot 2025-10-29 144717" src="https://github.com/user-attachments/assets/c463f694-5217-4054-a854-281d7de213ee" />
 
-
+# Theory
 <details>
 	<summary>Theory </summary>
 # Library binding and Placement
