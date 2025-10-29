@@ -52,7 +52,7 @@ less README.md (this file contains the variables in the synthesis, like maxfanou
 <img width="1291" height="911" alt="Screenshot 2025-10-28 205257" src="https://github.com/user-attachments/assets/9b683f76-2958-4f3f-8add-c62e68b5f180" />
 <img width="1283" height="907" alt="Screenshot 2025-10-28 205429" src="https://github.com/user-attachments/assets/ac4ddc17-8b5a-4cbf-b520-bec93d5793cf" />
 
-**Switches for floorplan**
+**1. Switches for floorplan**
 
 ```bash
 #open the file
@@ -61,7 +61,7 @@ less floorplan.tcl (containing the default parameter for the floorplan stage
 
 <img width="1292" height="909" alt="Screenshot 2025-10-28 205628" src="https://github.com/user-attachments/assets/ab56a751-a8be-45f4-9650-31e7db755ad7" />
 
-**Run 'picorv32a' design floorplan using OpenLANE flow and generate necessary outputs**
+**2. Run 'picorv32a' design floorplan using OpenLANE flow and generate necessary outputs**
 
 ```bash
 # Change directory to openlane flow directory
@@ -89,7 +89,7 @@ run_floorplan
 <img width="1292" height="909" alt="Screenshot 2025-10-28 210310" src="https://github.com/user-attachments/assets/4d87281e-3a5a-45e5-bf8f-883445f04ce2" />
 <img width="1296" height="859" alt="Screenshot 2025-10-28 210341" src="https://github.com/user-attachments/assets/a996b573-fc8c-47bc-9d6d-ddbff6a120ab" />
 
-**Review floorplan files and steps to view floorplan**
+**3. Review floorplan files and steps to view floorplan**
 
 ```bash
 #change the directory
@@ -114,7 +114,7 @@ less picorv32a.floorplan.def
 <img width="1287" height="911" alt="Screenshot 2025-10-28 211626" src="https://github.com/user-attachments/assets/cbfc9221-31f6-4a81-aadf-9aaebe1d06fa" />
 
 ```bash
-**In this image :
+In this image :
 
                       Die Area : (0  0)(660685  671405)
 
@@ -132,22 +132,95 @@ Now,         Area of die in microns = Die width in microns * Die hieght in micro
 ```
 
 
+**4. floorplan layout in Magic**
 
+To run this first we need to setup the GUI enviornment , so setup for GUI environment with X11
 
+```bash
+Step 1: Move or install VcXsrv on your Windows host (not inside Ubuntu)
+https://sourceforge.net/projects/vcxsrv/
 
+Step 2: Configure VcXsrv (XLaunch)
 
+Step 3: Connect Ubuntu to the Display by  using the given command
+export DISPLAY=$(grep -m 1 nameserver /etc/resolv.conf | awk '{print $2}'):0
+xhost +
 
+Step 4: Test the GUI works
+xclock
 
+Step 5: launch Magic
 
+```
+**Now, move towards the MAGIC**
 
+Commands to load floorplan def in magic in another terminal
 
+```bash
+# Change directory to path containing generated floorplan def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-10_08-49/results/floorplan/
 
+# Command to load the floorplan def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
+```
 
+<img width="1141" height="911" alt="Screenshot 2025-10-29 143338" src="https://github.com/user-attachments/assets/4a06dfd0-fc75-435d-a021-dc357af090e8" />
 
+<img width="1152" height="935" alt="Screenshot 2025-10-29 143504" src="https://github.com/user-attachments/assets/53bcda04-88a1-46fe-a6e2-186c32641577" />
 
+**How thw floorplane look like in magic**
 
+<img width="898" height="911" alt="image" src="https://github.com/user-attachments/assets/0c702bdb-32b4-4c06-b793-230ca52c0bb6" />
 
+**Horizontal ports(outside the die) & Equidistant placement of ports**
 
+<img width="1151" height="938" alt="Screenshot 2025-10-29 143724" src="https://github.com/user-attachments/assets/e9cfcb9d-896f-4c51-ad93-1251af4409a1" />
 
+**Horizontal ports metal layers set by the config.tcl**
 
+<img width="1152" height="915" alt="Screenshot 2025-10-29 143946" src="https://github.com/user-attachments/assets/ce661176-2a04-44a0-a080-394631433211" />
 
+**Vertical ports metal layer set by congig.tcl**
+
+<img width="1153" height="939" alt="Screenshot 2025-10-29 144033" src="https://github.com/user-attachments/assets/a1d61de0-3deb-46b6-ae7a-93cbffda66ad" />
+
+**Decap and tap cells**
+
+1. The decap cells:
+
+* Store charge when circuits are idle
+
+* Instantly release charge when switching occurs
+
+* Smooth out voltage fluctuations
+
+* Protect timing-critical cells from power droop
+
+**Why they’re needed** 
+
+When many logic gates switch simultaneously (especially at clock edges), they momentarily draw a lot of current from the power rails.
+This causes a voltage drop (IR drop) and local noise.
+
+2. The Tap cells:
+
+In CMOS:
+
+* PMOS transistors sit in n-wells, which must be tied to VDD
+
+* NMOS transistors sit in p-substrate, which must be tied to VSS
+
+**Why they’re needed**
+
+If you don’t tie wells and substrate to fixed potentials, they can float, creating a parasitic device called a latch-up path — which can short VDD to GND and destroy the chip.
+<img width="1156" height="941" alt="Screenshot 2025-10-29 144150" src="https://github.com/user-attachments/assets/30d190a6-7b7c-42cb-b6b2-ae3a935cef14" />
+
+**Diogonally equidistant Tap cells**
+
+<img width="1159" height="938" alt="Screenshot 2025-10-29 143827" src="https://github.com/user-attachments/assets/61cec169-8dfe-47cb-8647-a178956cf084" />
+
+**Unplaced standard cells at the origin**
+
+Standard cells are always placed in the placement not in the floorplan but they usually present in  the corner in the floorplan
+
+<img width="1151" height="915" alt="Screenshot 2025-10-29 144509" src="https://github.com/user-attachments/assets/fa293307-9b34-479b-8969-14d7c972bc6e" />
+<img width="1151" height="915" alt="Screenshot 2025-10-29 144717" src="https://github.com/user-attachments/assets/c463f694-5217-4054-a854-281d7de213ee" />
