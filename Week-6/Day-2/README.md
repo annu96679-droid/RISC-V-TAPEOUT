@@ -225,6 +225,7 @@ Standard cells are always placed in the placement not in the floorplan but they 
 <img width="1151" height="915" alt="Screenshot 2025-10-29 144509" src="https://github.com/user-attachments/assets/fa293307-9b34-479b-8969-14d7c972bc6e" />
 <img width="1151" height="915" alt="Screenshot 2025-10-29 144717" src="https://github.com/user-attachments/assets/c463f694-5217-4054-a854-281d7de213ee" />
 
+
 <details>
 	<summary>Theory </summary>
 # Library binding and Placement
@@ -296,8 +297,39 @@ Something about library
 <img width="1767" height="1068" alt="Screenshot 2025-10-29 214821" src="https://github.com/user-attachments/assets/dc5f8abf-da2a-45c9-91dc-b19d823b6102" />
 <img width="1735" height="1076" alt="Screenshot 2025-10-29 214835" src="https://github.com/user-attachments/assets/508b6452-c67b-4899-a0c1-bda081f5a7a1" />
 
+</details>
 
+# Lab
+## Congestion aware placement using RePlAce
 
+**So here we will see the placement : global placement and detailed placement**
 
+```bash
+# Congestion aware placement by default
+run_placement
+```
+<img width="1294" height="911" alt="Screenshot 2025-10-29 205244" src="https://github.com/user-attachments/assets/38a0a0e3-84dd-458c-b53c-8b0b7541ac89" />
+
+**Commands to load placement def in magic in another terminal**
+
+```bash
+# Change directory to path containing generated placement def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/29-010_08-49/results/placement/
+
+# Command to load the placement def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+
+```
+<img width="1255" height="912" alt="image" src="https://github.com/user-attachments/assets/771141d2-3793-49cb-a04c-d3be0d6d3e0c" />
+
+## floorplan def in magic
+<img width="1295" height="911" alt="Screenshot 2025-10-29 210318" src="https://github.com/user-attachments/assets/ba7ffa72-d304-450b-b9cd-fde8bf4ba587" />
+
+## placed standard cells
+<img width="1295" height="911" alt="Screenshot 2025-10-29 210318" src="https://github.com/user-attachments/assets/5c0740fc-be67-4ab7-991b-a830101edb92" />
+
+**conclusion**
+
+From this lab we learnt about how to make floorplan and do placement and how to see the cells etc. 
 
 
