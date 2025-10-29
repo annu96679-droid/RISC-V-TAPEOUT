@@ -168,23 +168,23 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 <img width="1152" height="935" alt="Screenshot 2025-10-29 143504" src="https://github.com/user-attachments/assets/53bcda04-88a1-46fe-a6e2-186c32641577" />
 
-**How thw floorplane look like in magic**
+## How thw floorplane look like in magic
 
 <img width="898" height="911" alt="image" src="https://github.com/user-attachments/assets/0c702bdb-32b4-4c06-b793-230ca52c0bb6" />
 
-**Horizontal ports(outside the die) & Equidistant placement of ports**
+## Horizontal ports(outside the die) & Equidistant placement of ports
 
 <img width="1151" height="938" alt="Screenshot 2025-10-29 143724" src="https://github.com/user-attachments/assets/e9cfcb9d-896f-4c51-ad93-1251af4409a1" />
 
-**Horizontal ports metal layers set by the config.tcl**
+## Horizontal ports metal layers set by the config.tcl
 
 <img width="1152" height="915" alt="Screenshot 2025-10-29 143946" src="https://github.com/user-attachments/assets/ce661176-2a04-44a0-a080-394631433211" />
 
-**Vertical ports metal layer set by congig.tcl**
+## Vertical ports metal layer set by congig.tcl
 
 <img width="1153" height="939" alt="Screenshot 2025-10-29 144033" src="https://github.com/user-attachments/assets/a1d61de0-3deb-46b6-ae7a-93cbffda66ad" />
 
-**Decap and tap cells**
+## Decap and tap cells
 
 1. The decap cells:
 
@@ -214,11 +214,11 @@ In CMOS:
 If you don’t tie wells and substrate to fixed potentials, they can float, creating a parasitic device called a latch-up path — which can short VDD to GND and destroy the chip.
 <img width="1156" height="941" alt="Screenshot 2025-10-29 144150" src="https://github.com/user-attachments/assets/30d190a6-7b7c-42cb-b6b2-ae3a935cef14" />
 
-**Diogonally equidistant Tap cells**
+## Diogonally equidistant Tap cells
 
 <img width="1159" height="938" alt="Screenshot 2025-10-29 143827" src="https://github.com/user-attachments/assets/61cec169-8dfe-47cb-8647-a178956cf084" />
 
-**Unplaced standard cells at the origin**
+## Unplaced standard cells at the origin
 
 Standard cells are always placed in the placement not in the floorplan but they usually present in  the corner in the floorplan
 
