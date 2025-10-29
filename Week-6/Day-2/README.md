@@ -35,3 +35,58 @@
 
 * These are placed within the core area, aligned to the standard cell rows (horizontal gray stripes).
 
+# LAB 
+
+## Steps to run floorplan using OpenLANE
+
+Before running the floorplan we can have a look on the size of chaip, ulitization factor, aspect ratio , V-metal and H-metal (these are some switches for the floorplanning)
+
+```bash
+#Change the directory
+cd Desktop/work/tools/openlane_working_dir/openlane/configuration
+
+#open the file
+less README.md (this file contains the variables in the synthesis, like maxfanout, LIB min etc : these are the switches)
+```
+
+<img width="1291" height="911" alt="Screenshot 2025-10-28 205257" src="https://github.com/user-attachments/assets/9b683f76-2958-4f3f-8add-c62e68b5f180" />
+<img width="1283" height="907" alt="Screenshot 2025-10-28 205429" src="https://github.com/user-attachments/assets/ac4ddc17-8b5a-4cbf-b520-bec93d5793cf" />
+
+**Switches for floorplan**
+
+```bash
+#open the file
+less floorplan.tcl (containing the default parameter for the floorplan stage
+```bash
+
+<img width="1292" height="909" alt="Screenshot 2025-10-28 205628" src="https://github.com/user-attachments/assets/ab56a751-a8be-45f4-9650-31e7db755ad7" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
