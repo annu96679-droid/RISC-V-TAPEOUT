@@ -326,7 +326,8 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 <img width="1295" height="911" alt="Screenshot 2025-10-29 210318" src="https://github.com/user-attachments/assets/ba7ffa72-d304-450b-b9cd-fde8bf4ba587" />
 
 ## placed standard cells
-<img width="1295" height="911" alt="Screenshot 2025-10-29 210318" src="https://github.com/user-attachments/assets/5c0740fc-be67-4ab7-991b-a830101edb92" />
+<img width="1294" height="908" alt="Screenshot 2025-10-29 210632" src="https://github.com/user-attachments/assets/27d427bf-e8f3-48f5-82d7-d3bf5c187bf6" />
+
 
 **conclusion**
 
