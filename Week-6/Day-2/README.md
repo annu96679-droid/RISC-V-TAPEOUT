@@ -168,7 +168,7 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 <img width="1152" height="935" alt="Screenshot 2025-10-29 143504" src="https://github.com/user-attachments/assets/53bcda04-88a1-46fe-a6e2-186c32641577" />
 
-## How thw floorplane look like in magic
+## How thw floorplan look like in magic
 
 <img width="898" height="911" alt="image" src="https://github.com/user-attachments/assets/0c702bdb-32b4-4c06-b793-230ca52c0bb6" />
 
@@ -214,7 +214,7 @@ In CMOS:
 If you don’t tie wells and substrate to fixed potentials, they can float, creating a parasitic device called a latch-up path — which can short VDD to GND and destroy the chip.
 <img width="1156" height="941" alt="Screenshot 2025-10-29 144150" src="https://github.com/user-attachments/assets/30d190a6-7b7c-42cb-b6b2-ae3a935cef14" />
 
-## Diogonally equidistant Tap cells
+## Diagonally equidistant Tap cells
 
 <img width="1159" height="938" alt="Screenshot 2025-10-29 143827" src="https://github.com/user-attachments/assets/61cec169-8dfe-47cb-8647-a178956cf084" />
 
