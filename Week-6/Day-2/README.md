@@ -227,16 +227,49 @@ Standard cells are always placed in the placement not in the floorplan but they 
 
 # Library binding and Placement
 
-how to do placement
+**1. binding netlist with physical cells**
 
+firstly convert all the standard cell into the boxes having some dimension
+
+**2. Placement**
 
 <img width="1919" height="973" alt="Screenshot 2025-10-29 180229" src="https://github.com/user-attachments/assets/898e3420-bf57-4135-a484-390db80d4bd9" />
 
+| Section    | Name                         | Meaning                                                              |
+| ---------- | ---------------------------- | -------------------------------------------------------------------- |
+| **Left**   | Floorplan                    | Defines the chip’s outline and available area for placing cells.     |
+| **Middle** | Netlist (Logical Connection) | Describes how all logic gates and flip-flops are connected.          |
+| **Right**  | Physical View                | Shows the actual placed standard cells (gates, FFs) inside the chip. |
+
+**3. Optimize placement**
+
+After the initial placement, cells are placed legally (no overlap, within die area).
+
+But — the first arrangement might not be ideal for:
+
+* timing (delay)
+
+* power consumption
+
+* wire length
+
+* routing congestion
+
+So, placement optimization moves cells slightly to find a better layout while still maintaining logical connections.
 <img width="1919" height="1079" alt="Screenshot 2025-10-29 180300" src="https://github.com/user-attachments/assets/4be4df90-65f8-434a-b009-fe479d3d6819" />
 
-This image is for the connecting the actual circuits with the wores and also connecting the buffer for signal integrity
+This image is for the connecting the actual circuits with the wires and also connecting the buffer(as the repeater) for signal integrity
 <img width="1918" height="1068" alt="image" src="https://github.com/user-attachments/assets/1bb7b75f-f9e8-414d-bede-b7097ff6d41c" />
 
+**Key Techniques Used**
+
+| Technique            | Meaning                                    | Purpose                     |
+| -------------------- | ------------------------------------------ | --------------------------- |
+| **Cell spreading**   | Moves cells away from congested regions.   | Reduces routing difficulty. |
+| **Buffer insertion** | Adds buffers in long wires.                | Improves signal delay.      |
+| **Cell swapping**    | Exchanges locations of two cells.          | Balances wirelength.        |
+| **Resizing**         | Changes cell drive strength.               | Fixes timing violations.    |
+| **Re-clustering**    | Groups related logic cells close together. | Shortens critical nets.     |
 
 <img width="1796" height="1026" alt="image" src="https://github.com/user-attachments/assets/f87e2b10-6fa1-480a-9b25-e1774dc77fb1" />
 
