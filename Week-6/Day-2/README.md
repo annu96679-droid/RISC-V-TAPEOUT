@@ -224,3 +224,31 @@ Standard cells are always placed in the placement not in the floorplan but they 
 
 <img width="1151" height="915" alt="Screenshot 2025-10-29 144509" src="https://github.com/user-attachments/assets/fa293307-9b34-479b-8969-14d7c972bc6e" />
 <img width="1151" height="915" alt="Screenshot 2025-10-29 144717" src="https://github.com/user-attachments/assets/c463f694-5217-4054-a854-281d7de213ee" />
+
+# Library binding and Placement
+
+how to do placement
+
+
+<img width="1919" height="973" alt="Screenshot 2025-10-29 180229" src="https://github.com/user-attachments/assets/898e3420-bf57-4135-a484-390db80d4bd9" />
+
+<img width="1919" height="1079" alt="Screenshot 2025-10-29 180300" src="https://github.com/user-attachments/assets/4be4df90-65f8-434a-b009-fe479d3d6819" />
+
+This image is for the connecting the actual circuits with the wores and also connecting the buffer for signal integrity
+<img width="1918" height="1068" alt="image" src="https://github.com/user-attachments/assets/1bb7b75f-f9e8-414d-bede-b7097ff6d41c" />
+
+
+<img width="1796" height="1026" alt="image" src="https://github.com/user-attachments/assets/f87e2b10-6fa1-480a-9b25-e1774dc77fb1" />
+
+CEll design flow
+
+<img width="1886" height="1051" alt="image" src="https://github.com/user-attachments/assets/3ebb7026-8247-4294-b2f5-f15540d2bc9d" />
+
+Something about library
+
+<img width="1787" height="1047" alt="image" src="https://github.com/user-attachments/assets/5e738e37-5a17-4503-a09e-757163f0ab7e" />
+ Cell design flow of inverter
+
+<img width="1747" height="1044" alt="Screenshot 2025-10-29 192651" src="https://github.com/user-attachments/assets/073e9b4c-f97a-4910-abfc-0bfe06c2e1e3" />
+
+<img width="1777" height="1039" alt="Screenshot 2025-10-29 192739" src="https://github.com/user-attachments/assets/fd708aae-38f2-4e8b-a032-310fdcba1b07" />
