@@ -252,3 +252,16 @@ Something about library
 <img width="1747" height="1044" alt="Screenshot 2025-10-29 192651" src="https://github.com/user-attachments/assets/073e9b4c-f97a-4910-abfc-0bfe06c2e1e3" />
 
 <img width="1777" height="1039" alt="Screenshot 2025-10-29 192739" src="https://github.com/user-attachments/assets/fd708aae-38f2-4e8b-a032-310fdcba1b07" />
+<img width="1759" height="1051" alt="Screenshot 2025-10-29 193608" src="https://github.com/user-attachments/assets/7b5bedea-96fc-41f4-be3e-db6485bf0a4d" />
+<img width="1712" height="1040" alt="Screenshot 2025-10-29 193901" src="https://github.com/user-attachments/assets/6cd9b763-1d59-45e7-8062-3b1225010a4f" />
+<img width="1745" height="1034" alt="Screenshot 2025-10-29 213732" src="https://github.com/user-attachments/assets/ca2bf5c6-b583-4850-8946-a689db78d71c" />
+
+characterisation flow (comes in the cell design)
+<img width="1767" height="1068" alt="Screenshot 2025-10-29 214821" src="https://github.com/user-attachments/assets/dc5f8abf-da2a-45c9-91dc-b19d823b6102" />
+<img width="1735" height="1076" alt="Screenshot 2025-10-29 214835" src="https://github.com/user-attachments/assets/508b6452-c67b-4899-a0c1-bda081f5a7a1" />
+
+
+
+
+
+
