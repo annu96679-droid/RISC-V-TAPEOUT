@@ -90,7 +90,21 @@ magic -T sky130A.tech sky130_inv.mag &
 
 **NMOS and PMOS identified**
 
+when the polysilicon passes the n diffusion it's a NMOS
+
 <img width="1245" height="908" alt="Screenshot 2025-10-30 124509" src="https://github.com/user-attachments/assets/c473fcb9-395c-4962-bd90-8a9dfef6a26b" />
 
 <img width="1239" height="907" alt="Screenshot 2025-10-30 124541" src="https://github.com/user-attachments/assets/d7e56185-26dc-433c-a356-5f341c48615f" />
 
+**Output Y connectivity to PMOS and NMOS drain verified**
+
+<img width="1191" height="906" alt="Screenshot 2025-10-30 150014" src="https://github.com/user-attachments/assets/3a38e3af-a5b9-4697-83b2-52b9643cc2ad" />
+
+
+**Connectivity of Source of the PMOS to Vdd line Verified**
+
+<img width="1258" height="907" alt="image" src="https://github.com/user-attachments/assets/c394f0ca-026e-4bb9-880c-35921280d77d" />
+
+**Connectivity of Source of the PMOS to Vdd line Verified**
+
+<img width="1253" height="903" alt="image" src="https://github.com/user-attachments/assets/aa51ee06-170a-41f4-b7aa-fd84e16778e8" />
