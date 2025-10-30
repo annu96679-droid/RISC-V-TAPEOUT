@@ -84,5 +84,13 @@ magic -T sky130A.tech sky130_inv.mag &
 **LAYOUT of INVERTER**
 <img width="1244" height="941" alt="Screenshot 2025-10-30 124406" src="https://github.com/user-attachments/assets/e878c294-358e-43c8-afee-7704df99ec66" />
 
+**POLYSILICON IDENTIFIED**
 
+<img width="1291" height="909" alt="Screenshot 2025-10-30 124833" src="https://github.com/user-attachments/assets/e9df9cbb-e3df-47ef-ab61-ba186bb61860" />
+
+**NMOS and PMOS identified**
+
+<img width="1245" height="908" alt="Screenshot 2025-10-30 124509" src="https://github.com/user-attachments/assets/c473fcb9-395c-4962-bd90-8a9dfef6a26b" />
+
+<img width="1239" height="907" alt="Screenshot 2025-10-30 124541" src="https://github.com/user-attachments/assets/d7e56185-26dc-433c-a356-5f341c48615f" />
 
