@@ -88,7 +88,7 @@ magic -T sky130A.tech sky130_inv.mag &
 
 <img width="1291" height="909" alt="Screenshot 2025-10-30 124833" src="https://github.com/user-attachments/assets/e9df9cbb-e3df-47ef-ab61-ba186bb61860" />
 
-**NMOS and PMOS identified**
+**NMOS and PMOS identified*
 
 when the polysilicon passes the n diffusion it's a NMOS
 
