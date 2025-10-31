@@ -260,6 +260,55 @@ since, 50% of 3.3V = 1.65V
 
 **Fall Cell Delay** = 4.07784 - 4.04983 = 0.02801ns = 28.01ps
 
+## Lab introduction to Magic tool options and DRC rules
+
+There are some websites through which we can learn about the magic tool and also can know about the DRC rules.
+
+**http://opencircuitdesign.com/magic/**
+
+<img width="1918" height="1020" alt="image" src="https://github.com/user-attachments/assets/013ee72f-c62c-40bf-9533-7a8e3b5e243a" />
+<img width="1918" height="1017" alt="image" src="https://github.com/user-attachments/assets/4bbb884a-94ef-45e6-9179-3df8f4a2d0eb" />
+
+## Lab introduction to Sky130 pdk's and steps to download labs
+
+Link to Sky130 Periphery rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
+
+<img width="1912" height="1018" alt="image" src="https://github.com/user-attachments/assets/c78897a2-960d-45a5-b635-2c3638ea1af2" />
+
+**Commands to download and view the corrupted skywater process magic tech file and associated files to perform drc corrections**
+
+```bash
+# Change to home directory
+cd
+
+# Command to download the lab files
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+
+# Since lab file is compressed command to extract it
+tar xfz drc_tests.tgz
+
+# Change directory into the lab folder
+cd drc_tests
+
+# List all files and directories present in the current directory
+ls -al
+
+# Command to view .magicrc file
+gvim .magicrc
+
+# Command to open magic tool in better graphics
+magic -d XR &
+```
+<img width="1148" height="911" alt="Screenshot 2025-10-31 120026" src="https://github.com/user-attachments/assets/884d061d-07f9-431f-ac97-9b065dea7188" />
+<img width="1148" height="911" alt="Screenshot 2025-10-31 121447" src="https://github.com/user-attachments/assets/333337bc-b8da-4e50-b4a9-d11819a6bc02" />
+
+**.magicrc file**
+
+<img width="1145" height="910" alt="Screenshot 2025-10-31 121433" src="https://github.com/user-attachments/assets/726fd1a8-9c65-423d-9bdf-38bf9f19242a" />
+
+**magic tool in better graphics**
+
+<img width="1144" height="913" alt="Screenshot 2025-10-31 121638" src="https://github.com/user-attachments/assets/57782ca9-fa36-42be-ab63-396570fb3b4f" />
 
 
 
