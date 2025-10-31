@@ -35,7 +35,7 @@ set ::env(FP_TO_MODE) 2   (we change 1 to 2)
 
 #again run the floorplan
 run_floorplan
-```bash
+```
 
 <img width="1153" height="911" alt="Screenshot 2025-10-30 115641" src="https://github.com/user-attachments/assets/3268a464-1e00-47e3-bccc-bb5b418f4d6b" />
 <img width="1155" height="914" alt="Screenshot 2025-10-30 115721" src="https://github.com/user-attachments/assets/af05f3e0-1954-4d44-847c-0be10739b62d" />
