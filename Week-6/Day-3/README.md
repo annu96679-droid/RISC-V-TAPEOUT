@@ -200,3 +200,66 @@ plot y vs time a
 **Generated Plot**
 
 <img width="1145" height="909" alt="Screenshot 2025-10-30 184121" src="https://github.com/user-attachments/assets/7f324a02-e259-4431-a6e4-2c97f887e020" />
+
+**1. Rise transition time calculation**
+
+```bash
+Rise transistion time = Time taken for output to rise 80% - Time taken for output to rise to 20%
+Note : input ----> blue line , output ----> red line
+since, 20% of 3.3V = 660mv
+       80% of 3.3V = 2.64V
+```
+**image showing 20% and 80% and their axes values:**
+
+<img width="1255" height="903" alt="image" src="https://github.com/user-attachments/assets/c3b3b9ce-21b0-4863-8046-f9da283f8484" />
+<img width="1257" height="905" alt="image" src="https://github.com/user-attachments/assets/eb422fd6-6b19-4165-bf81-0efba6837db5" />
+<img width="1258" height="913" alt="Screenshot 2025-10-31 105844" src="https://github.com/user-attachments/assets/af34769b-1083-4df4-8e1b-3a30da8074bc" />
+
+**Rise transistion time** = 2.2465 - 2.1824 = 0.0641ns = 64.10 ps
+
+**2.Fall transition time calculation**
+
+```bash
+Fall transistion time  = Time take for output to fall to 20% - Time taken for output to fall to 80%
+since, 20% of 3.3V = 660mv
+       80% of 3.3V = 2.64V
+```
+
+**image showing 20% and 80% and their axes values:**
+
+<img width="1255" height="902" alt="image" src="https://github.com/user-attachments/assets/1bd9c991-69b9-421b-9621-498d503c20ac" />
+<img width="1251" height="905" alt="image" src="https://github.com/user-attachments/assets/ea895992-24e5-40e7-b45a-19b5988f9025" />
+<img width="1256" height="907" alt="image" src="https://github.com/user-attachments/assets/43dce7ca-618e-4101-a09d-aeb5ac07694e" />
+
+**fall transistion time** = 4.09548 - 4.05295 = 0.0425 ns = 42.5 ps
+
+**3.Rise Cell Delay Calculation**
+
+```bash
+Rise Cell Delay = Time taken for output to rise 50% - Time taken for input to fall to 50%
+since, 50% of 3.3V = 1.65V
+```
+
+**image showing 50% and their axes values:**
+
+<img width="1255" height="909" alt="Screenshot 2025-10-31 110204" src="https://github.com/user-attachments/assets/4d73ddda-105f-4524-bff2-65d94139ecd5" />
+<img width="1252" height="910" alt="image" src="https://github.com/user-attachments/assets/e8ea0b49-2cc7-4095-83a1-badd44755f22" />
+
+**Rise Cell Delay** = 2.21157 - 2.1498 = 0.06177 ns = 61.77 ps
+
+**4.FALL Cell Delay Calculation**
+
+```bash
+Rise Cell Delay = Time taken for output to fall 50% - Time taken for input to rise to 50%
+since, 50% of 3.3V = 1.65V
+```
+**image showing 50% and their axes values:**
+
+<img width="1257" height="906" alt="Screenshot 2025-10-31 110341" src="https://github.com/user-attachments/assets/62d34b3d-41ec-45da-a031-4e1823379b03" />
+<img width="1253" height="910" alt="image" src="https://github.com/user-attachments/assets/82e578d9-9651-44e3-84e4-c96e788846e2" />
+
+**Fall Cell Delay** = 4.07784 - 4.04983 = 0.02801ns = 28.01ps
+
+
+
+
