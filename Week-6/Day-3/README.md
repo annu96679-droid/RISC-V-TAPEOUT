@@ -125,6 +125,7 @@ we can check the DRC error manually :
 
 DRC error checked by commands on tkcon main window:
 
+```bash
 drc on
 drc euclidean on
 drc style drc(full)
@@ -133,6 +134,7 @@ drc catchup
 drc count
 drc find
 drc why
+```
 
 <img width="1148" height="906" alt="Screenshot 2025-10-30 161950" src="https://github.com/user-attachments/assets/871e3245-a7bf-4559-b768-1a68f9e54f62" />
 <img width="1153" height="909" alt="Screenshot 2025-10-30 162001" src="https://github.com/user-attachments/assets/42372abd-6267-46db-8523-212588449974" />
