@@ -359,6 +359,147 @@ feed clear
 
 <img width="861" height="908" alt="Screenshot 2025-10-31 143730" src="https://github.com/user-attachments/assets/9b7503e9-08ca-48c6-9633-2234343e1f2d" />
 
+## Lab exercise to fix poly.9 error in Sky130 tech-file
 
+**first open the poly.9 file**
 
+<img width="993" height="908" alt="Screenshot 2025-10-31 144617" src="https://github.com/user-attachments/assets/25255d98-a14b-4508-a84b-6ca98fbd2e59" />
 
+**Incorrectly implemented poly.9 rule no drc violation even though spacing < 0.48u**
+
+<img width="1183" height="907" alt="Screenshot 2025-10-31 144910" src="https://github.com/user-attachments/assets/70cb9a62-40c3-49a2-b757-711c6cb690df" />
+
+**New commands inserted in sky130A.tech file to update drc**
+
+first open the sky130A.tech file ni the vsdstdcelldesign  directory
+
+<img width="1181" height="907" alt="Screenshot 2025-10-31 145400" src="https://github.com/user-
+attachments/assets/b346b51e-1dbd-49df-91a2-084d7c3353e6" />
+
+**Updated one**
+
+<img width="1181" height="911" alt="Screenshot 2025-10-31 145706" src="https://github.com/user-attachments/assets/5454f4ee-347a-4b8a-8b72-b2775eb08301" />
+<img width="1102" height="910" alt="image" src="https://github.com/user-attachments/assets/0ab33cfe-7cf8-4bdc-982d-173ee78e6e40" />
+
+**After upadte the .tech file just load the file through tkcon**
+
+```bash
+#To load the .tech file
+tech load sky130A.tech
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+```
+<img width="1178" height="912" alt="Screenshot 2025-10-31 150615" src="https://github.com/user-attachments/assets/5d37d321-00eb-4749-a87d-fca5ec5418c3" />
+
+**Now make the copy of  poly.9 (polysilicon layers)**
+
+```bash
+Put the n-diffusion in the down side of the poly.9
+Put the p-diffusion on the upper side of the poly.9
+```
+
+<img width="1019" height="910" alt="Screenshot 2025-10-31 152729" src="https://github.com/user-attachments/assets/d7568096-0149-46ce-ad66-e4f31116518f" />
+
+**Again new commands inserted in sky130A.tech file to update drc**
+
+<img width="1106" height="913" alt="Screenshot 2025-10-31 153719" src="https://github.com/user-attachments/assets/02678e02-6c01-467c-8c0d-c3eb1d99f993" />
+
+**After upadte the .tech file just load the file through tkcon**
+
+```bash
+#To load the .tech file
+tech load sky130A.tech
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+```
+<img width="1107" height="907" alt="Screenshot 2025-10-31 153655" src="https://github.com/user-attachments/assets/8cb426a4-000f-48c5-b91c-f12a1b4fbe3c" />
+
+**Now do the same process for difftap.2 file**
+
+**Incorrectly implemented difftap.2 simple rule correction**
+
+<img width="1106" height="915" alt="image" src="https://github.com/user-attachments/assets/aebf1147-8481-43ec-a991-91adff196235" />
+
+**Incorrectly implemented difftap.2 rule no drc violation even though spacing < 0.42u**
+
+<img width="1145" height="917" alt="image" src="https://github.com/user-attachments/assets/58efb6c0-96d2-4bc3-be07-d9383176b647" />
+
+**New commands inserted in sky130A.tech file to update drc**
+
+<img width="1102" height="910" alt="Screenshot 2025-10-31 174254" src="https://github.com/user-attachments/assets/d4d1c74a-8b75-463b-b2d4-349609b84758" />
+
+**After upadte the .tech file just load the file through tkcon**
+
+```bash
+#To load the .tech file
+tech load sky130A.tech
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+```
+<img width="1144" height="913" alt="Screenshot 2025-10-31 180826" src="https://github.com/user-attachments/assets/3fcca0cf-1b09-4286-8555-ea8b9f8cf6e2" />
+
+**Incorrectly implemented nwell.4 complex rule correction**
+
+Nwell DRC rules
+
+<img width="1109" height="916" alt="Screenshot 2025-10-31 154939" src="https://github.com/user-attachments/assets/a81f2478-9bdf-410f-80d9-888d93bb2e8b" />
+
+**first open the nwell file**
+
+<img width="1113" height="939" alt="Screenshot 2025-10-31 155157" src="https://github.com/user-attachments/assets/1e8ca580-d294-49d0-ab8d-ce10ded68c49" />
+
+**New commands inserted in sky130A.tech file to update drc**
+
+<img width="1108" height="911" alt="Screenshot 2025-10-31 161416" src="https://github.com/user-attachments/assets/a5030ede-e7fa-4712-a1e4-fde0854b3c0d" />
+<img width="1103" height="911" alt="Screenshot 2025-10-31 161601" src="https://github.com/user-attachments/assets/d1c707ad-0734-4027-8f0b-617a1389e82c" />
+<img width="1107" height="911" alt="Screenshot 2025-10-31 161450" src="https://github.com/user-attachments/assets/415c8be3-626e-419c-b63a-3559e239f9a4" />
+
+**Commands to run in tkcon window**
+
+```bash
+# Loading updated tech file
+tech load sky130A.tech
+
+# Change drc style to drc full
+drc style drc(full)
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+```
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/74ff6b20-b876-4659-892f-fdb8edee7b72" />
+
+**conclusion**
+
+After successfully creating the layout using Magic VLSI tool and performing DRC (Design Rule Check) through Tkcon, we can conclude the following:
+
+* The layout is DRC clean, which means it adheres to all the fabrication design rules defined by the technology file (e.g., sky130A.tech).
+→ This ensures that the layout can be safely fabricated without any manufacturing violations.
+
+*The process demonstrated the importance of geometric design constraints, such as:
+
+   * Minimum width and spacing of metal and poly layers
+
+   * Proper via placements (e.g., VIA1, VIA2, etc.)
+
+   * Correct layer overlaps and enclosure rules
+
+* The use of Tkcon commands (like drc check, cif see VIA2, feed clear, etc.) helped in:
+
+* Verifying the layout visually and logically
+
+* Debugging and correcting DRC errors interactively
