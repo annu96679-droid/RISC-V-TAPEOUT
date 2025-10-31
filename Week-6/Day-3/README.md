@@ -306,9 +306,59 @@ magic -d XR &
 
 <img width="1145" height="910" alt="Screenshot 2025-10-31 121433" src="https://github.com/user-attachments/assets/726fd1a8-9c65-423d-9bdf-38bf9f19242a" />
 
+## Lab introduction to Magic and steps to load Sky130 tech-rules
+
 **magic tool in better graphics**
 
 <img width="1144" height="913" alt="Screenshot 2025-10-31 121638" src="https://github.com/user-attachments/assets/57782ca9-fa36-42be-ab63-396570fb3b4f" />
+
+there are some design rules in which pheriperal rules are there:
+
+<img width="1913" height="1019" alt="Screenshot 2025-10-31 122537" src="https://github.com/user-attachments/assets/9d6b89d7-0b72-4f6f-bdfa-a346d51c9ed5" />
+
+**selec the file (met) and open it**
+
+<img width="1146" height="913" alt="Screenshot 2025-10-31 142006" src="https://github.com/user-attachments/assets/20e459ab-9d77-40bd-86be-2dc6374c04dc" />
+
+**Now to check the DRC error in a sepcific area**
+
+Commands are:
+
+```bash
+# To select the area
+select area
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+
+# Metal of which we have select the area
+goto m3.1
+
+```
+
+<img width="1155" height="915" alt="Screenshot 2025-10-31 141625" src="https://github.com/user-attachments/assets/75ee7a6e-f4ce-431c-969d-71d27e009bb6" />
+
+**Now have a look on the internal layers inside a metal (m3.5)**
+
+```bash
+first copy the brown part (m3 contact)
+
+#Magic to display the CIF layer named VIA2 on the layout screen
+cif see VIA2
+
+#clear feedthroughs or routing feed information in Magic.
+feed clear
+```
+
+<img width="843" height="941" alt="Screenshot 2025-10-31 143318" src="https://github.com/user-attachments/assets/1d4a77b7-728a-427c-a781-654d4d3394dd" />
+
+**display the CIF layer named VIA2**
+
+<img width="861" height="908" alt="Screenshot 2025-10-31 143730" src="https://github.com/user-attachments/assets/9b7503e9-08ca-48c6-9633-2234343e1f2d" />
+
 
 
 
