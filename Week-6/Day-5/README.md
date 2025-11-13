@@ -94,7 +94,7 @@ echo $::env(ROUTING_STRATEGY)
 
 # Execute the det
 ```
-<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3bb307aa-b70e-43<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/c4dbaea9-22cb-404c-b234-bca1ae0e4814" />
+<img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/3bb307aa-b70e-43
 16-acba-3325f7206a20" />
 
 **Commands for Opening the Routed DEF File in Magic (in a separate terminal)**
