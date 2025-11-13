@@ -160,3 +160,9 @@ run_synthesis
 <img width="1138" height="908" alt="Screenshot 2025-11-13 161432" src="https://github.com/user-attachments/assets/16746482-18f8-47ac-a5bd-8cf3a13687c7" />
 <img width="1144" height="912" alt="Screenshot 2025-11-13 161457" src="https://github.com/user-attachments/assets/3e569c62-41a8-442e-8e27-64dcf3c5f7c5" />
 
+After synthesis, we have observed that the slack is nagative.
+
+wns(worst negative slack)= -23.89
+
+tns(total negative slack)= -711.59.
+
