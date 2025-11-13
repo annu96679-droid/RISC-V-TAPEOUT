@@ -442,7 +442,7 @@ ls
 help write_verilog
 
 # Replace the existing synthesized netlist with the newly generated one
-write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/25-03_18-52/results/synthesis/picorv32a.synthesis.v
+write_verilog /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/13-11_13_13/results/synthesis/picorv32a.synthesis.v
 
 # Leave the OpenSTA environment after completing the timing checks
 exit
@@ -459,7 +459,7 @@ Since we have validated that the netlist was successfully updated and will be us
 
 ```bash
 # Re-prepare the design so all environment variables get refreshed
-prep -design picorv32a -tag 24-03_10-03 -overwrite
+prep -design picorv32a -tag 13-11_13_13 -overwrite
 
 # Add the newly introduced merged LEF file into the OpenLane setup
 set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
@@ -506,10 +506,10 @@ Below are the commands used inside the OpenLANE flow to perform timing analysis 
 openroad
 
 # Load the merged LEF file
-read_lef /openLANE_flow/designs/picorv32a/runs/24-03_10-03/tmp/merged.lef
+read_lef /openLANE_flow/designs/picorv32a/runs/13-11_13_13/tmp/merged.lef
 
 # Import the DEF generated after CTS
-read_def /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/cts/picorv32a.cts.def
+read_def /openLANE_flow/designs/picorv32a/runs/13-11_13_13/results/cts/picorv32a.cts.def
 
 # Save the current OpenROAD session into a database file
 write_db pico_cts.db
@@ -518,7 +518,7 @@ write_db pico_cts.db
 read_db pico_cts.db
 
 # Load the post-CTS synthesized netlist
-read_verilog /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/synthesis/picorv32a.synthesis_cts.v
+read_verilog /openLANE_flow/designs/picorv32a/runs/13-11_13_13/results/synthesis/picorv32a.synthesis_cts.v
 
 # Provide the timing library required for analysis
 read_liberty $::env(LIB_SYNFF_COMPLETE)
@@ -576,10 +576,10 @@ echo $::env(CTS_CLK_BUFFER_LIST)
 openroad
 
 # Import merged LEF file
-read_lef /openLANE_flow/designs/picorv32a/runs/24-03_10-03/tmp/merged.lef
+read_lef /openLANE_flow/designs/picorv32a/runs/13-11_13_13/tmp/merged.lef
 
 # Load the DEF produced after CTS
-read_def /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/cts/picorv32a.cts.def
+read_def /openLANE_flow/designs/picorv32a/runs/13-11_13_13/results/cts/picorv32a.cts.def
 
 # Save the current OpenROAD session
 write_db pico_cts1.db
@@ -588,7 +588,7 @@ write_db pico_cts1.db
 read_db pico_cts.db
 
 # Bring in the CTS-updated netlist
-read_verilog /openLANE_flow/designs/picorv32a/runs/24-03_10-03/results/synthesis/picorv32a.synthesis_cts.v
+read_verilog /openLANE_flow/designs/picorv32a/runs/13-11_13_13/results/synthesis/picorv32a.synthesis_cts.v
 
 # Import the timing library
 read_liberty $::env(LIB_SYNTH_COMPLETE)
