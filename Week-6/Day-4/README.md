@@ -1,4 +1,5 @@
-<img width="1146" height="910" alt="Screenshot 2025-11-13 103955" src="https://github.com/user-attachments/assets/d2264af5-db9c-4a77-bb85-1a385c2e8154" /># Day-4
+
+# Day 4
 
 ## Pre-layout timing analysis and importance of good clock tree
 
@@ -73,12 +74,13 @@ magic -T sky130A.tech sky130_vsdinv.mag
 lef write
 
 #open the lef file
+less
 
 ```
 <img width="970" height="909" alt="Screenshot 2025-11-13 110206" src="https://github.com/user-attachments/assets/3ef781cd-eecc-4f9c-b196-bbc0625b064e" />
 <img width="1147" height="910" alt="Screenshot 2025-11-13 103850" src="https://github.com/user-attachments/assets/2a073185-c008-462e-b91f-8c40588877a2" />
 <img width="1146" height="910" alt="Screenshot 2025-11-13 103955" src="https://github.com/user-attachments/assets/c16a1eb5-64cc-4c48-b7f7-2b545ce617d3" />
-
+<img width="1146" height="910" alt="Screenshot 2025-11-13 103955" src="https://github.com/user-attachments/assets/d2264af5-db9c-4a77-bb85-1a385c2e8154" /># Day-4
 
 
 
