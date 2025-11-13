@@ -52,7 +52,7 @@ run_cts
 
 # After CTS is completed, create the power distribution network
 gen_pdn
-```bash
+```
 
 <img width="988" height="911" alt="Screenshot 2025-11-13 184431" src="https://github.com/user-attachments/assets/2b802dd7-a47a-47fb-b827-105f24cd251b" />
 <img width="994" height="902" alt="Screenshot 2025-11-13 184444" src="https://github.com/user-attachments/assets/0e237137-5da7-4295-9f43-ef4d67e0b626" />
