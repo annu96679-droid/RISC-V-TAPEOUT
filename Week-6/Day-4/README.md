@@ -103,3 +103,60 @@ run_synthesis
 
 <img width="1920" height="1080" alt="image" src="https://github.com/user-attachments/assets/82d70c6f-c067-4322-80e1-54c207f2ccdc" />
 
+## Lab steps to configure synthesis settings to fix slack and include vsdinv
+
+**We will try to modify the parameters of our cell by referring the README.md file in the configuration folder in openlane directory**
+
+```bash
+#open the readme.md file
+cd openlane/configuration/
+less README.md
+
+```
+<img width="1005" height="911" alt="Screenshot 2025-11-13 155957" src="https://github.com/user-attachments/assets/90f21e87-b1d6-483e-a07b-662842150740" />
+
+**commmands in the terminal in openlane directory**
+
+```bash
+#open the OPENLANE
+docker
+
+#Initializes the OpenLane design environment for the picorv32a design with a specific tag, replacing any existing run
+prep -design picorv32a -tag 01-04_12-54 -overwrite
+
+#Collects all .lef files in the design's src folder into the variable lefs
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+
+#Adds the collected LEF files to the OpenLane flow for use during synthesis and PnR
+add_lefs -src $lefs
+
+#Prints the current synthesis strategy being used
+echo $::env(SYNTH_STRATEGY)
+
+#Changes the synthesis strategy to prioritize “DELAY 3” for timing optimization
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+#Displays whether buffering is enabled during synthesis
+echo $::env(SYNTH_BUFFERING)
+
+#Shows the current setting for cell sizing during synthesis
+echo $::env(SYNTH_SIZING)
+
+#Enables gate sizing to improve timing results
+set ::env(SYNTH_SIZING) 1
+
+#Prints the driving cell being assumed at the input during synthesis
+echo $::env(SYNTH_DRIVING_CELL)
+
+#Starts the logic synthesis flow for the design using the updated configuration
+run_synthesis
+
+
+```
+<img width="1140" height="910" alt="Screenshot 2025-11-13 161315" src="https://github.com/user-attachments/assets/b76b2963-e33e-48b9-80c2-c8e7d44b489a" />
+<img width="1141" height="922" alt="Screenshot 2025-11-13 161328" src="https://github.com/user-attachments/assets/dd5d7c85-4712-4e1a-a028-01154066c8b9" />
+<img width="1142" height="909" alt="Screenshot 2025-11-13 161356" src="https://github.com/user-attachments/assets/5536edba-24f0-4c06-9264-e1d55d2a1898" />
+<img width="1140" height="911" alt="Screenshot 2025-11-13 161415" src="https://github.com/user-attachments/assets/6d1aa325-698d-458e-9bb9-d387a8dcdc83" />
+<img width="1138" height="908" alt="Screenshot 2025-11-13 161432" src="https://github.com/user-attachments/assets/16746482-18f8-47ac-a5bd-8cf3a13687c7" />
+<img width="1144" height="912" alt="Screenshot 2025-11-13 161457" src="https://github.com/user-attachments/assets/3e569c62-41a8-442e-8e27-64dcf3c5f7c5" />
+
