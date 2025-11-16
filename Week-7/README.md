@@ -240,12 +240,11 @@ This indicates a legally placed and DRC-clean cell arrangement.
 
 * INFO FLW-0012 Placement violations .
 
-
 * This message means 0 violations were found—placement is clean and ready for CTS.
 
 **6. Output Files Generated Successfully**
 
-*The flow generated the final placement database:
+The flow generated the final placement database:
 
 * 3_5_place_dp.odb
 
@@ -254,3 +253,123 @@ This indicates a legally placed and DRC-clean cell arrangement.
 * 3_place.sdc
 
 * These files will be used for the next stages (CTS, routing).
+
+**Opens the OpenROAD GUI at the placement stage**
+
+```bash
+make DESIGN_CONFIG=./designs/sky130hd/vsdbabysoc/config.mk gui_place
+```
+
+<img width="1262" height="802" alt="Screenshot 2025-11-15 093808" src="https://github.com/user-attachments/assets/ccc47dbe-2be3-4319-b724-a6f11052045c" />
+<img width="1263" height="805" alt="Screenshot 2025-11-15 093734" src="https://github.com/user-attachments/assets/f6a64c80-8293-4b42-b2b9-65d0f8bff132" />
+<img width="1262" height="822" alt="Screenshot 2025-11-15 093752" src="https://github.com/user-attachments/assets/b4c25b49-3cae-4f02-a4fe-bd754cadbef2" />
+<img width="1258" height="824" alt="Screenshot 2025-11-15 093937" src="https://github.com/user-attachments/assets/1b313513-9661-45c0-9163-20b3458a73c4" />
+<img width="1266" height="809" alt="Screenshot 2025-11-15 094238" src="https://github.com/user-attachments/assets/5b23fa9d-6e09-4332-9842-5d7fecf06840" />
+<img width="1286" height="807" alt="Screenshot 2025-11-15 095954" src="https://github.com/user-attachments/assets/4544c926-39f2-47fe-a5ef-a6780cc30b02" />
+
+**The placement stage for the BabySoC design using the Sky130HD PDK was completed successfully in OpenROAD. Both global placement and detailed placement were performed, followed by verification checks and visual inspection using the gui_place interface.**
+
+**1. Global and Detailed Placement Completed Successfully**
+
+* During placement:
+
+   * Standard cells were distributed across the available placement rows.
+
+   * Global placement optimized the approximate positions of cells to reduce overall wire length (HPWL).
+
+   * Detailed placement refined the placement to ensure:
+
+   * legal cell positions,
+
+   * alignment with rows,
+
+   * no cell overlap,
+
+   * proper cell orientation.
+
+*Inspector data confirms several cells have:
+
+   * Placement status: PLACED
+   
+   * Orientation: R180 / MX / MY (depending on rails)
+
+
+This indicates that orientation and legality rules are being respected.
+
+** 2. Placement Density Visualization**
+
+We have heatmap density view, where colors represent placement congestion:
+
+* Green/Yellow zones → higher density (clustered logic)
+
+* Blue/Purple zones → lower density
+
+* Distribution is balanced, meaning global placement found good spreading.
+
+* There are no red (highly congested) zones, indicating the design is routable with minimal congestion issues.
+
+* The presence of defined blockages ensures that the design respects macro boundaries.
+
+**3. Verification of Legality**
+
+* The placement results show:
+
+   * No overlaps between adjacent cells
+
+   * No row alignment issues
+
+   * Proper well-tap cell alignment (verified earlier)
+
+   * All cells placed inside legal placement rows
+
+   * Macro blockages and routing channels remain intact
+
+   * This confirms that detailed placement cleaned up any violations.
+
+**4. Instance-Level Inspection**
+
+* Standard cells (inverters, buffers, flip-flops) properly aligned on rows.
+
+* Inspector reports:
+
+   * Master: sky130_fd_sc_hd__inv_1
+   
+   * Description: Inverter
+   
+   * Placement status: PLACED
+
+
+* Flip-flops (e.g., dfxtp) also show correct placement with matching orientation.
+
+* This verifies the correct use of Sky130HD library cells.
+
+5. Heavy Zoom & Track Alignment Check
+
+* At high zoom levels:
+
+   * Routing tracks (horizontal + vertical) are aligned with cell pins.
+
+   * Metal layers (met1–met5) and via layers are correctly aligned.
+
+   * No off-grid placement, confirming that the floorplan grid settings are correct.
+
+   * This ensures clean routing and reduced risk of DRC violations later.
+
+**6. Timing Evaluation After Placement**
+
+* Timing report shows:
+
+   * Positive slack on datapaths
+
+   * No setup or hold violations after placement
+
+   * TNS (Total Negative Slack):
+
+   * ns max = 0.00
+
+
+* This means:
+
+  * ✔ Placement has not introduced timing violations
+
+  * ✔ The design is ready for clock-tree synthesis (CTS)
