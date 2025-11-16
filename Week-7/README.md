@@ -661,7 +661,7 @@ The routed layout shows:
 
 * ✔ Balanced routing density
 
-** 2. No Major DRC Violations After Detailed Routing
+**2. No Major DRC Violations After Detailed Routing**
 
 Visual inspection of the final routed layout reveals:
 
@@ -677,7 +677,7 @@ Although global routing reported small congestion earlier, detailed routing fixe
 
 The placement density heatmap (near 100% in some regions) is normal for dense digital standard-cell regions.
 
-** 3. Routing Heatmaps Confirm Good Congestion Distribution
+**3. Routing Heatmaps Confirm Good Congestion Distribution**
 
 * From the heatmap:
 
