@@ -471,7 +471,7 @@ This means the inserted clock buffers did not disturb timing.
 
    * 30% utilization is ideal for routing heavy designs.
 
-5. CTS Files Generated Correctly
+**5. CTS Files Generated Correctly**
 
 * Output files:
 
