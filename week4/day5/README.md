@@ -791,3 +791,138 @@ Power Domain : usb_phy
 ===================================================================================================================================================
 1
 dc_shell> 
+
+
+Report area:
+****************************************
+Report : area
+Design : usb_phy
+Version: R-2020.09-SP5-5
+Date   : Mon Mar  2 12:12:39 2026
+****************************************
+
+Information: Updating design information... (UID-85)
+Library(s) Used:
+
+    saed32hvt_ff1p16v125c (File: /home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/db_ccs/saed32hvt_ff1p16v125c.db)
+    saed32hvt_ulvl_ff1p16v125c_i0p95v (File: /home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/db_ccs/saed32hvt_ulvl_ff1p16v125c_i0p95v.db)
+    saed32lvt_ff0p95v125c (File: /home/user4/Desktop/projects/SAED32_EDK/stdcell_lvt/db_ccs/saed32lvt_ff0p95v125c.db)
+    saed32hvt_dlvl_ff0p95v125c_i1p16v (File: /home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/db_ccs/saed32hvt_dlvl_ff0p95v125c_i1p16v.db)
+
+Number of ports:                           70
+Number of nets:                           423
+Number of cells:                          335
+Number of combinational cells:            234
+Number of sequential cells:                98
+Number of macros/black boxes:               0
+Number of buf/inv:                         25
+Number of references:                      18
+
+Combinational area:                603.846149
+Buf/Inv area:                       31.768000
+Noncombinational area:             648.321365
+Macro/Black Box area:                0.000000
+Net Interconnect area:             208.733045
+
+Total cell area:                  1252.167514
+Total area:                       1460.900560
+1
+
+report_timing:
+
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : usb_phy
+Version: R-2020.09-SP5-5
+Date   : Mon Mar  2 12:14:41 2026
+****************************************
+Wire Load Model Mode: enclosed
+
+  Startpoint: i_rx_phy/fs_ce_reg
+              (rising edge-triggered flip-flop clocked by usb_clk)
+  Endpoint: i_tx_phy/one_cnt_reg[2]
+            (rising edge-triggered flip-flop clocked by usb_clk)
+  Path Group: usb_clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  usb_rx_phy         8000                  saed32hvt_dlvl_ff0p95v125c_i1p16v
+  usb_phy            8000                  saed32hvt_dlvl_ff0p95v125c_i1p16v
+  usb_tx_phy         8000                  saed32hvt_dlvl_ff0p95v125c_i1p16v
+
+  Point                                                   Incr       Path      Voltage
+  ------------------------------------------------------------------------------------
+  clock usb_clk (rise edge)                               0.00       0.00      
+  clock network delay (ideal)                             0.00       0.00      
+  i_rx_phy/fs_ce_reg/CLK (DFFX1_LVT)                      0.00       0.00 r    0.95
+  i_rx_phy/fs_ce_reg/Q (DFFX1_LVT)                        0.07       0.07 r    0.95
+  i_rx_phy/fs_ce (usb_rx_phy)                             0.00       0.07 r    
+  fs_ce_UPF_LS/Y (LSUPX1_HVT)                             0.06       0.14 r    1.16
+  i_tx_phy/fs_ce (usb_tx_phy)                             0.00       0.14 r    
+  i_tx_phy/U6/Y (AND2X1_HVT)                              0.04       0.17 r    1.16
+  i_tx_phy/U11/Y (NAND3X0_HVT)                            0.03       0.20 f    1.16
+  i_tx_phy/U13/Y (INVX1_HVT)                              0.01       0.22 r    1.16
+  i_tx_phy/U18/Y (AND2X1_HVT)                             0.03       0.25 r    1.16
+  i_tx_phy/U19/Y (NAND2X0_HVT)                            0.02       0.26 f    1.16
+  i_tx_phy/U20/Y (NAND2X0_HVT)                            0.02       0.28 r    1.16
+  i_tx_phy/U63/Y (AO222X1_HVT)                            0.05       0.33 r    1.16
+  i_tx_phy/one_cnt_reg[2]/D (DFFX1_HVT)                   0.00       0.33 r    1.16
+  data arrival time                                                  0.33      
+
+  clock usb_clk (rise edge)                               5.00       5.00      
+  clock network delay (ideal)                             0.00       5.00      
+  i_tx_phy/one_cnt_reg[2]/CLK (DFFX1_HVT)                 0.00       5.00 r    
+  library setup time                                     -0.02       4.98      
+  data required time                                                 4.98      
+  ------------------------------------------------------------------------------------
+  data required time                                                 4.98      
+  data arrival time                                                 -0.33      
+  ------------------------------------------------------------------------------------
+  slack (MET)                                                        4.64      
+
+Power_domain report:
+
+Report : power_domain
+Design : usb_phy
+Version: R-2020.09-SP5-5
+Date   : Mon Mar  2 12:20:15 2026
+****************************************
+
+------------------------------------------------------------------------------
+
+ Power Domain             : usb_phy
+ Current Scope            : usb_phy
+ Elements                 : <top_level>
+ Available Supply Nets    : VDD, VSS, VDDL
+ Available Supply Sets    : usb_phy.primary, high_voltage, low_voltage, 
+			    rx_phy.primary
+
+ Connections                -- Power --             -- Ground --
+ Primary:                   VDD                     VSS
+   (Max Op. Voltage)         (1.16)                  (0.00)
+ Default Isolation:            -                       -
+   (Max Op. Voltage)          (-)                     (-)
+ Default Retention:            -                       -
+   (Max Op. Voltage)          (-)                     (-)
+
+------------------------------------------------------------------------------
+
+ Power Domain             : rx_phy
+ Current Scope            : usb_phy
+ Elements                 : i_rx_phy
+ Available Supply Nets    : VDDL, VSS, VDD
+ Available Supply Sets    : rx_phy.primary, low_voltage, high_voltage, 
+			    usb_phy.primary
+
+ Connections                -- Power --             -- Ground --
+ Primary:                   VDDL                    VSS
+   (Max Op. Voltage)         (0.95)                  (0.00)
+ Default Isolation:            -                       -
+   (Max Op. Voltage)          (-)                     (-)
+ Default Retention:            -                       -
+   (Max Op. Voltage)          (-)                     (-)
+
+------------------------------------------------------------------------------
