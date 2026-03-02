@@ -161,6 +161,138 @@ Hence we got the switching threshold voltage = 0.98.
 
 USB project:
 
+Script.tcl
+
+################ project 1st : USB ###################
+#
+#
+#
+#Design_compiler tools
+
+############### setting the variables for paths ###################
+
+set path_ref { /home/user4/Desktop/projects/SAED_32nm/NDM/}
+set my_ref_libs {$path_ref/saed32_1p9m_tech.ndm/ \
+                 $path_ref/saed32_hvt.ndm/  \
+                 $path_ref/saed32_lvt.ndm/   \
+                 $path_ref/saed32_rvt.ndm  \
+                 $path_ref/saed32_sram_lp.ndm}
+
+set ref_lib {/home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/milkyway/saed32nm_hvt_1p9m/
+             /home/user4/Desktop/projects/SAED32_EDK/stdcell_lvt/milkyway/saed32nm_lvt_1p9m/
+              /home/user4/Desktop/projects/SAED32_EDK/stdcell_rvt/milkyway/saed32nm_rvt_1p9m/}
+
+set tech_libs {/home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_1p9m.tf}
+
+############### setting the synthetic_library############
+
+set synthetic_library dw_foundation.sldb
+set my_lib "usb_phy.mw"
+#file delete -force $my_lib
+######################## creating the library #######################
+
+create_mw_lib usb_phy.mw -technology $tech_libs  -mw_reference_library $ref_lib -open
+
+############### setting the paths for target and link, reference library#############
+#
+ set path_hvt {/home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/db_ccs/}
+ set path_lvt {/home/user4/Desktop/projects/SAED32_EDK/stdcell_lvt/db_ccs/}
+ set path_rvt {/home/user4/Desktop/projects/SAED32_EDK/stdcell_rvt/db_ccs/}
+  
+######################## setting Target_libary ##################   
+#
+set target_library "$path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16v125c_i0p95v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16v125c_i0p95v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db \
+                      $path_lvt/saed32lvt_ff0p95v125c.db \
+                      $path_lvt/saed32lvt_ff0p95vn40c.db \
+                      $path_lvt/saed32lvt_ss0p95v125c.db \
+                      $path_hvt/saed32hvt_ss0p95v125c.db \
+                      $path_hvt/saed32hvt_ff1p16v125c.db \
+                      $path_hvt/saed32hvt_ff1p16vn40c.db "
+                        
+
+##################### setting the link_library ##################
+#
+
+ set link_library    " $path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16v125c_i0p95v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16v125c_i0p95v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db \
+                      $path_lvt/saed32lvt_ff0p95v125c.db \
+                      $path_lvt/saed32lvt_ff0p95vn40c.db \
+                      $path_lvt/saed32lvt_ss0p95v125c.db \
+                      $path_hvt/saed32hvt_ss0p95v125c.db \
+                      $path_hvt/saed32hvt_ff1p16v125c.db \
+                      $path_hvt/saed32hvt_ff1p16vn40c.db "
+
+#################### reference_library ############################
+#
+#
+set reference_library  "$path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16v125c_i0p95v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
+                    $path_hvt/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16v125c_i0p95v.db \
+                    $path_hvt/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db \
+                      $path_lvt/saed32lvt_ff0p95v125c.db \
+                      $path_lvt/saed32lvt_ff0p95vn40c.db \
+                      $path_lvt/saed32lvt_ss0p95v125c.db \
+                      $path_hvt/saed32hvt_ss0p95v125c.db \
+                      $path_hvt/saed32hvt_ff1p16v125c.db \
+                      $path_hvt/saed32hvt_ff1p16vn40c.db  "
+
+current_mw_lib
+report_mw_lib
+------------------
+run.tcl
+
+source -echo /home/user4/Desktop/usb_phy/synth/scripts/setup.tcl
+set rtl_path "/home/user4/Desktop/usb_phy/rtls"
+analyze -format sverilog [glob $rtl_path/*.sv]
+elaborate usb_phy
+current_design
+remove_upf
+load_upf /home/user4/Desktop/usb_phy/synth/constraints/usb_phy.upf
+remove_sdc
+read_sdc /home/user4/Desktop/usb_phy/synth/constraints/usb_phy.sdc -echo
+
+set_voltage 1.16 -object_list VDD
+set_voltage 0.95 -object_list VDDL
+set_voltage 0.0 -object_list VSS
+set_svf usb_phy.svf
+
+create_operating_conditions -process 1.0 -voltage 0.95 -temperature 125.0 -library saed32lvt_ff0p95v125c -name ff0p95v125c
+set_operating_conditions -max ff0p95v125c
+
+set_app_var auto_insert_level_shifters_on_clocks all
+
+compile_ultra -no_autoungroup -no_boundary_optimization
+
+report_level_shifter -domain [get_power_domains * -hierarchical]
+report_level_shifter
+
+write_file -format verilog -hierarchy -output usb_phy_gln.v
+write_icc2_files -output ../outputs/icc2_files
+write_parasitics -format reduced  -output usb_phy_parasitics.spef > ../reports/usb_phy_parasitics.spef
+write_sdc usb_phy_exc.sdc
+report_area
+report_timing
+report_power_domain
+
+------
+
 Inferred memory devices in process
 	in routine usb_phy line 108 in file
 		'/home/user4/Desktop/usb_phy/rtls/usb_phy.sv'.
@@ -926,3 +1058,319 @@ Date   : Mon Mar  2 12:20:15 2026
    (Max Op. Voltage)          (-)                     (-)
 
 ------------------------------------------------------------------------------
+
+report_hierarchy:
+****************************************
+Report : hierarchy
+Design : usb_phy
+Version: R-2020.09-SP5-5
+Date   : Mon Mar  2 12:23:35 2026
+****************************************
+
+Attributes:
+    r - licensed design
+
+usb_phy            r
+    AND3X1_HVT               saed32hvt_ff1p16v125c
+                                                 1.16
+    AND4X1_HVT               saed32hvt_ff1p16v125c
+                                                 1.16
+    AO22X1_HVT               saed32hvt_ff1p16v125c
+                                                 1.16
+    AO222X1_HVT              saed32hvt_ff1p16v125c
+                                                 1.16
+    AOI21X1_HVT              saed32hvt_ff1p16v125c
+                                                 1.16
+    DFFSSRX1_HVT             saed32hvt_ff1p16v125c
+                                                 1.16
+    DFFX1_HVT                saed32hvt_ff1p16v125c
+                                                 1.16
+    INVX0_HVT                saed32hvt_ff1p16v125c
+                                                 1.16
+    INVX1_HVT                saed32hvt_ff1p16v125c
+                                                 1.16
+    LSUPX1_HVT               saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                 0.95->1.16
+    NAND2X0_HVT              saed32hvt_ff1p16v125c
+                                                 1.16
+    NAND3X0_HVT              saed32hvt_ff1p16v125c
+                                                 1.16
+    NOR2X0_HVT               saed32hvt_ff1p16v125c
+                                                 1.16
+    NOR3X0_HVT               saed32hvt_ff1p16v125c
+                                                 1.16
+    OA222X1_HVT              saed32hvt_ff1p16v125c
+                                                 1.16
+    OAI22X1_HVT              saed32hvt_ff1p16v125c
+                                                 1.16
+    usb_rx_phy                         r         0.95
+        AND2X1_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        AND3X1_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        AO21X1_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        AO22X1_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        AO222X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        AOI21X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        DFFX1_LVT            saed32lvt_ff0p95v125c
+                                                 0.95
+        INVX0_LVT            saed32lvt_ff0p95v125c
+                                                 0.95
+        INVX1_LVT            saed32lvt_ff0p95v125c
+                                                 0.95
+        LSDNSSX1_HVT         saed32hvt_dlvl_ff0p95v125c_i1p16v
+                                                 0.95->0.95
+        MUX21X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        NAND2X0_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        NAND3X0_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        NOR2X0_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        NOR3X0_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        NOR4X1_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        OA21X1_LVT           saed32lvt_ff0p95v125c
+                                                 0.95
+        OA221X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        OAI21X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        OAI22X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+        OR2X1_LVT            saed32lvt_ff0p95v125c
+                                                 0.95
+        OR3X1_LVT            saed32lvt_ff0p95v125c
+                                                 0.95
+        XNOR2X1_LVT          saed32lvt_ff0p95v125c
+                                                 0.95
+    usb_tx_phy                         r         1.16
+        AND2X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        AND3X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        AND4X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        AO21X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        AO22X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        AO221X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        AO222X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        AOI21X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        AOI22X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        DFFX1_HVT            saed32hvt_ff1p16v125c
+                                                 1.16
+        HADDX1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        INVX0_HVT            saed32hvt_ff1p16v125c
+                                                 1.16
+        INVX1_HVT            saed32hvt_ff1p16v125c
+                                                 1.16
+        NAND2X0_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        NAND3X0_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        NAND4X0_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        OA21X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        OA22X1_HVT           saed32hvt_ff1p16v125c
+                                                 1.16
+        OA221X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        OA222X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        OAI21X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        OAI22X1_HVT          saed32hvt_ff1p16v125c
+                                                 1.16
+        OR2X1_HVT            saed32hvt_ff1p16v125c
+                                                 1.16
+report_port
+****************************************
+Report : port
+Design : usb_phy
+Version: R-2020.09-SP5-5
+Date   : Mon Mar  2 12:25:18 2026
+****************************************
+
+
+                       Pin      Wire     Max     Max     Connection
+Port           Dir     Load     Load     Trans   Cap     Class      Attrs
+--------------------------------------------------------------------------------
+DataOut_i[0]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[1]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[2]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[3]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[4]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[5]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[6]   in      0.0000   0.0000    0.01   --      --         
+DataOut_i[7]   in      0.0000   0.0000    0.01   --      --         
+TxValid_i      in      0.0000   0.0000    0.01   --      --         
+clk            in      0.0000   0.0000    0.01   --      --         
+phy_tx_mode    in      0.0000   0.0000    0.01   --      --         
+rst            in      0.0000   0.0000    0.01   --      --         
+rxd            in      0.0000   0.0000    0.01   --      --         
+rxdn           in      0.0000   0.0000    0.01   --      --         
+rxdp           in      0.0000   0.0000    0.01   --      --         
+DataIn_o[0]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[1]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[2]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[3]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[4]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[5]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[6]    out     0.0000   0.0000   --     100.00   --         
+DataIn_o[7]    out     0.0000   0.0000   --     100.00   --         
+LineState_o[0] out     0.0000   0.0000   --     100.00   --         
+LineState_o[1] out     0.0000   0.0000   --     100.00   --         
+RxActive_o     out     0.0000   0.0000   --     100.00   --         
+RxError_o      out     0.0000   0.0000   --     100.00   --         
+RxValid_o      out     0.0000   0.0000   --     100.00   --         
+TxReady_o      out     0.0000   0.0000   --     100.00   --         
+txdn           out     0.0000   0.0000   --     100.00   --         
+txdp           out     0.0000   0.0000   --     100.00   --         
+txoe           out     0.0000   0.0000   --     100.00   --         
+usb_rst        out     0.0000   0.0000   --     100.00   --         
+
+report_cells:
+dc_shell> report
+1
+dc_shell> report_cell
+ 
+****************************************
+Report : cell
+Design : usb_phy
+Version: R-2020.09-SP5-5
+Date   : Mon Mar  2 12:27:07 2026
+****************************************
+
+Attributes:
+    b - black box (unknown)
+    h - hierarchical
+   lo - local optimization is disabled
+    n - noncombinational
+    r - removable
+   ry - resynthesis is disabled
+   st - structuring is off
+    u - contains unmapped logic
+
+Cell                    Reference      Library         Area   Attributes  V:T:P
+--------------------------------------------------------------------------------
+DataIn_o[0]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[1]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[2]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[3]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[4]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[5]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[6]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+DataIn_o[7]_UPF_LS      LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+LineState_o[0]_UPF_LS   LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+LineState_o[1]_UPF_LS   LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+RxActive_o_UPF_LS       LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+RxError_o_UPF_LS        LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+RxValid_o_UPF_LS        LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+U16                     INVX0_HVT      saed32hvt_ff1p16v125c
+                                                       1.270720           1.16:125.00:1.01
+U17                     INVX1_HVT      saed32hvt_ff1p16v125c
+                                                       1.270720           1.16:125.00:1.01
+U19                     AND4X1_HVT     saed32hvt_ff1p16v125c
+                                                       2.541440           1.16:125.00:1.01
+U20                     NOR3X0_HVT     saed32hvt_ff1p16v125c
+                                                       2.795584           1.16:125.00:1.01
+U21                     NAND3X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.779008           1.16:125.00:1.01
+U22                     NAND2X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.524864           1.16:125.00:1.01
+U23                     INVX1_HVT      saed32hvt_ff1p16v125c
+                                                       1.270720           1.16:125.00:1.01
+U24                     NAND2X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.524864           1.16:125.00:1.01
+U25                     NAND2X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.524864           1.16:125.00:1.01
+U26                     NOR2X0_HVT     saed32hvt_ff1p16v125c
+                                                       2.541440           1.16:125.00:1.01
+U27                     AO22X1_HVT     saed32hvt_ff1p16v125c
+                                                       2.541440           1.16:125.00:1.01
+U28                     AO22X1_HVT     saed32hvt_ff1p16v125c
+                                                       2.541440           1.16:125.00:1.01
+U29                     AND3X1_HVT     saed32hvt_ff1p16v125c
+                                                       2.287296           1.16:125.00:1.01
+U30                     AO222X1_HVT    saed32hvt_ff1p16v125c
+                                                       3.303872           1.16:125.00:1.01
+U31                     NAND3X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.779008           1.16:125.00:1.01
+U32                     AOI21X1_HVT    saed32hvt_ff1p16v125c
+                                                       3.049728           1.16:125.00:1.01
+U33                     NAND2X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.524864           1.16:125.00:1.01
+U34                     OAI22X1_HVT    saed32hvt_ff1p16v125c
+                                                       3.049728           1.16:125.00:1.01
+U35                     NAND2X0_HVT    saed32hvt_ff1p16v125c
+                                                       1.524864           1.16:125.00:1.01
+U36                     OA222X1_HVT    saed32hvt_ff1p16v125c
+                                                       3.303872           1.16:125.00:1.01
+fs_ce_UPF_LS            LSUPX1_HVT     saed32hvt_ulvl_ff1p16v125c_i0p95v
+                                                       7.116032
+                                                              lo, ry, st  0.95->1.16:125.00:1.01
+i_rx_phy                usb_rx_phy                     562.166541
+                                                              h, n        0.95:125.00:1.01
+i_tx_phy                usb_tx_phy                     507.017290
+                                                              h, n        1.16:125.00:1.01
+rst_cnt_reg[0]          DFFX1_HVT      saed32hvt_ff1p16v125c
+                                                       6.607744
+                                                              n           1.16:125.00:1.01
+rst_cnt_reg[1]          DFFX1_HVT      saed32hvt_ff1p16v125c
+                                                       6.607744
+                                                              n           1.16:125.00:1.01
+rst_cnt_reg[2]          DFFX1_HVT      saed32hvt_ff1p16v125c
+                                                       6.607744
+                                                              n           1.16:125.00:1.01
+rst_cnt_reg[3]          DFFX1_HVT      saed32hvt_ff1p16v125c
+                                                       6.607744
+                                                              n           1.16:125.00:1.01
+rst_cnt_reg[4]          DFFX1_HVT      saed32hvt_ff1p16v125c
+                                                       6.607744
+                                                              n           1.16:125.00:1.01
+usb_rst_reg             DFFSSRX1_HVT   saed32hvt_ff1p16v125c
+                                                       7.370176
+                                                              n           1.16:125.00:1.01
+--------------------------------------------------------------------------------
+Total 42 cells                                            1252.167514
+1
