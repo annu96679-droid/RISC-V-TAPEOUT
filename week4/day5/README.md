@@ -742,3 +742,52 @@ Inferred memory devices in process
 ===============================================================================
 Presto compilation completed successfully. (usb_rx_phy)
 
+level shifters in run.tcl
+
+Power Domain : usb_phy
+
+ **********************************************************
+ Level shifter summary for power domain
+ **********************************************************
+ No. of violating level shifters - dont_touch    : 0
+ No. of violating level shifters - no dont_touch : 0
+ No. of level shifters in domain                 : 14
+ **********************************************************
+
+===================================================================================================================================================
+ Level Shifter       Reference      Input P/G      Output P/G     Main P/G       Violation   Reason                 Voltage             Type
+                                    Net Info(Volt) Net Info(Volt) Net Info(Dir.)
+===================================================================================================================================================
+ RxValid_o_UPF_LS    LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ RxActive_o_UPF_LS   LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ RxError_o_UPF_LS    LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[7]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[6]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[5]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[4]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[3]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[2]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[1]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ DataIn_o[0]_UPF_LS  LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ LineState_o[1]_UPF_LS
+                     LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ LineState_o[0]_UPF_LS
+                     LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+ fs_ce_UPF_LS        LSUPX1_HVT     VDDL(0.95)     VDD(1.16)      VDD(Output)    FALSE       -                      (0.7,1.16)          LH
+                                    VSS(0.00)      VSS(0.00)      ---
+===================================================================================================================================================
+1
+dc_shell> 
