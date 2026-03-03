@@ -1374,3 +1374,851 @@ usb_rst_reg             DFFSSRX1_HVT   saed32hvt_ff1p16v125c
 --------------------------------------------------------------------------------
 Total 42 cells                                            1252.167514
 1
+
+-----
+PNR
+
+script tcl
+#Design_compiler tools
+
+############### setting the variables for paths ###################
+
+set path_ref { /home/user4/Desktop/projects/SAED_32nm/NDM/}
+set my_ref_libs "$path_ref/saed32_1p9m_tech.ndm/ \
+                 $path_ref/saed32_hvt.ndm/  \
+                 $path_ref/saed32_lvt.ndm/   \
+                 $path_ref/saed32_rvt.ndm  \
+                 $path_ref/saed32_sram_lp.ndm"
+
+set ref_lib {/home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/milkyway/saed32nm_hvt_1p9m/
+             /home/user4/Desktop/projects/SAED32_EDK/stdcell_lvt/milkyway/saed32nm_lvt_1p9m/
+              /home/user4/Desktop/projects/SAED32_EDK/stdcell_rvt/milkyway/saed32nm_rvt_1p9m/}
+
+set tech_libs {/home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_1p9m.tf}
+
+create_lib usb_phy.dlib -technology $tech_libs -ref_lib $my_ref_libs
+
+read_verilog /home/user4/Desktop/usb_phy/synth/outputs/icc2_files/usb_phy.v
+-------------------
+before planning :usb_para_tcl
+
+## reading_tluplus and nxtgrd#####
+read_parasitic_tech -tlup /home/user4/Desktop/projects/proj/ref/tech/saed32nm_1p9m_Cmax.tluplus -layermap /home/user4/Desktop/projects/proj/ref/tech/saed32nm_tf_itf_tluplus.map -name maxTLU
+read_parasitic_tech -tlup /home/user4/Desktop/projects/proj/ref/tech/saed32nm_1p9m_Cmin.tluplus -layermap /home/user4/Desktop/projects/proj/ref/tech/saed32nm_tf_itf_tluplus.map -name minTLU
+
+###setting_attr site_defs####
+set_attribute [get_site_defs unit] symmetry Y
+set_attribute [get_site_defs unit] is_default true
+
+##setting_attr_routing_layers###
+set_attribute [get_layers {M1 M3 M5 M7 M9}] routing_direction horizontal
+set_attribute [get_layers {M2 M4 M6 M8 MRDL}] routing_direction vertical
+set_ignored_layers -max_routing_layer M9
+
+return 1
+---------------------------------------------------------------------
+#report of pre floorplan checks?
+
+****************************************
+Report : design
+        -library
+        -netlist
+        -floorplan
+        -routing
+Design : usb_phy
+Version: R-2020.09-SP2
+Date   : Tue Mar  3 06:59:13 2026
+****************************************
+--------------------------------------------------------------------------------
+                              LIBRARY INFORMATION
+--------------------------------------------------------------------------------
+
+Search path : .
+
+Units : 
+    time                : 1.00ns
+    resistance          : 1.00MOhm
+    capacitance         : 1.00fF
+    voltage             : 1.00V
+    current             : 1.00uA
+    power               : 1.00pW
+
+Tech file : /home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_1p9m.tf
+
+Number of active scenarios 	= 1
+Number of inactive scenarios 	= 0
+
+Total number of standard cells 	= 1025
+
+Total number of dont_use lib cells 	= 80
+Total number of dont_touch lib cells 	= 80
+
+Total number of buffers 	= 69
+Total number of inverters 	= 45
+Total number of flip-flops 	= 306
+Total number of latches 	= 36
+Total number of ICGs 		= 36
+
+
+Library : saed32_1p9m_tech
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_1p9m_tech.ndm
+
+Library : saed32_hvt|saed32_hvt_std
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_hvt.ndm/L0
+  Source .db libs :
+    saed32hvt_ff0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ff0p95vn40c.db
+    saed32hvt_ff1p16vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ff1p16vn40c.db
+    saed32hvt_ff0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ff0p95v125c.db
+    saed32hvt_ff1p16v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ff1p16v125c.db
+    saed32hvt_ss0p75vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75vn40c.db
+    saed32hvt_ss0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95vn40c.db
+    saed32hvt_ss0p75v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p75v125c.db
+    saed32hvt_ss0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ss0p95v125c.db
+
+Library : saed32_hvt|saed32_hvt_lsup
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_hvt.ndm/L1
+  Source .db libs :
+    saed32hvt_ulvl_ff1p16vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ff1p16vn40c_i0p95v.db
+    saed32hvt_ulvl_ff1p16v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ff1p16v125c_i0p95v.db
+    saed32hvt_ulvl_ss0p95vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ss0p95vn40c_i0p75v.db
+    saed32hvt_ulvl_ss0p95v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ss0p95v125c_i0p75v.db
+    saed32hvt_ulvl_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ss0p75v125c_i0p75v.db
+    saed32hvt_ulvl_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ss0p95v125c_i0p95v.db
+    saed32hvt_ulvl_ss0p75vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ss0p75vn40c_i0p75v.db
+    saed32hvt_ulvl_ss0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_ulvl_ss0p95vn40c_i0p95v.db
+
+Library : saed32_hvt|saed32_hvt_lsdn
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_hvt.ndm/L2
+  Source .db libs :
+    saed32hvt_dlvl_ff0p95vn40c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ff0p95vn40c_i1p16v.db
+    saed32hvt_dlvl_ff0p95v125c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ff0p95v125c_i1p16v.db
+    saed32hvt_dlvl_ss0p75vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ss0p75vn40c_i0p95v.db
+    saed32hvt_dlvl_ss0p75v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ss0p75v125c_i0p95v.db
+    saed32hvt_dlvl_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ss0p75v125c_i0p75v.db
+    saed32hvt_dlvl_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ss0p95v125c_i0p95v.db
+    saed32hvt_dlvl_ss0p75vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ss0p75vn40c_i0p75v.db
+    saed32hvt_dlvl_ss0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_dlvl_ss0p95vn40c_i0p95v.db
+
+Library : saed32_hvt|saed32_hvt_pg
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_hvt.ndm/L3
+  Source .db libs :
+    saed32hvt_pg_ff0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ff0p95v125c.db
+    saed32hvt_pg_ff0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ff0p95vn40c.db
+    saed32hvt_pg_ff1p16v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ff1p16v125c.db
+    saed32hvt_pg_ff1p16vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ff1p16vn40c.db
+    saed32hvt_pg_ss0p75vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ss0p75vn40c.db
+    saed32hvt_pg_ss0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ss0p95vn40c.db
+    saed32hvt_pg_ss0p75v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ss0p75v125c.db
+    saed32hvt_pg_ss0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_hvt/db_nldm/saed32hvt_pg_ss0p95v125c.db
+
+Library : saed32_lvt|saed32_lvt_std
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_lvt.ndm/L0
+  Source .db libs :
+    saed32lvt_ff0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ff0p95vn40c.db
+    saed32lvt_ff1p16vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ff1p16vn40c.db
+    saed32lvt_ff0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ff0p95v125c.db
+    saed32lvt_ff1p16v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ff1p16v125c.db
+    saed32lvt_ss0p75vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75vn40c.db
+    saed32lvt_ss0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p95vn40c.db
+    saed32lvt_ss0p75v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p75v125c.db
+    saed32lvt_ss0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ss0p95v125c.db
+
+Library : saed32_lvt|saed32_lvt_lsup
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_lvt.ndm/L1
+  Source .db libs :
+    saed32lvt_ulvl_ff1p16vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ff1p16vn40c_i0p95v.db
+    saed32lvt_ulvl_ff1p16v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ff1p16v125c_i0p95v.db
+    saed32lvt_ulvl_ss0p95vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ss0p95vn40c_i0p75v.db
+    saed32lvt_ulvl_ss0p95v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ss0p95v125c_i0p75v.db
+    saed32lvt_ulvl_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ss0p75v125c_i0p75v.db
+    saed32lvt_ulvl_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ss0p95v125c_i0p95v.db
+    saed32lvt_ulvl_ss0p75vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ss0p75vn40c_i0p75v.db
+    saed32lvt_ulvl_ss0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_ulvl_ss0p95vn40c_i0p95v.db
+
+Library : saed32_lvt|saed32_lvt_lsdn
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_lvt.ndm/L2
+  Source .db libs :
+    saed32lvt_dlvl_ff0p95vn40c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_dlvl_ff0p95vn40c_i1p16v.db
+    saed32lvt_dlvl_ff0p95v125c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_dlvl_ff0p95v125c_i1p16v.db
+    saed32lvt_dlvl_ss0p75vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_dlvl_ss0p75vn40c_i0p95v.db
+    saed32lvt_dlvl_ss0p75v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_dlvl_ss0p75v125c_i0p95v.db
+    saed32lvt_dlvl_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_dlvl_ss0p75v125c_i0p75v.db
+    saed32lvt_dlvl_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_dlvl_ss0p95v125c_i0p95v.db
+
+Library : saed32_lvt|saed32_lvt_pg
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_lvt.ndm/L3
+  Source .db libs :
+    saed32lvt_pg_ff0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ff0p95v125c.db
+    saed32lvt_pg_ff0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ff0p95vn40c.db
+    saed32lvt_pg_ff1p16v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ff1p16v125c.db
+    saed32lvt_pg_ff1p16vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ff1p16vn40c.db
+    saed32lvt_pg_ss0p75v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ss0p75v125c.db
+    saed32lvt_pg_ss0p75vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ss0p75vn40c.db
+    saed32lvt_pg_ss0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ss0p95v125c.db
+    saed32lvt_pg_ss0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_lvt/db_nldm/saed32lvt_pg_ss0p95vn40c.db
+
+Library : saed32_rvt|saed32_rvt_pg
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_rvt.ndm/L0
+  Source .db libs :
+    saed32rvt_pg_ff0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ff0p95v125c.db
+    saed32rvt_pg_ff0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ff0p95vn40c.db
+    saed32rvt_pg_ff1p16v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ff1p16v125c.db
+    saed32rvt_pg_ff1p16vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ff1p16vn40c.db
+    saed32rvt_pg_ss0p75v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ss0p75v125c.db
+    saed32rvt_pg_ss0p75vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ss0p75vn40c.db
+    saed32rvt_pg_ss0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ss0p95v125c.db
+    saed32rvt_pg_ss0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_pg_ss0p95vn40c.db
+
+Library : saed32_rvt|saed32_rvt_std
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_rvt.ndm/L1
+  Source .db libs :
+    saed32rvt_ff1p16vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ff1p16vn40c.db
+    saed32rvt_ff1p16v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ff1p16v125c.db
+    saed32rvt_ff0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ff0p95v125c.db
+    saed32rvt_ff0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ff0p95vn40c.db
+    saed32rvt_ss0p95vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p95vn40c.db
+    saed32rvt_ss0p95v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p95v125c.db
+    saed32rvt_ss0p75v125c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75v125c.db
+    saed32rvt_ss0p75vn40c : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ss0p75vn40c.db
+
+Library : saed32_rvt|saed32_rvt_lsdn
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_rvt.ndm/L2
+  Source .db libs :
+    saed32rvt_dlvl_ff0p95v125c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ff0p95v125c_i1p16v.db
+    saed32rvt_dlvl_ff0p95vn40c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ff0p95vn40c_i1p16v.db
+    saed32rvt_dlvl_ss0p75v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ss0p75v125c_i0p95v.db
+    saed32rvt_dlvl_ss0p75vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ss0p75vn40c_i0p95v.db
+    saed32rvt_dlvl_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ss0p75v125c_i0p75v.db
+    saed32rvt_dlvl_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ss0p95v125c_i0p95v.db
+    saed32rvt_dlvl_ss0p75vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ss0p75vn40c_i0p75v.db
+    saed32rvt_dlvl_ss0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_dlvl_ss0p95vn40c_i0p95v.db
+
+Library : saed32_rvt|saed32_rvt_lsup
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_rvt.ndm/L3
+  Source .db libs :
+    saed32rvt_ulvl_ff1p16v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ff1p16v125c_i0p95v.db
+    saed32rvt_ulvl_ff1p16vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ff1p16vn40c_i0p95v.db
+    saed32rvt_ulvl_ss0p95v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ss0p95v125c_i0p75v.db
+    saed32rvt_ulvl_ss0p95vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ss0p95vn40c_i0p75v.db
+    saed32rvt_ulvl_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ss0p75v125c_i0p75v.db
+    saed32rvt_ulvl_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ss0p95v125c_i0p95v.db
+    saed32rvt_ulvl_ss0p75vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ss0p75vn40c_i0p75v.db
+    saed32rvt_ulvl_ss0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/stdcell_rvt/db_nldm/saed32rvt_ulvl_ss0p95vn40c_i0p95v.db
+
+Library : saed32_sram_lp
+  File path : /home/user4/Desktop/projects/SAED_32nm/NDM/saed32_sram_lp.ndm
+  Source .db libs :
+    saed32sramlp_ss0p75vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ss0p75vn40c_i0p75v.db
+    saed32sramlp_ss0p75v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ss0p75v125c_i0p75v.db
+    saed32sramlp_ss0p95v125c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ss0p95v125c_i0p75v.db
+    saed32sramlp_ss0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ss0p95v125c_i0p95v.db
+    saed32sramlp_ss0p95vn40c_i0p75v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ss0p95vn40c_i0p75v.db
+    saed32sramlp_ss0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ss0p95vn40c_i0p95v.db
+    saed32sramlp_ff0p95v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff0p95v125c_i0p95v.db
+    saed32sramlp_ff0p95vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff0p95vn40c_i0p95v.db
+    saed32sramlp_ff1p16v125c_i0p85v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff1p16v125c_i0p85v.db
+    saed32sramlp_ff1p16v125c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff1p16v125c_i0p95v.db
+    saed32sramlp_ff1p16v125c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff1p16v125c_i1p16v.db
+    saed32sramlp_ff1p16vn40c_i0p85v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff1p16vn40c_i0p85v.db
+    saed32sramlp_ff1p16vn40c_i0p95v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff1p16vn40c_i0p95v.db
+    saed32sramlp_ff1p16vn40c_i1p16v : /global/gtsna_training/projects/IC_Compiler_II_Implementation/dev_2018.06/ref/SAED32_2012-12-25/lib/sram_lp/db_nldm/saed32sramlp_ff1p16vn40c_i1p16v.db
+
+--------------------------------------------------------------------------------
+                              NETLIST INFORMATION
+--------------------------------------------------------------------------------
+
+CELL INSTANCE INFORMATION
+-----------------------------------------------------------------------------
+Cell Instance Type          Count % of         Area  % of siteAreaPerSite
+                                  total             total
+-----------------------------------------------------------------------------
+TOTAL LEAF CELLS              332  100     1252.167   100 unit:4927  
+
+  Standard cells              332  100     1252.167   100 unit:4927  
+  Filler cells                  0    0        0.000     0 
+  Diode cells                   0    0        0.000     0 
+  Hard macro cells              0    0        0.000     0 
+  Soft macro cells              0    0        0.000     0 
+    Black box cells             0    0        0.000     0 
+  Analog block cells            0    0        0.000     0 
+  Pad cells                     0    0        0.000     0 
+    Flip-chip pad cells         0    0        0.000     0 
+  Cover cells                   0    0        0.000     0 
+  Flip-chip driver cells        0    0        0.000     0 
+  Corner pad cells              0    0        0.000     0 
+  Pad spacer cells              0    0        0.000     0 
+  Others                        0    0        0.000     0 
+
+Special cells                  20    6      110.298     8 unit:434  
+  Level shifter                20    6      110.298     8 unit:434  
+  Isolation                     0    0        0.000     0 
+  Switch                        0    0        0.000     0 
+  Always on                     0    0        0.000     0 
+  Retention                     0    0        0.000     0 
+  Tie off                       0    0        0.000     0 
+
+LVT                             0    0        0.000     0 
+HVT                             0    0        0.000     0 
+Normal VT                       0    0        0.000     0 
+Others                        332  100     1252.167   100 unit:4927  
+
+Netlist cells                 332  100     1252.167   100 unit:4927  
+Physical only                   0    0        0.000     0 
+
+Fixed cells                     0    0        0.000     0 
+Moveable cells                332  100     1252.167   100 unit:4927  
+
+Combinational                 234   70      603.846    48 unit:2376  
+Sequential                     98   29      648.321    51 unit:2551  
+Others                          0    0        0.000     0 
+
+Buffer                         20    6      110.298     8 unit:434  
+Inverter                       25    7       31.768     2 unit:125  
+Buffer/inverter                45   13      142.066    11 unit:559  
+
+Spare cells                     0    0        0.000     0 
+ICG cells                       0    0        0.000     0 
+Flip-flop cells                98   29      648.321    51 unit:2551  
+Latch cells                     0    0        0.000     0 
+Antenna cells                   0    0        0.000     0 
+
+Mux logic                      10    3       33.039     2 unit:130  
+Double height                  14    4       99.624     7 unit:392  
+Triple height                   0    0        0.000     0 
+More than triple height         0    0        0.000     0 
+
+Logic Hierarchies          2
+
+REFERENCE DESIGN INFORMATION
+----------------------------------------------------------------------------------------------
+Number of reference designs used:50   
+----------------------------------------------------------------------------------------------
+Name           Type          Count     Width    Height        Area   PinDens SiteName siteArea
+----------------------------------------------------------------------------------------------
+DFFX1_HVT      lib_cell         50      3.95      1.67       6.608     0.908 unit           26
+DFFX1_LVT      lib_cell         47      3.95      1.67       6.608     0.908 unit           26
+NAND2X0_HVT    lib_cell         19      0.91      1.67       1.525     3.279 unit            6
+AO22X1_HVT     lib_cell         19      1.52      1.67       2.541     2.754 unit           10
+LSUPX1_HVT     lib_cell         14      2.13      3.34       7.116     0.703 unit           28
+AO22X1_LVT     lib_cell         12      1.52      1.67       2.541     2.754 unit           10
+OR2X1_LVT      lib_cell         11      1.22      1.67       2.033     2.459 unit            8
+MUX21X1_LVT    lib_cell         10      1.98      1.67       3.304     1.816 unit           13
+AND2X1_LVT     lib_cell          9      1.22      1.67       2.033     2.459 unit            8
+NOR2X0_LVT     lib_cell          8      1.52      1.67       2.541     1.967 unit           10
+INVX1_LVT      lib_cell          8      0.76      1.67       1.271     3.148 unit            5
+NAND2X0_LVT    lib_cell          8      0.91      1.67       1.525     3.279 unit            6
+AND2X1_HVT     lib_cell          8      1.22      1.67       2.033     2.459 unit            8
+INVX1_HVT      lib_cell          8      0.76      1.67       1.271     3.148 unit            5
+OA221X1_HVT    lib_cell          7      1.82      1.67       3.050     2.623 unit           12
+INVX0_LVT      lib_cell          6      0.76      1.67       1.271     3.148 unit            5
+LSDNSSX1_HVT   lib_cell          6      1.06      1.67       1.779     2.248 unit            7
+NAND3X0_HVT    lib_cell          6      1.06      1.67       1.779     3.373 unit            7
+AO222X1_HVT    lib_cell          5      1.98      1.67       3.304     2.724 unit           13
+NAND3X0_LVT    lib_cell          5      1.06      1.67       1.779     3.373 unit            7
+OAI22X1_HVT    lib_cell          4      1.82      1.67       3.050     2.295 unit           12
+AO222X1_LVT    lib_cell          4      1.98      1.67       3.304     2.724 unit           13
+NAND4X0_HVT    lib_cell          4      1.22      1.67       2.033     3.443 unit            8
+AOI21X1_LVT    lib_cell          4      1.82      1.67       3.050     1.967 unit           12
+AO221X1_HVT    lib_cell          4      1.82      1.67       3.050     2.623 unit           12
+OA21X1_HVT     lib_cell          4      1.52      1.67       2.541     2.361 unit           10
+AND3X1_HVT     lib_cell          4      1.37      1.67       2.287     2.623 unit            9
+AO21X1_LVT     lib_cell          3      1.52      1.67       2.541     2.361 unit           10
+AND4X1_HVT     lib_cell          3      1.52      1.67       2.541     2.754 unit           10
+INVX0_HVT      lib_cell          3      0.76      1.67       1.271     3.148 unit            5
+NOR4X1_LVT     lib_cell          2      1.82      1.67       3.050     2.295 unit           12
+OA21X1_LVT     lib_cell          2      1.52      1.67       2.541     2.361 unit           10
+NOR3X0_LVT     lib_cell          2      1.67      1.67       2.796     2.146 unit           11
+AND3X1_LVT     lib_cell          2      1.37      1.67       2.287     2.623 unit            9
+AO21X1_HVT     lib_cell          2      1.52      1.67       2.541     2.361 unit           10
+XNOR2X1_LVT    lib_cell          2      2.58      1.67       4.320     1.157 unit           17
+OAI21X1_LVT    lib_cell          2      1.82      1.67       3.050     1.967 unit           12
+OA222X1_HVT    lib_cell          2      1.98      1.67       3.304     2.724 unit           13
+AOI21X1_HVT    lib_cell          2      1.82      1.67       3.050     1.967 unit           12
+HADDX1_HVT     lib_cell          1      1.98      1.67       3.304     1.816 unit           13
+OA22X1_HVT     lib_cell          1      1.52      1.67       2.541     2.754 unit           10
+AOI22X1_HVT    lib_cell          1      1.82      1.67       3.050     2.295 unit           12
+OR2X1_HVT      lib_cell          1      1.22      1.67       2.033     2.459 unit            8
+OAI21X1_HVT    lib_cell          1      1.82      1.67       3.050     1.967 unit           12
+NOR2X0_HVT     lib_cell          1      1.52      1.67       2.541     1.967 unit           10
+OAI22X1_LVT    lib_cell          1      1.82      1.67       3.050     2.295 unit           12
+OR3X1_LVT      lib_cell          1      1.37      1.67       2.287     2.623 unit            9
+NOR3X0_HVT     lib_cell          1      1.67      1.67       2.796     2.146 unit           11
+DFFSSRX1_HVT   lib_cell          1      4.41      1.67       7.370     1.085 unit           29
+OA221X1_LVT    lib_cell          1      1.82      1.67       3.050     2.623 unit           12
+
+NET INFORMATION
+------------------------------------------------------------------
+NetType                 Count FloatingNets         Vias Nets/Cells
+------------------------------------------------------------------
+Total                     386            1            0      1.163
+Signal                    385            0            0      1.160
+Power                       0            0            0      0.000
+Ground                      0            0            0      0.000
+Analog Signal               0            0            0      0.000
+Analog Ground               0            0            0      0.000
+Analog Power                0            0            0      0.000
+Clock                       0            0            0      0.000
+Tie Low                     0            0            0      0.000
+Tie High                    1            1            0      0.003
+Others                      0            0            0      0.000
+
+NET FANOUT AND PIN COUNT INFORMATION
+---------------------------------------------------
+Fanout        Netcount     netPinCount     NetCount
+---------------------------------------------------
+<2                 221     <2                     1
+2                   86     2                    220
+3                   35     3                     86
+4                    9     4                     35
+5                   10     5                      9
+6-10                21     6-10                  28
+11-20                2     11-20                  5
+21-30                0     21-30                  0
+31-50                1     31-50                  1
+51-100               1     51-100                 1
+101-500              0     101-500                0
+501-1000             0     501-1000               0
+>1000                0     >1000                  0
+
+PORT AND PIN INFORMATION
+------------------------------------------------------------------------------
+Type         Total     Input    Output     Inout      3-st     Power    Ground
+------------------------------------------------------------------------------
+Total         1955      1524       431         0         0       346       332
+Macro            0         0         0         0         0         0         0
+Ports           33        15        18         0         0         0         0
+------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+                              FLOORPLAN INFORMATION
+--------------------------------------------------------------------------------
+
+CORE AND CHIP AREA INFORMATION
+---------------------------
+Core Area is :        0.000
+Chip Area is :        0.000
+---------------------------
+
+SITE ROW INFORMATION
+-----------------------------------------------------------------------
+Site Name    Width    Height   Total Rows     Total Tiles          Area
+-----------------------------------------------------------------------
+-----------------------------------------------------------------------
+
+BLOCKAGE INFORMATION
+------------------------------------------------
+Blockage Type                Count          Area
+------------------------------------------------
+Hard placement                   0         0.000
+Soft placement                   0         0.000
+Hard macro                       0         0.000
+Partial placement                0         0.000
+Register                         0         0.000
+Placement allow Buffer Only      0         0.000
+Placement allow RP Group Only
+                                 0         0.000
+RP Group                         0         0.000
+Category                         0         0.000
+Routing                          0         0.000
+Routing for Top                  0         0.000
+Routing For Design Rule          0         0.000
+Shaping                          0         0.000
+------------------------------------------------
+
+POWER DOMAIN INFORMATION
+--------------------------------------------------------------------
+Power Domain Name    VA Name         Primary Power Net Primary Ground Net
+--------------------------------------------------------------------
+DEFAULT_POWER_DOMAIN DEFAULT_VA      VDD               VSS
+--------------------------------------------------------------------
+
+VOLTAGE AREA INFORMATION
+-------------------------------------------------------------------------------------
+VA Name          Number             Area       Target    bbox    bbox    bbox    bbox
+              of shapes                   Utilization     llx     lly     urx     ury
+-------------------------------------------------------------------------------------
+DEFAULT_VA            1            0.000         1.00    0.00    0.00    0.00    0.00
+-------------------------------------------------------------------------------------
+
+GROUP BOUND INFORMATION
+----------------------------------------
+No Group Bound exists
+
+EXCLUSIVE MOVEBOUND INFORMATION
+----------------------------------------
+No Exclusive MoveBound exists.
+
+HARD AND SOFT MOVEBOUND INFORMATION
+----------------------------------------
+No Hard Or Soft MoveBound exists.
+
+ROUTE GUIDE INFORMATION
+------------------------------------------------
+Route Guide Type             Count          Area
+------------------------------------------------
+Extra Detour Region              0         0.000
+Over icovl CellLayers            0         0.000
+River Routing                    0         0.000
+Area Double Via                  0         0.000
+Access Preference                0         0.000
+Default                          0         0.000
+Switched Direction Only          0         0.000
+Max Patterns                     0         0.000
+Others                           0         0.000
+------------------------------------------------
+
+MULTIBIT REGISTER INFORMATION
+-----------------------------------------------
+No Multibit cells exist
+
+MULTIBIT LS/ISO CELLS INFORMATION
+-----------------------------------------------
+No Multibit cells exist
+
+RP GROUP INFORMATION
+----------------------------------------
+No RP Group exists
+
+LAYER INFORMATION
+--------------------------------------------------------------------------
+Layer Name Direction Ignored Pitch  default minWidth minSpacing    sameNet
+                                      Width                     MinSpacing
+--------------------------------------------------------------------------
+M1         Hor       NO       0.15     0.05     0.05       0.05       0.00
+M2         Ver       NO       0.15     0.06     0.06       0.06       0.06
+M3         Hor       NO       0.30     0.06     0.06       0.06       0.06
+M4         Ver       NO       0.30     0.06     0.06       0.06       0.06
+M5         Hor       NO       0.61     0.06     0.06       0.06       0.06
+M6         Ver       NO       0.61     0.06     0.06       0.06       0.06
+M7         Hor       NO       1.22     0.06     0.06       0.06       0.06
+M8         Ver       NO       1.22     0.06     0.06       0.06       0.06
+M9         Hor       NO       2.43     0.16     0.16       0.16       0.00
+MRDL       Ver       YES      4.86     2.00     2.00       2.00       0.00
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+                              ROUTING INFORMATION
+--------------------------------------------------------------------------------
+
+Total wire length = 0.00 micron
+Total number of wires = 0
+Total number of contacts = 0
+
+FINAL WIRING STATISTICS
+
+Signal Wiring Statistics
+
+Metal layer     Num wires  % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                      0        0.00%         0.00             0.00%
+M2                      0        0.00%         0.00             0.00%
+M3                      0        0.00%         0.00             0.00%
+M4                      0        0.00%         0.00             0.00%
+M5                      0        0.00%         0.00             0.00%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+Clock Wiring Statistics
+
+Metal layer     Num wires  % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                      0        0.00%         0.00             0.00%
+M2                      0        0.00%         0.00             0.00%
+M3                      0        0.00%         0.00             0.00%
+M4                      0        0.00%         0.00             0.00%
+M5                      0        0.00%         0.00             0.00%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+P/G Wiring Statistics
+
+Metal layer     Num wires  % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                      0        0.00%         0.00             0.00%
+M2                      0        0.00%         0.00             0.00%
+M3                      0        0.00%         0.00             0.00%
+M4                      0        0.00%         0.00             0.00%
+M5                      0        0.00%         0.00             0.00%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+Shape Pattern Wiring Statistics
+
+Metal layer     Num shapePatterns
+                           % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                      0        0.00%         0.00             0.00%
+M2                      0        0.00%         0.00             0.00%
+M3                      0        0.00%         0.00             0.00%
+M4                      0        0.00%         0.00             0.00%
+M5                      0        0.00%         0.00             0.00%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+All the PG shape patterns stand for 0 shapes.
+
+Horizontal/Vertical Wire Distribution
+
+Metal layer  Hor. length  % of hor.    Ver. length  % of ver.
+PO                   0.00        0.00%         0.00        0.00%
+M1                   0.00        0.00%         0.00        0.00%
+M2                   0.00        0.00%         0.00        0.00%
+M3                   0.00        0.00%         0.00        0.00%
+M4                   0.00        0.00%         0.00        0.00%
+M5                   0.00        0.00%         0.00        0.00%
+M6                   0.00        0.00%         0.00        0.00%
+M7                   0.00        0.00%         0.00        0.00%
+M8                   0.00        0.00%         0.00        0.00%
+M9                   0.00        0.00%         0.00        0.00%
+MRDL                 0.00        0.00%         0.00        0.00%
+
+FINAL VIA STATISTICS
+
+No vias found in the design.
+
+FINAL DRC STATISTICS
+
+
+#for the timing check:
+Information: Timer using 1 threads
+  ----------------------------------------------------------------------------------------------------
+  Rule         Type   Count      Message
+  ----------------------------------------------------------------------------------------------------
+  TCK-001      Warn   117        The reported endpoint '%endpoint' is unconstrained. Reason: '%re...
+  TCK-002      Warn   98         The register clock pin '%pin' has no fanin clocks. Mode:'%mode'.
+  ----------------------------------------------------------------------------------------------------
+Total messages: 215, Errors: 0, Warnings: 215, Info: 0
+
+
+Messages
+--------
+Warning: The register clock pin 'i_tx_phy/state_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/append_eop_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/append_eop_sync1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/append_eop_sync2_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/append_eop_sync3_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/append_eop_sync4_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/tx_ip_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/data_done_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/tx_ip_sync_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/txoe_r1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/txoe_r2_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/txoe_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/bit_cnt_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/bit_cnt_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/bit_cnt_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/sd_raw_o_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/sd_bs_o_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/sd_nrzi_o_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/txdn_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/txdp_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/one_cnt_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/one_cnt_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/one_cnt_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/sft_done_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/sft_done_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/state_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/ld_data_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/TxReady_o_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/state_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[7]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[7]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[6]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[6]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[5]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[5]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[4]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[4]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[3]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[3]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_tx_phy/hold_reg_d_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rx_en_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxd_s0_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxd_s1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxd_s_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdp_s0_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdp_s1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdp_s_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdp_s_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdn_s0_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdn_s1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdn_s_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxdn_s_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rxd_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/dpll_state_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/dpll_state_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/fs_ce_r1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/fs_ce_r2_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rx_valid_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rx_valid_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rx_active_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/fs_state_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/fs_state_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/fs_state_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/sync_err_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/shift_en_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/sd_nrzi_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/one_cnt_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/bit_stuff_err_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/one_cnt_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/one_cnt_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/bit_cnt_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/bit_cnt_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/bit_cnt_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/rx_valid1_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/se0_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/byte_err_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/se0_s_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/sd_r_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[7]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[6]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[5]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[4]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[3]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/hold_reg_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'i_rx_phy/fs_ce_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'rst_cnt_reg[1]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'rst_cnt_reg[0]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'rst_cnt_reg[2]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'rst_cnt_reg[3]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'rst_cnt_reg[4]/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The register clock pin 'usb_rst_reg/CLK' has no fanin clocks. Mode:'default'. (TCK-002)
+Warning: The reported endpoint 'usb_rst' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'txdp' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'txdn' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'txoe' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'TxReady_o' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'RxValid_o' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'RxActive_o' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'RxError_o' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[7]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[6]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[5]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[4]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[3]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[2]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[1]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'DataIn_o[0]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'LineState_o[1]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'LineState_o[0]' is unconstrained. Reason: 'no check'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/state_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/append_eop_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/append_eop_sync1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/append_eop_sync2_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/append_eop_sync3_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/append_eop_sync4_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/tx_ip_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/data_done_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/tx_ip_sync_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/txoe_r1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/txoe_r2_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/txoe_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/bit_cnt_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/bit_cnt_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/bit_cnt_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/sd_raw_o_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/sd_bs_o_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/sd_nrzi_o_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/txdn_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/txdp_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/one_cnt_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/one_cnt_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/one_cnt_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/sft_done_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/sft_done_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/state_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/ld_data_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/TxReady_o_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/state_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[7]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[7]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[6]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[6]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[5]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[5]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[4]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[4]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[3]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[3]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_tx_phy/hold_reg_d_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rx_en_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxd_s0_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxd_s1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxd_s_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdp_s0_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdp_s1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdp_s_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdp_s_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdn_s0_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdn_s1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdn_s_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxdn_s_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rxd_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/dpll_state_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/dpll_state_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/fs_ce_r1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/fs_ce_r2_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rx_valid_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rx_valid_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rx_active_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/fs_state_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/fs_state_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/fs_state_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/sync_err_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/shift_en_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/sd_nrzi_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/one_cnt_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/bit_stuff_err_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/one_cnt_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/one_cnt_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/bit_cnt_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/bit_cnt_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/bit_cnt_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/rx_valid1_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/se0_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/byte_err_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/se0_s_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/sd_r_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[7]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[6]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[5]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[4]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[3]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/hold_reg_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'i_rx_phy/fs_ce_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'rst_cnt_reg[1]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'rst_cnt_reg[0]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'rst_cnt_reg[2]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'rst_cnt_reg[3]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'rst_cnt_reg[4]/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'usb_rst_reg/D' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+Warning: The reported endpoint 'usb_rst_reg/RSTB' is unconstrained. Reason: 'unclocked'. Mode:'default'. (TCK-001)
+1
+1
+1
+
