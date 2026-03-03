@@ -2222,3 +2222,91 @@ Warning: The reported endpoint 'usb_rst_reg/RSTB' is unconstrained. Reason: 'unc
 1
 1
 
+tcl used in floorplan:
+
+script:
+
+#Design_compiler tools
+
+############### setting the variables for paths ###################
+
+set path_ref { /home/user4/Desktop/projects/SAED_32nm/NDM/}
+set my_ref_libs "$path_ref/saed32_1p9m_tech.ndm/ \
+                 $path_ref/saed32_hvt.ndm/  \
+                 $path_ref/saed32_lvt.ndm/   \
+                 $path_ref/saed32_rvt.ndm  \
+                 $path_ref/saed32_sram_lp.ndm"
+
+set ref_lib {/home/user4/Desktop/projects/SAED32_EDK/stdcell_hvt/milkyway/saed32nm_hvt_1p9m/
+             /home/user4/Desktop/projects/SAED32_EDK/stdcell_lvt/milkyway/saed32nm_lvt_1p9m/
+              /home/user4/Desktop/projects/SAED32_EDK/stdcell_rvt/milkyway/saed32nm_rvt_1p9m/}
+
+set tech_libs {/home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_1p9m.tf}
+
+create_lib usb_phy.dlib -technology $tech_libs -ref_lib $my_ref_libs
+
+
+read_verilog /home/user4/Desktop/usb_phy/synth/outputs/icc2_files/usb_phy.v
+link_block
+
+2. usb_lay_para.tcl
+
+## reading_tluplus and nxtgrd#####
+read_parasitic_tech -tlup /home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_1p9m_Cmax.tluplus -layermap /home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_tf_itf_tluplus.map -name maxTLU
+read_parasitic_tech -tlup /home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_1p9m_Cmin.tluplus -layermap /home/user4/Desktop/projects/SAED_32nm/tech/saed32nm_tf_itf_tluplus.map -name minTLU
+
+###setting_attr site_defs####
+set_attribute [get_site_defs unit] symmetry Y
+set_attribute [get_site_defs unit] is_default true
+
+##setting_attr_routing_layers###
+set_attribute [get_layers {M1 M3 M5 M7 M9}] routing_direction horizontal
+set_attribute [get_layers {M2 M4 M6 M8 MRDL}] routing_direction vertical
+set_ignored_layers -max_routing_layer M9
+
+return 1
+
+3.floorplam_usb.tcl
+
+# pre_floorplan_checks
+
+file mkdir ../reports/floorplan
+check_timing > ../reports/floorplan/check_timing_pre_floorplan.rpt
+check_netlist > ../reports/floorplan/check_netlist_pre_floorplan.rpt
+report_design -all > ../reports/floorplan/design_report_pre_floorplan.rpt
+report_design_mismatch > ../reports/floorplan/design_mismatch_pre.rpt
+
+#creating_flooprlamn and blockages
+
+initialize_floorplan -boundary {{0.000 0.000} {55 55}} -core_offset {5}
+report_utilization
+load_upf /home/user4/Desktop/usb_phy/synth/outputs/icc2_files/usb_phy.upf
+commit_upf
+
+shape_blocks
+set_block_pin_constraints -self -allowed_layers {M3 M4 M5 M6}
+
+place_pins -self
+read_sdc /home/user4/Desktop/usb_phy/synth/logs/usb_phy_exc.sdc -echo
+
+#Boundary cells
+
+set_attribute [get_lib_cells *DCAP*] dont_use false
+
+set_boundary_cell_rules \
+  -left_boundary_cell saed32_rvt|saed32_rvt_std/DCAP_RVT \
+  -right_boundary_cell saed32_rvt|saed32_rvt_std/DCAP_RVT \
+  -top_boundary_cell saed32_rvt|saed32_rvt_std/DCAP_RVT \
+  -bottom_boundary_cell saed32_rvt|saed32_rvt_std/DCAP_RVT
+
+compile_targeted_boundary_cells -target_objects [get_voltage_areas]
+
+check_legality -cells [get_cells *DCAP*] > ../reports/floorplan/check_legality_boundary_cells.rpt
+
+set_dont_touch [get_lib_cells */TIE*] false
+
+set_lib_cell_purpose -include optimization [get_lib_cell */TIE*]
+
+#save_block
+
+save_block -as floorplan_done1
