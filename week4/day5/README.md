@@ -2439,3 +2439,103 @@ Number of VSS Terminals: 1
   Number of floating hierarchical blocks: 0
 ************************************************************
 Overall runtime: 0 seconds.
+
+-------------------------------
+
+# timing report
+
+report_timing****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+Design : usb_phy
+Version: R-2020.09-SP2
+Date   : Thu Mar  5 12:49:33 2026
+****************************************
+
+  Startpoint: i_rx_phy/fs_ce_reg (rising edge-triggered flip-flop clocked by usb_clk)
+  Endpoint: i_tx_phy/one_cnt_reg[2] (rising edge-triggered flip-flop clocked by usb_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: usb_clk
+  Path Type: max
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock usb_clk (rise edge)                        0.00      0.00
+  clock network delay (ideal)                      0.00      0.00
+
+  i_rx_phy/fs_ce_reg/CLK (DFFX1_HVT)               0.00      0.00 r
+  i_rx_phy/fs_ce_reg/Q (DFFX1_HVT)                 0.10      0.10 f
+  fs_ce_UPF_LS/Y (LSUPX1_HVT)                      0.09      0.19 f
+  i_tx_phy/U6/Y (AND2X2_HVT)                       0.05      0.24 f
+  i_tx_phy/U11/Y (NAND3X0_HVT)                     0.03      0.28 r
+  i_tx_phy/U13/Y (INVX0_HVT)                       0.04      0.31 f
+  i_tx_phy/U18/Y (AND2X1_HVT)                      0.04      0.36 f
+  i_tx_phy/U19/Y (NAND2X0_HVT)                     0.02      0.38 r
+  i_tx_phy/U20/Y (NAND2X0_HVT)                     0.03      0.41 f
+  i_tx_phy/U63/Y (AO222X1_HVT)                     0.04      0.44 f
+  i_tx_phy/one_cnt_reg[2]/D (DFFX1_HVT)            0.00      0.44 f
+  data arrival time                                          0.44
+
+  clock usb_clk (rise edge)                        5.00      5.00
+  clock network delay (ideal)                      0.00      5.00
+  i_tx_phy/one_cnt_reg[2]/CLK (DFFX1_HVT)          0.00      5.00 r
+  library setup time                              -0.01      4.99
+  data required time                                         4.99
+  ------------------------------------------------------------------------
+  data required time                                         4.99
+  data arrival time                                         -0.44
+  ------------------------------------------------------------------------
+  slack (MET)                                                4.54
+
+
+1
+report_timing > ../reports/placement/timing_pre_placement_opt.rpt
+icc2_shell> report_constraints -all_violators
+****************************************
+Report : constraint
+        -all_violators
+Design : usb_phy
+Version: R-2020.09-SP2
+Date   : Thu Mar  5 12:51:02 2026
+****************************************
+
+   late_timing
+   -----------
+
+Endpoint                         Path Delay     Path Required       CRP    Slack Group    Scenario
+----------------------------------------------------------------------------------------------------------
+No paths.
+
+   early_timing
+   -----------
+
+Endpoint                         Path Delay     Path Required       CRP    Slack Group    Scenario
+----------------------------------------------------------------------------------------------------------
+No paths.
+
+   Mode: default Corner: default
+   Scenario: default
+  ---------------------------------------------------------------------------
+   Number of max_transition violation(s): 0
+
+   Mode: default Corner: default
+   Scenario: default
+  ---------------------------------------------------------------------------
+   Number of max_capacitance violation(s): 0
+
+
+   Mode: default Corner: default
+   Scenario: default
+  ---------------------------------------------------------------------------
+   Number of min_capacitance violation(s): 0
+
+   Total number of violation(s): 0
+1
+-------------------------------------------
+
+## cts script
