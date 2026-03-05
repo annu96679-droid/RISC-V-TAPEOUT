@@ -2310,3 +2310,132 @@ set_lib_cell_purpose -include optimization [get_lib_cell */TIE*]
 #save_block
 
 save_block -as floorplan_done1
+
+----------------------------------------
+
+powerplan_pre script:
+
+remove_pg_strategies -all
+remove_pg_patterns -all
+remove_pg_regions -all
+remove_pg_via_master_rules -all
+remove_pg_strategy_via_rules -all
+remove_routes -net_types {power ground} -ring -stripe -macro_pin_connect -lib_cell_pin_connect > /dev/null
+
+connect_pg_net
+
+##ring pattern###
+
+create_pg_ring_pattern ring_pattern -horizontal_layer  M7 -horizontal_width {1} -horizontal_spacing {0.6} \
+                                    -vertical_layer M8 -vertical_width {1} -vertical_spacing {0.5} -corner_bridge true
+
+set_pg_strategy core_ring -pattern {{name: ring_pattern} {nets: {VDD VSS VDDL}} {offset: {0.5 0.5}}} -core\
+                                   -extension { { {side:4} {stop: first_target} }\
+                                                  { {side: 1} {direction: B} {nets: VDD} {stop: design_boundary_and_generate_pin} }\
+                                                  { {side: 2} {direction: L} {nets: VSS} {stop: design_boundary_and_generate_pin} }\
+                                                  { {side: 3} {direction: T} {nets: VDDL} {stop: design_boundary_and_generate_pin} } }
+
+compile_pg -strategies core_ring
+
+####upper_mesh
+
+create_pg_mesh_pattern mesh_pattern -layers {{{vertical_layer: M8} {width: 0.6} {pitch: 8} {spacing: interleaving}}\
+                                             {{horizontal_layer:M7} {width: 0.6} {pitch: 8} {spacing: interleaving} {trim: true}}}\
+                                           -via_rule { {intersection: adjacent} {via_master: default} }
+
+##router_top_mesh###
+
+set_pg_strategy m7_m8_default_mesh -voltage_areas DEFAULT_VA\
+                                                 -pattern {{name: mesh_pattern} {nets: VDD VSS}}\
+                                                 -blockage {{nets: VDD} {voltage_areas: rx_phy}}\
+                                                 -extension {{nets:VDD VSS} { direction: T L} {stop: outermost_ring}}
+
+set_pg_strategy m7_m8_rx_mesh -voltage_areas rx_phy\
+                                                  -pattern {{name: mesh_pattern} {nets: VDDL VSS}}\
+                                                  -blockage {{nets: VDDL} {voltage_areas: DEFAULT_VA}}\
+                                                  -extension {{nets:VDDL VSS} {direction: R B} {stop: outermost_ring}}
+
+compile_pg -strategies {m7_m8_default_mesh m7_m8_rx_mesh}
+
+#### lower_mesh
+ 
+create_pg_mesh_pattern mesh_m2 -layers {{{vertical_layer: M2} {width: 0.10} {pitch:7} {spacing: interleaving} {offset: 0.75} {trim: true}}}\
+                                             -via_rule { {intersection: adjacent} {via_master: default} }
+
+set_pg_strategy m2_default_mesh -voltage_areas DEFAULT_VA\
+                                               -pattern {{name: mesh_m2} {nets: VDD VSS}}\
+                                              -blockage {{nets: VDD} {voltage_areas: rx_phy}}
+
+set_pg_strategy m2_rx_phy_mesh -voltage_areas rx_phy \
+                                          -pattern {{name: mesh_m2} {nets: VDDL VSS}} \
+                                          -blockage {{nets: VDDL } {voltage_areas: DEFAULT_VA}}\
+                                          -extension { {nets: VSS} {direction: T} {stop: core_boundary} }
+
+compile_pg -strategies { m2_default_mesh m2_rx_phy_mesh}
+
+############### rails
+
+create_pg_std_cell_conn_pattern P_std_cell_rail -layers M1
+
+set_pg_strategy M1_VA_rails -voltage_area DEFAULT_VA -pattern {{name: P_std_cell_rail} {nets: VDD}}
+
+set_pg_strategy M1_VSS_rails \
+                -core \
+                -pattern {{name: P_std_cell_rail} {nets: VSS}}
+
+compile_pg -strategies {M1_VA_rails M1_rx_phy_rails M1_VSS_rails }
+
+file mkdir ../reports/powerplan
+
+check_pg_missing_vias > ../reports/powerplan/pg_missing_vias.rpt
+check_pg_drc > ../reports/powerplan/pg_drc.rpt
+check_pg_connectivity > ../reports/powerplan/pg_connectivity.rpt
+
+save_block -as power_plan_done
+-------------------------------
+
+and after doing ckeck pg connectivity:
+
+check_pg_connectivityLoading cell instances...
+Number of Standard Cells: 332
+Number of Macro Cells: 0
+Number of IO Pad Cells: 0
+Number of Blocks: 0
+Loading P/G wires and vias...
+Number of VDD Wires: 42
+Number of VDD Vias: 251
+Number of VDD Terminals: 1
+Number of VDDL Wires: 12
+Number of VDDL Vias: 28
+Number of VDDL Terminals: 1
+Number of VSS Wires: 63
+Number of VSS Vias: 586
+Number of VSS Terminals: 1
+**************Verify net VDD connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 176
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+**************Verify net VDDL connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 170
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+**************Verify net VSS connectivity*****************
+  Number of floating wires: 0
+  Number of floating vias: 0
+  Number of floating std cells: 332
+  Number of floating hard macros: 0
+  Number of floating I/O pads: 0
+  Number of floating terminals: 0
+  Number of floating hierarchical blocks: 0
+************************************************************
+Overall runtime: 0 seconds.
