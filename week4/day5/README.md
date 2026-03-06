@@ -2538,4 +2538,112 @@ No paths.
 1
 -------------------------------------------
 
-## cts script
+## cts script:
+file mkdir ../reports/clock
+
+check_design -checks pre_clock_tree_stage > ../reports/clock/check_design_pre_cts.rpt
+
+check_legality -verbose > ../reports/clock/check_legality_pre_cts.rpt
+
+report_timing > ../reports/clock/report_timing_pre_cts.rpt
+
+report_congestion > ../reports/clock/report_congestion_pre_cts.rpt
+
+report_clock_timing -type skew > ../reports/clock/report_clock_timing_pre_cts.rpt
+
+report_clock_tree_options > ../reports/clock/report_clock_tree_options_pre_cts.rpt
+
+report_clock_qor -type structure > ../reports/clock/report_clock_qor_pre_cts.rpt
+
+########clock_cells
+
+set CTS_CELLS [get_lib_cells " */NBUFF*LVT */NBUFF*RVT \
+                               */INVX*_LVT */INVX*RVT \
+                              */CGL* */LSUP* */DFF* "]
+
+set_dont_touch $CTS_CELLS false
+set_lib_cell_purpose -exclude cts [get_lib_cells]
+set_lib_cell_purpose -include cts $CTS_CELLS
+
+
+foreach_in_collection scen [all_scenarios] {
+   current_scenario $scen
+  set_clock_uncertainty 0.1 -setup [all_clocks]
+  set_clock_uncertainty 0.05 -hold [all_clocks]
+}
+
+set_clock_tree_options -target_skew 0.03 -target_latency 0.03 -clock usb_clk
+
+set_app_options -name clock_opt.flow.enable_ccd -value false
+
+set_max_transition 5.0 [current_design]
+
+######applying_clock
+
+clock_opt
+
+##### report_post_cts
+
+report_routing_rules -verbose > ../reports/clock/report_routing_rules_post_cts.rpt
+
+report_clock_routing_rules > ../reports/clock/report_clock_routing_rules_post_cts.rpt
+
+report_timing > ../reports/clock/report_timing_post_cts.rpt
+
+report_timing -delay_type min > ../reports/clock/report_timing_min_post_cts.rpt
+
+report_clocks -skew > ../reports/clock/report_clock_skew_post_cts.rpt
+
+ ##save_block
+
+save_block -as post_cts_done  
+
+
+--------------------------------------
+route_script:
+
+file mkdir ../reports/route_rpt
+check_design -checks pre_route_stage
+
+report_timing > ../reports/route_rpt/report_timing_pre_rte_stg.rpt
+
+report_timing -delay_type min > ../reports/route_rpt/report_timing_min_pre_rte_stg.rpt
+
+report_congestion > ../reports/route_rpt/report_congestion_pre_rte_stg.rpt
+
+report_clock_timing -type skew > ../reports/route_rpt/report/report_clock_timing_pre_rte_stg.rpt
+
+report_design > ../reports/route_rpt/report_design_pre_stg.rpt
+
+check_design -checks pre_route_stage > ../reports/route_rpt/check_design_pre_rte_stg.rpt
+
+report_constraints > ../reports/route_rpt/report_constraints.rpt
+
+
+####set_app_option
+
+set_app_options -list {route.global.timing_driven {true}}
+set_app_options -list {route.detail.timing_driven {true}}
+set_app_options -list {route.track.timing_driven {true}}
+
+
+### filler_cells_insertions
+
+create_stdcell_fillers -lib_cells [get_lib_cells *SHFILL*_LVT]
+connect_pg_net
+
+remove_stdcell_fillers_with_violation
+
+
+### route_init
+
+route_auto
+
+save_block -as init_route_route_done1
+
+#####route_opt
+
+route_opt
+
+route_eco
+
