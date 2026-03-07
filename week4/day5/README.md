@@ -2311,7 +2311,7 @@ set_lib_cell_purpose -include optimization [get_lib_cell */TIE*]
 
 save_block -as floorplan_done1
 
-----------------------------------------
+---------------------------------------
 
 powerplan_pre script:
 
