@@ -2492,4 +2492,1490 @@ Date   : Sat Mar  7 07:58:04 2026
   data arrival time                                         -0.92
   ------------------------------------------------------------------------
   slack (MET)                                                4.04
+-------------------------------------------------------------------------------------
+pre_cts.tcl
 
+file mkdir ../reports/clock
+
+check_design -checks pre_clock_tree_stage > ../reports/clock/check_design_pre_cts.rpt
+
+check_legality -verbose > ../reports/clock/check_legality_pre_cts.rpt
+
+report_timing > ../reports/clock/report_timing_pre_cts.rpt
+
+report_congestion > ../reports/clock/report_congestion_pre_cts.rpt
+
+report_clock_timing -type skew > ../reports/clock/report_clock_timing_pre_cts.rpt
+
+report_clock_tree_options > ../reports/clock/report_clock_tree_options_pre_cts.rpt
+
+report_clock_qor -type structure > ../reports/clock/report_clock_qor_pre_cts.rpt
+
+#######################################
+############clock_cells################
+#######################################
+
+set CTS_CELLS [get_lib_cells " */NBUFF*LVT */NBUFF*RVT \
+		         */INVX*_LVT */INVX*RVT \
+		         */CGL* */LSUP* */DFF* "]
+
+set_dont_touch $CTS_CELLS false
+set_lib_cell_purpose -exclude cts [get_lib_cells]
+set_lib_cell_purpose -include cts $CTS_CELLS
+
+foreach_in_collection scen [all_scenarios] {
+  current_scenario $scen
+  set_clock_uncertainty 0.1 -setup [all_clocks]
+  set_clock_uncertainty 0.05 -hold [all_clocks]
+}
+
+set_clock_tree_options -target_skew 0.03 -target_latency 0.03 -clock impl_clk
+
+set_app_options -name clock_opt.flow.enable_ccd -value false
+
+set_max_transition 5.0 [current_design]
+
+########################################
+############applying_clock##############
+########################################
+
+clock_opt
+
+########################################
+###########reports_post_cts#############
+########################################
+
+report_routing_rules -verbose > ../reports/clock/report_routing_rules_post_cts.rpt
+
+report_clock_routing_rules > ../reports/clock/report_clock_routing_rules_post_cts.rpt
+
+report_timing > ../reports/clock/report_timing_post_cts.rpt
+
+report_timing -delay_type min > ../reports/clock/report_timing_min_post_cts.rpt
+
+report_congestion > ../reports/clock/report_congestion_post_cts.rpt
+
+report_clocks -skew > ../reports/clock/report_clock_skew_post_cts.rpt
+
+report_clock_timing -type skew > ../reports/clock/report_clock_timing_post_cts.rpt
+
+report_design > ../reports/clock/report_design_post_cts.rpt
+
+check_design -checks pre_route_stage > ../reports/clock/check_design_pre_rte_stg.rpt
+
+report_constraints -all_violators > ../reports/clock/report_constraints.rpt
+
+#######################################
+##############save_block###############
+#######################################
+
+save_block -as cts_done
+----------------------------------------------------------------
+
+result
+
+Global-route-opt final QoR
+__________________________
+Scenario Mapping Table
+1: default
+
+Pathgroup Mapping Table
+1: **default**
+2: **async_default**
+3: **clock_gating_default**
+4: **in2reg_default**
+5: **reg2out_default**
+6: **in2out_default**
+7: impl_clk
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+PATHGROUP QOR 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------
+Scene  PG      WNS        TNS    NSV      WHV        THV    NHV
+    1   1   0.0000     0.0000      0   0.0000     0.0000      0
+    1   2   0.0000     0.0000      0   0.0000     0.0000      0
+    1   3   0.0000     0.0000      0   0.0000     0.0000      0
+    1   4   0.0000     0.0000      0   0.0000     0.0000      0
+    1   5   0.0000     0.0000      0   0.0000     0.0000      0
+    1   6   0.0000     0.0000      0   0.0000     0.0000      0
+    1   7   0.0000     0.0000      0   0.0000     0.0000      0
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+SCENARIO QOR 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Scene  PG      WNS        TNS   R2RTNS    NSV      WHV        THV    NHV  MaxTrnV   MaxTranC  MaxCapV    Leakage
+    1   *   0.0000     0.0000   0.0000      0   0.0000     0.0000      0        0     0.0000        0 57161236.0
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DESIGN QOR 
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Scene  PG      WNS        TNS   R2RTNS    NSV      WHV        THV    NHV  MaxTrnV   MaxTranC  MaxCapV    Leakage         Area    InstCnt     BufCnt     InvCnt
+    *   *   0.0000     0.0000   0.0000      0   0.0000     0.0000      0        0     0.0000        0 57161236.0      1044.79        299         10         31
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Global-route-opt final QoR Summary         WNS        TNS   R2RTNS    NSV      WHV        THV    NHV  MaxTrnV  MaxCapV    Leakage         Area    InstCnt
+Global-route-opt final QoR Summary      0.0000     0.0000   0.0000      0   0.0000     0.0000      0        0        0 57161236.0      1044.79        299
+
+Global-route-opt command complete                CPU:  1856 s (  0.52 hr )  ELAPSE: 44664 s ( 12.41 hr )  MEM-PEAK:  1485 MB
+Global-route-opt command statistics  CPU=14 sec (0.00 hr) ELAPSED=16 sec (0.00 hr) MEM-PEAK=1.450 GB
+1
+Information: Running auto PG connection. (NDM-099)
+Information: Ending 'clock_opt' (FLW-8001)
+Information: Time: 2026-03-07 08:06:51 / Session: 12.41 hr / Command: 0.01 hr / Memory: 1486 MB (FLW-8100)
+1
+report_routing_rules -verboseName     WidthMltplr SpacingMltplr TaperDist DriverTaperDist TaperOverPinLayers TaperUnderPinLayers DriverTaperOverPinLayers DriverTaperUnderPinLayers ParallelWireLayers
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cts_w1_s2
+         1           1
+
+         --------------------------------------------------------------------------------------
+         Layer     Width     ShieldWth ShieldSpc Snap2Trck RdlTaperDist RdlTaperWidth Mask
+         --------------------------------------------------------------------------------------
+
+         M1        0.05
+
+         M2        0.06
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         0.16      hard      0.00
+
+         M3        0.06
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         0.45      hard      0.00
+
+         M4        0.06
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         0.45      hard      0.00
+
+         M5        0.06
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         1.10      hard      0.00
+
+         M6        0.06
+
+         M7        0.06
+
+         M8        0.06
+
+         M9        0.16
+
+         MRDL      2.00
+
+cts_w2_s2_vlg
+         1           1             0.40      0.40
+
+         --------------------------------------------------------------------------------------
+         Layer     Width     ShieldWth ShieldSpc Snap2Trck RdlTaperDist RdlTaperWidth Mask
+         --------------------------------------------------------------------------------------
+
+         M1        0.10
+
+         M2        0.11
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         0.16      hard      3.00
+
+         M3        0.11
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         0.45      hard      3.00
+
+         M4        0.11
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         0.45      hard      4.00
+
+         M5        0.11
+
+                   ---------------------------------------
+                   Index     Spacing   Weight    Threshold
+                   ---------------------------------------
+                   0         1.10      hard      4.00
+
+         M6        0.06
+
+         M7        0.06
+
+         M8        0.06
+
+         M9        0.16
+
+         MRDL      2.00
+
+         ---------------------------------------
+         Via Def   H Sites   V Sites   Rotation
+         ---------------------------------------
+         VIA12LG_C 1         1         both
+         VIA12LG   1         1         both
+         VIA23LG_C 1         1         both
+         VIA23LG   1         1         both
+         VIA34LG_C 1         1         both
+         VIA34LG   1         1         both
+         VIA45LG_C 1         1         both
+         VIA45LG   1         1         both
+         VIA56LG_C 1         1         both
+         VIA56LG   1         1         both
+1
+report_clock_routing_rules ****************************************
+ Report : clock routing rules
+ Design : impl_top
+ Date   : Sat Mar  7 08:08:54 2026
+****************************************
+   Design Base; Net Type: all;      Rule: cts_w2_s2_vlg; Min Layer: M4; Max Layer: M5
+   Design Base; Net Type: sink;     Rule: cts_w1_s2; Min Layer: M1; Max Layer: M5
+
+report_timing ****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:09:02 2026
+****************************************
+
+  Startpoint: uart_rx_inst/clk_cnt_reg[1] (rising edge-triggered flip-flop clocked by impl_clk)
+  Endpoint: uart_rx_inst/clk_cnt_reg[15] (rising edge-triggered flip-flop clocked by impl_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: impl_clk
+  Path Type: max
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+
+  uart_rx_inst/clk_cnt_reg[1]/CLK (DFFX2_HVT)      0.00      0.03 r
+  uart_rx_inst/clk_cnt_reg[1]/Q (DFFX2_HVT)        0.11      0.14 r
+  uart_rx_inst/U16/Y (NAND3X0_HVT)                 0.07      0.21 f
+  uart_rx_inst/U17/Y (INVX0_HVT)                   0.04      0.25 r
+  uart_rx_inst/U71/Y (NAND3X0_HVT)                 0.09      0.34 f
+  uart_rx_inst/U73/Y (INVX0_HVT)                   0.04      0.38 r
+  uart_rx_inst/U78/Y (NAND3X0_HVT)                 0.07      0.45 f
+  uart_rx_inst/U79/Y (INVX0_HVT)                   0.04      0.49 r
+  uart_rx_inst/U85/Y (NAND3X0_HVT)                 0.09      0.58 f
+  uart_rx_inst/U87/Y (INVX0_HVT)                   0.04      0.61 r
+  uart_rx_inst/U92/Y (NAND3X0_HVT)                 0.09      0.70 f
+  uart_rx_inst/U93/Y (INVX0_HVT)                   0.04      0.74 r
+  uart_rx_inst/U98/Y (NAND3X0_HVT)                 0.08      0.82 f
+  uart_rx_inst/U99/Y (INVX0_HVT)                   0.03      0.85 r
+  uart_rx_inst/U100/Y (OA21X1_HVT)                 0.06      0.91 r
+  uart_rx_inst/U103/Y (NAND2X0_HVT)                0.04      0.95 f
+  uart_rx_inst/U106/Y (AO21X1_HVT)                 0.04      0.99 f
+  uart_rx_inst/U107/Y (OA222X1_HVT)                0.04      1.03 f
+  uart_rx_inst/clk_cnt_reg[15]/D (DFFX1_HVT)       0.00      1.03 f
+  data arrival time                                          1.03
+
+  clock impl_clk (rise edge)                       5.00      5.00
+  clock network delay (propagated)                 0.03      5.03
+  uart_rx_inst/clk_cnt_reg[15]/CLK (DFFX1_HVT)     0.00      5.03 r
+  clock uncertainty                               -0.10      4.93
+  library setup time                              -0.02      4.91
+  data required time                                         4.91
+  ------------------------------------------------------------------------
+  data required time                                         4.91
+  data arrival time                                         -1.03
+  ------------------------------------------------------------------------
+  slack (MET)                                                3.88
+
+
+1
+report_timing -delay_type min****************************************
+Report : timing
+        -path_type full
+        -delay_type min
+        -max_paths 1
+        -report_by design
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:09:13 2026
+****************************************
+
+  Startpoint: uart_rx_inst/clk_cnt_reg[4] (rising edge-triggered flip-flop clocked by impl_clk)
+  Endpoint: uart_rx_inst/clk_cnt_reg[4] (rising edge-triggered flip-flop clocked by impl_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: impl_clk
+  Path Type: min
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+
+  uart_rx_inst/clk_cnt_reg[4]/CLK (DFFX1_HVT)      0.00      0.03 r
+  uart_rx_inst/clk_cnt_reg[4]/QN (DFFX1_HVT)       0.07      0.10 f
+  uart_rx_inst/U70/Y (AO222X1_HVT)                 0.03      0.14 f
+  uart_rx_inst/clk_cnt_reg[4]/D (DFFX1_HVT)        0.00      0.14 f
+  data arrival time                                          0.14
+
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+  uart_rx_inst/clk_cnt_reg[4]/CLK (DFFX1_HVT)      0.00      0.03 r
+  clock uncertainty                                0.05      0.08
+  library hold time                                0.00      0.08
+  data required time                                         0.08
+  ------------------------------------------------------------------------
+  data required time                                         0.08
+  data arrival time                                         -0.14
+  ------------------------------------------------------------------------
+  slack (MET)                                                0.05
+
+
+1
+report_congestion****************************************
+Report : congestion
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:09:23 2026
+****************************************
+
+Layer     |    overflow     |              # GRCs has
+Name      |  total  |  max  | overflow (%)      | max overflow
+---------------------------------------------------------------
+Both Dirs |       8 |     1 |       8  ( 0.04%) |       8
+H routing |       8 |     1 |       8  ( 0.09%) |       8
+V routing |       0 |     0 |       0  ( 0.00%) |       0
+
+1
+report_clocks -skew ****************************************
+Report : clock_skew
+Design : impl_top
+Mode   : default
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:09:36 2026
+****************************************
+
+              Min Rise  Min Fall  Max Rise  Max Fall     Hold          Setup        Related
+Object          Delay     Delay     Delay     Delay   Uncertainty   Uncertainty      Clock          Scenario      Origin
+-----------------------------------------------------------------------------------------------------------------------------
+impl_clk            -         -         -         -          0.05          0.10         --          default         user
+
+1
+report_clock_timing -type skew ****************************************
+Report : clock timing
+        -type skew
+        -nworst 1
+        -setup
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:09:50 2026
+****************************************
+
+  Mode: default
+  Clock: impl_clk
+
+  Clock Pin                                          Latency      Skew             Corner
+---------------------------------------------------------------------------------------------------
+  uart_rx_inst/clk_cnt_reg[6]/CLK                       0.03              rp-+    default
+  uart_rx_inst/clk_cnt_reg[14]/CLK                      0.03      0.00    rp-+    default
+
+---------------------------------------------------------------------------------------------------
+1
+report_design****************************************
+Report : design
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:09:57 2026
+****************************************
+
+Total number of std cells in library : 1025
+Total number of dont_use lib cells   : 74
+Total number of dont_touch lib cells : 74
+Total number of buffers              : 69
+Total number of inverters            : 45
+Total number of flip-flops           : 306
+Total number of latches              : 36
+Total number of ICGs                 : 36
+
+Cell Instance Type  Count         Area
+--------------------------------------
+TOTAL LEAF CELLS      867     1766.555
+Standard cells        299     1044.786
+Hard macro cells        0        0.000
+Soft macro cells        0        0.000
+Always on cells         0        0.000
+Physical only         568      721.769
+Fixed cells           568      721.769
+Moveable cells        299     1044.786
+Sequential             79      528.111
+Buffer/inverter        41       72.177
+ICG cells               0        0.000
+
+Logic Hierarchies                    : 2
+Design Masters count                 : 29
+Total Flat nets count                : 347
+Total FloatingNets count             : 2
+Total no of Ports                    : 15
+Number of Master Clocks in design    : 1
+Number of Generated Clocks in design : 0
+Number of Path Groups in design      : 7 (1 of them Non Default)
+Number of Scan Chains in design      : 0
+List of Modes                        : default
+List of Corners                      : default
+List of Scenarios                    : default
+
+Core Area                            : 22302.153
+Chip Area                            : 25600.000
+Total Site Row Area                  : 22302.153
+Number of Blockages                  : 0
+Total area of Blockages              : 0.000
+Number of Power Domains              : 1
+Number of Voltage Areas              : 1
+Number of Group Bounds               : 0
+Number of Exclusive MoveBounds       : 0
+Number of Hard or Soft MoveBounds    : 0
+Number of Multibit Registers         : 0
+Number of Multibit LS/ISO Cells      : 0
+Number of Top Level RP Groups        : 0
+Number of Tech Layers                : 71 (61 of them have unknown routing dir.)
+
+Total wire length                    : 446.87 micron
+Total number of wires                : 345
+Total number of contacts             : 7560
+1
+check_design -checks pre_route_stage ****************************************
+ Report : check_design 
+ Options: { pre_route_stage }
+ Design : impl_top
+ Version: R-2020.09-SP2
+ Date   : Sat Mar  7 08:10:06 2026
+****************************************
+
+Running mega-check 'pre_route_stage': 
+    Running atomic-check 'design_mismatch'
+    Running atomic-check 'scan_chain'
+    Running atomic-check 'mv_design'
+    Running atomic-check 'timing'
+    Running atomic-check 'routability'
+    Running atomic-check 'hier_pre_route'
+
+  *** EMS Message summary ***
+  ----------------------------------------------------------------------------------------------------
+  Rule         Type   Count      Message
+  ----------------------------------------------------------------------------------------------------
+  DFT-011      Info   1          The design has no scan chain defined in the scandef.
+  ----------------------------------------------------------------------------------------------------
+  Total 1 EMS messages : 0 errors, 0 warnings, 1 info.
+  ----------------------------------------------------------------------------------------------------
+
+  *** Non-EMS message summary ***
+  ----------------------------------------------------------------------------------------------------
+  Rule         Type   Count      Message
+  ----------------------------------------------------------------------------------------------------
+  ZRT-022             1          Cannot find a default contact code for layer %s.
+  ----------------------------------------------------------------------------------------------------
+  Total 1 non-EMS messages : 0 errors, 1 warnings, 0 info.
+  ----------------------------------------------------------------------------------------------------
+
+Warning: EMS database "check_design.ems" already exists, over-writing it. (EMS-040)
+
+Information: EMS database is saved to file 'check_design.ems'.
+Information: Non-EMS messages are saved into file 'check_design2026Mar07081006.log'.
+1
+report_constraints -all_violators****************************************
+Report : constraint
+        -all_violators
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 08:10:16 2026
+****************************************
+
+   late_timing
+   -----------
+
+Endpoint                         Path Delay     Path Required       CRP    Slack Group    Scenario
+----------------------------------------------------------------------------------------------------------
+No paths.
+
+   early_timing
+   -----------
+
+Endpoint                         Path Delay     Path Required       CRP    Slack Group    Scenario
+----------------------------------------------------------------------------------------------------------
+No paths.
+
+   Mode: default Corner: default
+   Scenario: default
+   max_transition                                                              
+                             Required        Actual                            
+   Net                      Transition     Transition        Slack  Violation  
+  ---------------------------------------------------------------------------
+   led[1]                       0.07           0.06           0.00  (MET)      
+
+  ---------------------------------------------------------------------------
+   Number of max_transition violation(s): 0
+
+   Mode: default Corner: default
+   Scenario: default
+  ---------------------------------------------------------------------------
+   Number of max_capacitance violation(s): 0
+
+
+   Mode: default Corner: default
+   Scenario: default
+  ---------------------------------------------------------------------------
+   Number of min_capacitance violation(s): 0
+
+   Total number of violation(s): 0
+   --------------------------------------------------------
+route.tcl
+
+########################################
+###########reports_pre_route############
+########################################
+file mkdir ../reports/route_rpt
+check_design -checks pre_route_stage
+
+report_timing > ../reports/route_rpt/report_timing_pre_rte_stg.rpt
+
+report_timing -delay_type min > ../reports/route_rpt/report_timing_min_pre_rte_stg.rpt
+
+report_congestion > ../reports/route_rpt/report_congestion_pre_rte_stg.rpt
+
+report_clock_timing -type skew > ../reports/route_rpt/report_clock_timing_pre_rte_stg.rpt
+
+report_design > ../reports/route_rpt/report_design_pre_rte_stg.rpt
+
+check_design -checks pre_route_stage > ../reports/route_rpt/check_design_pre_rte_stg.rpt
+
+report_constraints > ../reports/route_rpt/report_constraints.rpt
+
+########################################
+##########set_app_options###############
+########################################
+
+set_app_options -list {route.global.timing_driven {true}}
+set_app_options -list {route.detail.timing_driven {true}}
+set_app_options -list {route.track.timing_driven {true}}
+
+#########################################
+#$           filler cells insertion
+#########################################
+
+f
+
+########################################
+###############route_init###############
+########################################
+
+route_auto
+
+save_block -as init_route_done
+
+#########################################
+###############route_opt#################
+#########################################
+
+route_opt
+
+route_eco
+
+#########################################
+###############route_done################
+#########################################
+
+save_block -as route_done
+
+#########################################
+#################reports#################
+#########################################
+
+check_timing > ../reports/route_rpt/check_timing_post_rte_stg.rpt
+
+check_route > ../reports/route_rpt/check_route_rte_stg.rpt
+
+check_lvs > ../reports/route_rpt/check_lvs_rte_stg.rpt
+
+report_congestion > ../reports/route_rpt/check_timing_post_rte_stg.rpt
+
+report_constraints > ../reports/route_rpt/report_constraints_rte_stg.rpt
+
+report_utilization > ../reports/route_rpt/report_utilization_rte_stg.rpt
+
+report_design -all > ../reports/route_rpt/report_design_rte_stg.rpt
+
+report_timing > ../reports/route_rpt/report_timing_rte_stg.rpt
+
+report_timing -delay_type min > ../reports/route_rpt/report_timing_min_rte_stg.rpt
+
+report_timing -pba_mode path > ../reports/route_rpt/report_timing_pba_rte_stg.rpt
+
+report_timing -pba_mode path -delay_type min > ../reports/route_rpt/report_timing_pba_min_rte_stg.rpt
+
+report_qor -summary > ../reports/route_rpt/report_qor_rte_stg.rpt
+
+report_power > ../reports/route_rpt/report_power_rte_stg.rpt
+
+check_legality > ../reports/route_rpt/check_legality_rte_stg.rpt
+
+
+
+
+
+----------------------------------------------------------------------
+   route result:
+
+   CELL INSTANCE INFORMATION
+-----------------------------------------------------------------------------
+Cell Instance Type          Count % of         Area  % of siteAreaPerSite
+                                  total             total
+-----------------------------------------------------------------------------
+TOTAL LEAF CELLS            15757  100    22302.153   100 unit:87754  
+
+  Standard cells            15189   96    21580.384    96 unit:84914  
+  Filler cells                  0    0        0.000     0 
+  Diode cells                   0    0        0.000     0 
+  Hard macro cells              0    0        0.000     0 
+  Soft macro cells              0    0        0.000     0 
+    Black box cells             0    0        0.000     0 
+  Analog block cells            0    0        0.000     0 
+  Pad cells                     0    0        0.000     0 
+    Flip-chip pad cells         0    0        0.000     0 
+  Cover cells                   0    0        0.000     0 
+  Flip-chip driver cells        0    0        0.000     0 
+  Corner pad cells              0    0        0.000     0 
+  Pad spacer cells              0    0        0.000     0 
+  Others                      568    3      721.769     3 unit:2840  
+
+Special cells                   0    0        0.000     0 
+  Level shifter                 0    0        0.000     0 
+  Isolation                     0    0        0.000     0 
+  Switch                        0    0        0.000     0 
+  Always on                     0    0        0.000     0 
+  Retention                     0    0        0.000     0 
+  Tie off                       0    0        0.000     0 
+
+LVT                             0    0        0.000     0 
+HVT                             0    0        0.000     0 
+Normal VT                       0    0        0.000     0 
+Others                      15757  100    22302.153   100 unit:87754  
+
+Netlist cells                 299    1     1044.786     4 unit:4111  
+Physical only               15458   98    21257.367    95 unit:83643  
+
+Fixed cells                   568    3      721.769     3 unit:2840  
+Moveable cells              15189   96    21580.384    96 unit:84914  
+
+Combinational               15678   99    21774.041    97 unit:85676  
+Sequential                     79    0      528.111     2 unit:2078  
+Others                          0    0        0.000     0 
+
+Buffer                         10    0       32.022     0 unit:126  
+Inverter                       31    0       40.155     0 unit:158  
+Buffer/inverter                41    0       72.177     0 unit:284  
+
+Spare cells                     0    0        0.000     0 
+ICG cells                       0    0        0.000     0 
+Flip-flop cells                79    0      528.111     2 unit:2078  
+Latch cells                     0    0        0.000     0 
+Antenna cells                   0    0        0.000     0 
+
+Mux logic                       0    0        0.000     0 
+Double height                   0    0        0.000     0 
+Triple height                   0    0        0.000     0 
+More than triple height         0    0        0.000     0 
+
+Logic Hierarchies          2
+
+REFERENCE DESIGN INFORMATION
+----------------------------------------------------------------------------------------------
+Number of reference designs used:31   
+----------------------------------------------------------------------------------------------
+Name           Type          Count     Width    Height        Area   PinDens SiteName siteArea
+----------------------------------------------------------------------------------------------
+SHFILL1_LVT    lib_cell      14371      0.15      1.67       0.254     7.870 unit            1
+DCAP_RVT       end_cap         568      0.76      1.67       1.271     1.574 unit            5
+SHFILL128_LVT  lib_cell        519     19.46      1.67      32.530     0.061 unit          128
+DFFX1_HVT      lib_cell         73      3.95      1.67       6.608     0.908 unit           26
+AO22X1_HVT     lib_cell         39      1.52      1.67       2.541     2.754 unit           10
+INVX0_HVT      lib_cell         28      0.76      1.67       1.271     3.148 unit            5
+NAND2X0_HVT    lib_cell         21      0.91      1.67       1.525     3.279 unit            6
+NAND3X0_HVT    lib_cell         14      1.06      1.67       1.779     3.373 unit            7
+OA222X1_HVT    lib_cell         13      1.98      1.67       3.304     2.724 unit           13
+AND3X1_HVT     lib_cell         12      1.37      1.67       2.287     2.623 unit            9
+AO221X1_HVT    lib_cell         11      1.82      1.67       3.050     2.623 unit           12
+AO222X1_HVT    lib_cell         11      1.98      1.67       3.304     2.724 unit           13
+AO21X1_HVT     lib_cell         11      1.52      1.67       2.541     2.361 unit           10
+AND2X1_HVT     lib_cell          9      1.22      1.67       2.033     2.459 unit            8
+NBUFFX2_HVT    lib_cell          8      1.22      1.67       2.033     1.967 unit            8
+DFFX2_HVT      lib_cell          6      4.56      1.67       7.624     0.787 unit           30
+OA221X1_HVT    lib_cell          6      1.82      1.67       3.050     2.623 unit           12
+AND4X1_HVT     lib_cell          6      1.52      1.67       2.541     2.754 unit           10
+OAI22X1_HVT    lib_cell          5      1.82      1.67       3.050     2.295 unit           12
+NAND4X0_HVT    lib_cell          5      1.22      1.67       2.033     3.443 unit            8
+OA22X1_HVT     lib_cell          5      1.52      1.67       2.541     2.754 unit           10
+OA21X1_HVT     lib_cell          3      1.52      1.67       2.541     2.361 unit           10
+INVX2_HVT      lib_cell          3      0.91      1.67       1.525     2.623 unit            6
+NAND2X2_HVT    lib_cell          3      1.67      1.67       2.796     1.789 unit           11
+AOI222X1_HVT   lib_cell          1      2.28      1.67       3.812     2.361 unit           15
+NAND3X2_HVT    lib_cell          1      1.82      1.67       3.050     1.967 unit           12
+AND2X4_HVT     lib_cell          1      1.67      1.67       2.796     1.789 unit           11
+NBUFFX32_RVT   lib_cell          1      6.38      1.67      10.674     0.375 unit           42
+OR2X1_HVT      lib_cell          1      1.22      1.67       2.033     2.459 unit            8
+DELLN1X2_HVT   lib_cell          1      3.04      1.67       5.083     0.787 unit           20
+NOR2X1_HVT     lib_cell          1      1.52      1.67       2.541     1.967 unit           10
+
+NET INFORMATION
+------------------------------------------------------------------
+NetType                 Count FloatingNets         Vias Nets/Cells
+------------------------------------------------------------------
+Total                     347            2         7969      0.022
+Signal                    343            2         2415      0.022
+Power                       1            0         2638      0.000
+Ground                      1            0         2647      0.000
+Analog Signal               0            0            0      0.000
+Analog Ground               0            0            0      0.000
+Analog Power                0            0            0      0.000
+Clock                       2            0          269      0.000
+Tie Low                     0            0            0      0.000
+Tie High                    0            0            0      0.000
+Others                      0            0            0      0.000
+
+NET FANOUT AND PIN COUNT INFORMATION
+---------------------------------------------------
+Fanout        Netcount     netPinCount     NetCount
+---------------------------------------------------
+<2                 151     <2                     2
+2                   84     2                    149
+3                   55     3                     84
+4                   27     4                     55
+5                   13     5                     27
+6-10                 9     6-10                  21
+11-20                5     11-20                  5
+21-30                0     21-30                  1
+31-50                0     31-50                  0
+51-100               1     51-100                 1
+101-500              0     101-500                0
+501-1000             0     501-1000               0
+>1000                2     >1000                  2
+
+PORT AND PIN INFORMATION
+------------------------------------------------------------------------------
+Type         Total     Input    Output     Inout      3-st     Power    Ground
+------------------------------------------------------------------------------
+Total        32761     32383       378         0         0     15757     15757
+Macro            0         0         0         0         0         0         0
+Ports           15         6         9         0         0         1         1
+------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------
+                              FLOORPLAN INFORMATION
+--------------------------------------------------------------------------------
+
+CORE AND CHIP AREA INFORMATION
+---------------------------
+Core Area is :    22302.153
+Chip Area is :    25600.000
+---------------------------
+
+SITE ROW INFORMATION
+-----------------------------------------------------------------------
+Site Name    Width    Height   Total Rows     Total Tiles          Area
+-----------------------------------------------------------------------
+unit          0.15      1.67           89           87754     22302.153
+-----------------------------------------------------------------------
+
+BLOCKAGE INFORMATION
+------------------------------------------------
+Blockage Type                Count          Area
+------------------------------------------------
+Hard placement                   0         0.000
+Soft placement                   0         0.000
+Hard macro                       0         0.000
+Partial placement                0         0.000
+Register                         0         0.000
+Placement allow Buffer Only      0         0.000
+Placement allow RP Group Only
+                                 0         0.000
+RP Group                         0         0.000
+Category                         0         0.000
+Routing                          0         0.000
+Routing for Top                  0         0.000
+Routing For Design Rule          0         0.000
+Shaping                          0         0.000
+------------------------------------------------
+
+POWER DOMAIN INFORMATION
+--------------------------------------------------------------------
+Power Domain Name    VA Name         Primary Power Net Primary Ground Net
+--------------------------------------------------------------------
+impl_top             DEFAULT_VA      VDD               VSS
+--------------------------------------------------------------------
+
+VOLTAGE AREA INFORMATION
+-------------------------------------------------------------------------------------
+VA Name          Number             Area       Target    bbox    bbox    bbox    bbox
+              of shapes                   Utilization     llx     lly     urx     ury
+-------------------------------------------------------------------------------------
+DEFAULT_VA            1        22302.153         1.00    0.00    0.00  149.87  148.81
+-------------------------------------------------------------------------------------
+
+GROUP BOUND INFORMATION
+----------------------------------------
+No Group Bound exists
+
+EXCLUSIVE MOVEBOUND INFORMATION
+----------------------------------------
+No Exclusive MoveBound exists.
+
+HARD AND SOFT MOVEBOUND INFORMATION
+----------------------------------------
+No Hard Or Soft MoveBound exists.
+
+ROUTE GUIDE INFORMATION
+------------------------------------------------
+Route Guide Type             Count          Area
+------------------------------------------------
+Extra Detour Region              0         0.000
+Over icovl CellLayers            0         0.000
+River Routing                    0         0.000
+Area Double Via                  0         0.000
+Access Preference                0         0.000
+Default                          0         0.000
+Switched Direction Only          0         0.000
+Max Patterns                     0         0.000
+Others                           0         0.000
+------------------------------------------------
+
+MULTIBIT REGISTER INFORMATION
+-----------------------------------------------
+No Multibit cells exist
+
+MULTIBIT LS/ISO CELLS INFORMATION
+-----------------------------------------------
+No Multibit cells exist
+
+RP GROUP INFORMATION
+----------------------------------------
+No RP Group exists
+
+LAYER INFORMATION
+--------------------------------------------------------------------------
+Layer Name Direction Ignored Pitch  default minWidth minSpacing    sameNet
+                                      Width                     MinSpacing
+--------------------------------------------------------------------------
+M1         Hor       NO       0.15     0.05     0.05       0.05       0.00
+M2         Ver       NO       0.15     0.06     0.06       0.06       0.06
+M3         Hor       NO       0.30     0.06     0.06       0.06       0.06
+M4         Ver       NO       0.30     0.06     0.06       0.06       0.06
+M5         Hor       NO       0.61     0.06     0.06       0.06       0.06
+M6         Ver       NO       0.61     0.06     0.06       0.06       0.06
+M7         Hor       NO       1.22     0.06     0.06       0.06       0.06
+M8         Ver       NO       1.22     0.06     0.06       0.06       0.06
+M9         Hor       NO       2.43     0.16     0.16       0.16       0.00
+MRDL       Ver       YES      4.86     2.00     2.00       2.00       0.00
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------------
+                              ROUTING INFORMATION
+--------------------------------------------------------------------------------
+
+Total wire length = 6067.82 micron
+Total number of wires = 2879
+Total number of contacts = 7969
+
+FINAL WIRING STATISTICS
+
+Signal Wiring Statistics
+
+Metal layer     Num wires  % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                    121        4.82%       245.63             4.37%
+M2                   1605       63.89%      2474.34            44.02%
+M3                    762       30.33%      2519.77            44.83%
+M4                     20        0.80%       356.61             6.34%
+M5                      4        0.16%        24.02             0.43%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+Clock Wiring Statistics
+
+Metal layer     Num wires  % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                     10        2.72%        17.56             3.93%
+M2                    151       41.14%        48.96            10.94%
+M3                    133       36.24%       182.53            40.79%
+M4                     72       19.62%       193.22            43.18%
+M5                      1        0.27%         5.17             1.15%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+P/G Wiring Statistics
+
+Metal layer     Num wires  % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                     90       45.69%     13488.48            45.35%
+M2                     43       21.83%      6398.74            21.51%
+M3                      0        0.00%         0.00             0.00%
+M4                      0        0.00%         0.00             0.00%
+M5                      0        0.00%         0.00             0.00%
+M6                      0        0.00%         0.00             0.00%
+M7                     31       15.74%      4789.03            16.10%
+M8                     33       16.75%      5067.56            17.04%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+Shape Pattern Wiring Statistics
+
+Metal layer     Num shapePatterns
+                           % of total#  Wire length % of total length
+PO                      0        0.00%         0.00             0.00%
+M1                      0        0.00%         0.00             0.00%
+M2                      0        0.00%         0.00             0.00%
+M3                      0        0.00%         0.00             0.00%
+M4                      0        0.00%         0.00             0.00%
+M5                      0        0.00%         0.00             0.00%
+M6                      0        0.00%         0.00             0.00%
+M7                      0        0.00%         0.00             0.00%
+M8                      0        0.00%         0.00             0.00%
+M9                      0        0.00%         0.00             0.00%
+MRDL                    0        0.00%         0.00             0.00%
+
+All the PG shape patterns stand for 0 shapes.
+
+Horizontal/Vertical Wire Distribution
+
+Metal layer  Hor. length  % of hor.    Ver. length  % of ver.
+PO                   0.00        0.00%         0.00        0.00%
+M1                 243.41        8.69%         2.22        0.08%
+M2                  23.71        0.85%      2450.63       86.90%
+M3                2509.13       89.60%        10.64        0.38%
+M4                   0.00        0.00%       356.61       12.65%
+M5                  24.02        0.86%         0.00        0.00%
+M6                   0.00        0.00%         0.00        0.00%
+M7                   0.00        0.00%         0.00        0.00%
+M8                   0.00        0.00%         0.00        0.00%
+M9                   0.00        0.00%         0.00        0.00%
+MRDL                 0.00        0.00%         0.00        0.00%
+
+FINAL VIA STATISTICS
+
+Via layer    Via def name                Count        % of layer vias
+VIA1         VIA12SQ_C                           2933       93.80%
+VIA1         VIA12SQ_C(rot)                        13        0.42%
+VIA1         VIA12SQ_C(1X5)                       178        5.69%
+VIA1         VIA12SQ_C(1X2)                         2        0.06%
+VIA1         VIA12SQ_C(2X1)                         1        0.03%
+  Double via conversion rate for layer VIA1 = 5.79% (181 / 3127 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA1 = 0.24% (3 / 1254 vias)
+
+VIA2         VIA23SQ_C(rot)                      1296       68.64%
+VIA2         VIA23SQ_C                             12        0.64%
+VIA2         VIA23SQ_C(5X1)                       580       30.72%
+  Double via conversion rate for layer VIA2 = 30.72% (580 / 1888 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA2 = 0.00% (0 / 1308 vias)
+
+VIA3         VIA34SQ_C                            112       16.18%
+VIA3         VIA34SQ_C(5X1)                       580       83.82%
+  Double via conversion rate for layer VIA3 = 83.82% (580 / 692 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA3 = 0.00% (0 / 112 vias)
+
+VIA4         VIA45SQ_C(rot)                         8        1.36%
+VIA4         VIA45LG_C                              2        0.34%
+VIA4         VIA45SQ_C(5X1)                       580       98.31%
+  Double via conversion rate for layer VIA4 = 98.31% (580 / 590 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA4 = 0.00% (0 / 10 vias)
+
+VIA5         VIA56SQ_C(5X1)                       580      100.00%
+  Double via conversion rate for layer VIA5 = 100.00% (580 / 580 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA5 = 0.00% (0 / 0 vias)
+
+VIA6         VIA67BAR_C(3X1)                      580      100.00%
+  Double via conversion rate for layer VIA6 = 100.00% (580 / 580 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA6 = 0.00% (0 / 0 vias)
+
+VIA7         VIA78LG_C(5X5)                         8        1.56%
+VIA7         VIA78LG_C(3X3)                       392       76.56%
+VIA7         VIA78LG_C(5X3)                        58       11.33%
+VIA7         VIA78LG_C(3X5)                        54       10.55%
+  Double via conversion rate for layer VIA7 = 100.00% (512 / 512 vias)
+    Among them, double via conversion rate of detail route vias for layer VIA7 = 0.00% (0 / 0 vias)
+
+
+Custom Via Statistics
+
+No custom vias found in the design.
+Overall double via conversion rate = 45.09%
+  Among them, overall double via conversion rate of detail route vias = 0.11% (3 / 2684 vias)
+  *Detail route vias are vias whose shape_use is detail_route.
+
+Via Matrix Statistics
+
+No via matrices found in the design.
+
+FINAL DRC STATISTICS
+
+DRC-SUMMARY:
+Total number of nets = 347, of which 0 are not extracted
+Total number of open nets = 0, of which 0 are frozen
+Total number of excluded ports = 0 ports of 0 unplaced cells connected to 0 nets
+                                 0 ports without pins of 0 cells connected to 0 nets
+                                 0 ports of 0 cover cells connected to 0 non-pg nets
+Total number of DRCs = 2
+Total number of antenna violations = no antenna rules defined
+Total number of tie to rail violations = not checked
+1
+report_timing****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 09:58:22 2026
+****************************************
+
+  Startpoint: uart_rx_inst/clk_cnt_reg[1] (rising edge-triggered flip-flop clocked by impl_clk)
+  Endpoint: uart_rx_inst/clk_cnt_reg[15] (rising edge-triggered flip-flop clocked by impl_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: impl_clk
+  Path Type: max
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+
+  uart_rx_inst/clk_cnt_reg[1]/CLK (DFFX2_HVT)      0.00      0.03 r
+  uart_rx_inst/clk_cnt_reg[1]/Q (DFFX2_HVT)        0.11      0.14 r
+  uart_rx_inst/U16/Y (NAND3X0_HVT)                 0.07      0.21 f
+  uart_rx_inst/U17/Y (INVX0_HVT)                   0.04      0.25 r
+  uart_rx_inst/U71/Y (NAND3X0_HVT)                 0.10      0.35 f
+  uart_rx_inst/U73/Y (INVX0_HVT)                   0.04      0.38 r
+  uart_rx_inst/U78/Y (NAND3X0_HVT)                 0.07      0.45 f
+  uart_rx_inst/U79/Y (INVX0_HVT)                   0.04      0.50 r
+  uart_rx_inst/U85/Y (NAND3X0_HVT)                 0.09      0.58 f
+  uart_rx_inst/U87/Y (INVX0_HVT)                   0.03      0.62 r
+  uart_rx_inst/U92/Y (NAND3X0_HVT)                 0.09      0.70 f
+  uart_rx_inst/U93/Y (INVX0_HVT)                   0.04      0.74 r
+  uart_rx_inst/U98/Y (NAND3X0_HVT)                 0.08      0.82 f
+  uart_rx_inst/U99/Y (INVX0_HVT)                   0.03      0.85 r
+  uart_rx_inst/U100/Y (OA21X1_HVT)                 0.06      0.91 r
+  uart_rx_inst/U103/Y (NAND2X0_HVT)                0.04      0.95 f
+  uart_rx_inst/U106/Y (AO21X1_HVT)                 0.04      0.99 f
+  uart_rx_inst/U107/Y (OA222X1_HVT)                0.04      1.03 f
+  uart_rx_inst/clk_cnt_reg[15]/D (DFFX1_HVT)       0.00      1.03 f
+  data arrival time                                          1.03
+
+  clock impl_clk (rise edge)                       5.00      5.00
+  clock network delay (propagated)                 0.03      5.03
+  uart_rx_inst/clk_cnt_reg[15]/CLK (DFFX1_HVT)     0.00      5.03 r
+  clock uncertainty                               -0.10      4.93
+  library setup time                              -0.02      4.91
+  data required time                                         4.91
+  ------------------------------------------------------------------------
+  data required time                                         4.91
+  data arrival time                                         -1.03
+  ------------------------------------------------------------------------
+  slack (MET)                                                3.88
+
+
+1
+report_timing -delay_type min****************************************
+Report : timing
+        -path_type full
+        -delay_type min
+        -max_paths 1
+        -report_by design
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 09:58:27 2026
+****************************************
+
+  Startpoint: uart_rx_inst/clk_cnt_reg[4] (rising edge-triggered flip-flop clocked by impl_clk)
+  Endpoint: uart_rx_inst/clk_cnt_reg[4] (rising edge-triggered flip-flop clocked by impl_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: impl_clk
+  Path Type: min
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+
+  uart_rx_inst/clk_cnt_reg[4]/CLK (DFFX1_HVT)      0.00      0.03 r
+  uart_rx_inst/clk_cnt_reg[4]/QN (DFFX1_HVT)       0.07      0.10 f
+  uart_rx_inst/U70/Y (AO222X1_HVT)                 0.03      0.14 f
+  uart_rx_inst/clk_cnt_reg[4]/D (DFFX1_HVT)        0.00      0.14 f
+  data arrival time                                          0.14
+
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+  uart_rx_inst/clk_cnt_reg[4]/CLK (DFFX1_HVT)      0.00      0.03 r
+  clock uncertainty                                0.05      0.08
+  library hold time                                0.00      0.08
+  data required time                                         0.08
+  ------------------------------------------------------------------------
+  data required time                                         0.08
+  data arrival time                                         -0.14
+  ------------------------------------------------------------------------
+  slack (MET)                                                0.05
+
+
+1
+report_timing -pba_mode path****************************************
+Report : timing
+        -path_type full
+        -delay_type max
+        -max_paths 1
+        -report_by design
+        -pba_mode path
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 09:58:32 2026
+****************************************
+
+  Startpoint: uart_rx_inst/clk_cnt_reg[1] (rising edge-triggered flip-flop clocked by impl_clk)
+  Endpoint: uart_rx_inst/clk_cnt_reg[15] (rising edge-triggered flip-flop clocked by impl_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: impl_clk
+  Path Type: max
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+
+  uart_rx_inst/clk_cnt_reg[1]/CLK (DFFX2_HVT)      0.00      0.03 r
+  uart_rx_inst/clk_cnt_reg[1]/Q (DFFX2_HVT)        0.11      0.14 r
+  uart_rx_inst/U16/Y (NAND3X0_HVT)                 0.07      0.21 f
+  uart_rx_inst/U17/Y (INVX0_HVT)                   0.04      0.25 r
+  uart_rx_inst/U71/Y (NAND3X0_HVT)                 0.10      0.35 f
+  uart_rx_inst/U73/Y (INVX0_HVT)                   0.04      0.38 r
+  uart_rx_inst/U78/Y (NAND3X0_HVT)                 0.07      0.45 f
+  uart_rx_inst/U79/Y (INVX0_HVT)                   0.04      0.50 r
+  uart_rx_inst/U85/Y (NAND3X0_HVT)                 0.09      0.58 f
+  uart_rx_inst/U87/Y (INVX0_HVT)                   0.03      0.62 r
+  uart_rx_inst/U92/Y (NAND3X0_HVT)                 0.09      0.70 f
+  uart_rx_inst/U93/Y (INVX0_HVT)                   0.04      0.74 r
+  uart_rx_inst/U98/Y (NAND3X0_HVT)                 0.08      0.82 f
+  uart_rx_inst/U99/Y (INVX0_HVT)                   0.03      0.85 r
+  uart_rx_inst/U100/Y (OA21X1_HVT)                 0.06      0.91 r
+  uart_rx_inst/U103/Y (NAND2X0_HVT)                0.04      0.95 f
+  uart_rx_inst/U106/Y (AO21X1_HVT)                 0.04      0.98 f
+  uart_rx_inst/U107/Y (OA222X1_HVT)                0.04      1.03 f
+  uart_rx_inst/clk_cnt_reg[15]/D (DFFX1_HVT)       0.00      1.03 f
+  data arrival time                                          1.03
+
+  clock impl_clk (rise edge)                       5.00      5.00
+  clock network delay (propagated)                 0.03      5.03
+  uart_rx_inst/clk_cnt_reg[15]/CLK (DFFX1_HVT)     0.00      5.03 r
+  clock uncertainty                               -0.10      4.93
+  library setup time                              -0.02      4.91
+  data required time                                         4.91
+  ------------------------------------------------------------------------
+  data required time                                         4.91
+  data arrival time                                         -1.03
+  ------------------------------------------------------------------------
+  slack (MET)                                                3.89
+
+
+1
+report_timing -pba_mode path -delay_type min ****************************************
+Report : timing
+        -path_type full
+        -delay_type min
+        -max_paths 1
+        -report_by design
+        -pba_mode path
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 09:58:37 2026
+****************************************
+
+  Startpoint: uart_rx_inst/clk_cnt_reg[4] (rising edge-triggered flip-flop clocked by impl_clk)
+  Endpoint: uart_rx_inst/clk_cnt_reg[4] (rising edge-triggered flip-flop clocked by impl_clk)
+  Mode: default
+  Corner: default
+  Scenario: default
+  Path Group: impl_clk
+  Path Type: min
+
+  Point                                            Incr      Path  
+  ------------------------------------------------------------------------
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+
+  uart_rx_inst/clk_cnt_reg[4]/CLK (DFFX1_HVT)      0.00      0.03 r
+  uart_rx_inst/clk_cnt_reg[4]/QN (DFFX1_HVT)       0.07      0.10 f
+  uart_rx_inst/U70/Y (AO222X1_HVT)                 0.03      0.14 f
+  uart_rx_inst/clk_cnt_reg[4]/D (DFFX1_HVT)        0.00      0.14 f
+  data arrival time                                          0.14
+
+  clock impl_clk (rise edge)                       0.00      0.00
+  clock network delay (propagated)                 0.03      0.03
+  uart_rx_inst/clk_cnt_reg[4]/CLK (DFFX1_HVT)      0.00      0.03 r
+  clock uncertainty                                0.05      0.08
+  library hold time                                0.00      0.08
+  data required time                                         0.08
+  ------------------------------------------------------------------------
+  data required time                                         0.08
+  data arrival time                                         -0.14
+  ------------------------------------------------------------------------
+  slack (MET)                                                0.05
+
+
+1
+report_qor -summary ****************************************
+Report : qor
+        -summary
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 09:58:41 2026
+****************************************
+
+Timing
+---------------------------------------------------------------------------
+Context                                 WNS            TNS            NVE
+---------------------------------------------------------------------------
+Design             (Setup)             3.88           0.00              0
+
+Design             (Hold)              0.05           0.00              0
+---------------------------------------------------------------------------
+
+Miscellaneous
+---------------------------------------------------------------------------
+Cell Area (netlist):                           1044.79
+Cell Area (netlist and physical only):        22302.15
+Nets with DRC Violations:        0
+1
+report_power ****************************************
+Report : power
+        -significant_digits 2
+Design : impl_top
+Version: R-2020.09-SP2
+Date   : Sat Mar  7 09:58:46 2026
+****************************************
+Information: Activity for scenario default was cached, no propagation required. (POW-005)
+Mode: default
+Corner: default
+Scenario: default
+Voltage: 0.95
+Temperature: -40.00
+
+Voltage Unit         : 1V
+Capacitance Unit     : 1fF
+Time Unit            : 1ns
+Temperature Unit     : 1C
+Dynamic Power Unit   : 1pW
+Leakage Power Unit   : 1pW
+
+Switched supply net power scaling:
+scaling for leakage power
+
+Supply nets:
+VDD (power) probability 1.00 (default)
+VSS (ground) probability 1.00 (default)
+Warning: Power table extrapolation (extrapolation mode) for port D on cell uart_rx_inst/uart_rxd_sync_reg for parameter Tinp. Lowest table value = inf, highest table value = inf, value = 0.016918 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port D on cell uart_rx_inst/uart_rxd_prev_reg for parameter Tinp. Lowest table value = inf, highest table value = inf, value = 0.023384 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/uart_rxd_prev_reg for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Power table extrapolation (extrapolation mode) for port D on cell uart_rx_inst/clk_cnt_reg[0] for parameter Tinp. Lowest table value = inf, highest table value = inf, value = 0.026093 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/bit_idx_reg[3]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/bit_idx_reg[3] for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/bit_idx_reg[0]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Fall toggles on pin uart_rx_inst/bit_idx_reg[1]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Fall toggles on pin uart_rx_inst/bit_idx_reg[2]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Fall toggles on pin uart_rx_inst/rx_shift_reg[4]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/rx_shift_reg[4] for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/uart_rx_data_reg[4]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/uart_rx_data_reg[4] for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/rx_shift_reg[5]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/rx_shift_reg[5] for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/uart_rx_data_reg[5]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/uart_rx_data_reg[5] for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/rx_shift_reg[0]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: Power table extrapolation (extrapolation mode) for port QN on cell uart_rx_inst/rx_shift_reg[0] for parameter Cout. Lowest table value = 0.000100, highest table value = 0.008000, value = 0.000000 (POW-046)
+Warning: Fall toggles on pin uart_rx_inst/uart_rx_data_reg[0]/QN are impossible given input states; converted to rise toggles. (POW-069)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!0', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!1', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!2', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!3', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!4', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!5', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!6', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!7', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!8', mismatches in operating condition settings have been found in the design. (POW-039)
+Warning: While computing leakage for instance 'boundarycell!DCAP_RVT!9', mismatches in operating condition settings have been found in the design. (POW-039)
+
+  Cell Internal Power    = 8.63e+07 pW ( 83.4%)
+  Net Switching Power    = 1.72e+07 pW ( 16.6%)
+Total Dynamic Power      = 1.04e+08 pW (100.0%)
+
+Cell Leakage Power       = 5.72e+07 pW
+
+
+  Attributes
+  ----------
+      u  -  User defined power group
+
+Power Group         Internal Power        Switching Power          Leakage Power            Total Power    (   %  )    Attrs
+-----------------------------------------------------------------------------------------------------------------------------
+io_pad                    0.00e+00               0.00e+00               0.00e+00               0.00e+00    (  0.0%)         
+memory                    0.00e+00               0.00e+00               0.00e+00               0.00e+00    (  0.0%)         
+black_box                 0.00e+00               0.00e+00               0.00e+00               0.00e+00    (  0.0%)         
+clock_network             8.26e+07               1.54e+07               4.64e+07               1.44e+08    ( 89.8%)         
+register                  2.46e+06               1.07e+06               7.37e+06               1.09e+07    (  6.8%)         
+sequential                0.00e+00               0.00e+00               0.00e+00               0.00e+00    (  0.0%)         
+combinational             1.27e+06               7.91e+05               3.41e+06               5.46e+06    (  3.4%)         
+-----------------------------------------------------------------------------------------------------------------------------
+Total                     8.63e+07 pW            1.72e+07 pW            5.72e+07 pW            1.61e+08 pW
+1
+Information: 15448 out of 15458 POW-039 messages were not printed due to limit 10  (MSG-3913)
+Information: 45 out of 55 POW-046 messages were not printed due to limit 10  (MSG-3913)
+Information: 53 out of 63 POW-069 messages were not printed due to limit 10  (MSG-3913)
+check_legality
+************************
+
+running check_legality
+
+Warning: Routing direction of metal layer PO is neither "horizontal" nor "vertical".  PDC checks will not be performed on this layer. (PDC-003)
+PDC app_options settings =========
+        place.legalize.enable_prerouted_net_check: 1
+        place.legalize.num_tracks_for_access_check: 1
+        place.legalize.use_eol_spacing_for_access_check: 0
+        place.legalize.allow_touch_track_for_access_check: 1
+        place.legalize.reduce_conservatism_in_eol_check: 0
+        place.legalize.preroute_shape_merge_distance: 0.0
+        place.legalize.enable_non_preferred_direction_span_check: 0
+
+Layer M1: cached 0 shapes out of 221 total shapes.
+Layer M2: cached 43 shapes out of 1799 total shapes.
+Cached 2453 vias out of 7969 total vias.
+
+check_legality for block design impl_top ... 
+Information: Initializing classic cellmap without advanced rules enabled and without PDC enabled
+Information: The following app options are used in cellmap
+        place.legalize.enable_color_aware_placement : false
+        place.legalize.use_nll_query_cm : false
+        place.legalize.enable_advanced_legalizer : false
+        place.legalize.enable_prerouted_net_check : true
+        place.legalize.enable_advanced_prerouted_net_check : false
+        place.legalize.always_continue : true
+        place.legalize.limit_legality_checks : false
+        place.common.pnet_aware_density : 1.0000
+        place.common.pnet_aware_min_width : 0.0000
+        place.common.pnet_aware_layers : {}
+        place.common.use_placement_model : false
+        place.common.enable_advanced_placement_model : true
+        cts.placement.cell_spacing_rule_style : maximum
+Total 0.0832 seconds to build cellmap data
+Information: Creating classic rule checker.
+Warning: Routing direction of metal layer PO is neither "horizontal" nor "vertical".  PDC checks will not be performed on this layer. (PDC-003)
+=====> Processed 50 ref cells (19 fillers) from library
+Design has no advanced rules
+Checking legality
+Checking cell legality:
+0%....10%....20%....30%....40%....50%....60%....70%....80%....90%....100%
+Sorting rows.
+Checking spacing rule legality.
+0%....10%....20%....30%....40%....50%....60%....70%....80%....90%....100%
+Checking packing rule legality.
+
+
+****************************************
+  Report : Legality
+****************************************
+
+VIOLATIONS BY CATEGORY:
+   MOVABLE  APP-FIXED USER-FIXED  DESCRIPTION
+         0          0          0  Two objects overlap.
+         0          0          0  A cell violates a pnet.
+         0          0          0  A cell is illegal at a site.
+         0          0          0  A cell is not aligned with a site.
+         0          0          0  A cell has an illegal orientation.
+         0          0          0  A cell spacing rule is violated.
+         0          0          0  A layer rule is violated.
+         0          0          0  A cell is in the wrong region.
+         0          0          0  Two cells violate cts margins.
+         0          0          0  Two cells violate coloring.
+
+         0          0          0  TOTAL
+
+TOTAL 0 Violations.
+
+VIOLATIONS BY SUBCATEGORY:
+     MOVABLE  APP-FIXED USER-FIXED  DESCRIPTION
+
+         0          0          0    Two objects overlap.
+           0          0          0    Two cells overlap.
+           0          0          0    Two cells have overlapping keepout margins.
+           0          0          0    A cell overlaps a blockage.
+           0          0          0    A cell keepout margin overlaps a blockage.
+
+         0          0          0    A cell violates a pnet.
+
+         0          0          0    A cell is illegal at a site.
+           0          0          0    A cell violates pin-track alignment rules.
+           0          0          0    A cell is illegal at a site.
+           0          0          0    A cell violates legal index rule.
+           0          0          0    A cell has the wrong variant for its location.
+
+         0          0          0    A cell is not aligned with a site.
+           0          0          0    A cell is not aligned with the base site.
+           0          0          0    A cell is not aligned with an overlaid site.
+
+         0          0          0    A cell has an illegal orientation.
+
+         0          0          0    A cell spacing rule is violated.
+           0          0          0    A spacing rule is violated in a row.
+           0          0          0    A spacing rule is violated between adjacent rows.
+           0          0          0    A cell violates vertical abutment rule.
+           0          0          0    A cell violates metal spacing rule.
+
+         0          0          0    A layer rule is violated.
+           0          0          0    A layer VTH rule is violated.
+           0          0          0    A layer OD rule is violated.
+           0          0          0    A layer OD max-width rule is violated.
+           0          0          0    A layer ALL_OD corner rule is violated.
+           0          0          0    A layer max-vertical-length rule is violated.
+           0          0          0    A layer TPO rule is violated.
+           0          0          0    Filler cell insertion cannot satisfy layer rules.
+
+         0          0          0    A cell is in the wrong region.
+           0          0          0    A cell is outside its hard bound.
+           0          0          0    A cell is in the wrong voltage area.
+           0          0          0    A cell violates an exclusive movebound.
+
+         0          0          0    Two cells violate cts margins.
+
+         0          0          0    Two cells violate coloring.
+
+
+check_legality for block design impl_top succeeded!
+
+
+check_legality succeeded.
+
+**************************
