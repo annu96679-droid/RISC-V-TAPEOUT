@@ -235,7 +235,7 @@ set target_library "$path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
                       $path_hvt/saed32hvt_ff1p16v125c.db \
                       $path_hvt/saed32hvt_ff1p16vn40c.db "
 
-#################### reference_library ############################
+#################### reference_library ###########################
 #
 #
 set reference_library  "$path_hvt/saed32hvt_dlvl_ff0p95v125c_i1p16v.db \
