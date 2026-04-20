@@ -20,6 +20,7 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 
 **Change the configuration**
 
+
 ```bash
 #change the directory
 cd  Desktop/work/tools/openlane_working_dir/openlane/configurations
